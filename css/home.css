@@ -530,7 +530,7 @@
     justify-content: center;
     align-items: center;
     color: #7eb7e9e3;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 .app__content {
     padding-top: 0;
@@ -632,7 +632,7 @@ i.home-product-item__like-icon-fill {
 
 .home-product-item__sold {
     font-size: 1.2rem; 
-    color:var(--text-color);
+    color:var(--primary-color);
     margin-left: 6px;
 }
 
@@ -656,7 +656,7 @@ i.home-product-item__like-icon-fill {
     background-color:currentColor;
     font-size: 1.2rem;
     font-weight: 400;
-    line-height: 1.6rem;
+    line-height: 2rem;
     padding-right: 4px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
@@ -766,33 +766,6 @@ i.home-product-item__like-icon-fill {
     width: 56px;
 }
 
-.footer__download {
-    display: flex;
-}
-
-.footer__download-qr {
-    width: 80px;
-    height: 80px;
-    border: 1px solid var(--border-color);
-}
-
-.footer__download-apps {
-    flex:1;
-    margin-left: 16px;
-    display: flex;
-    flex-direction:column;
-    justify-content: center;
-
-}
-
-.footer__download-app-img {
-    height: 16px;
-}
-
-.footer__download-app-link {
-    text-decoration: none;
-    color:transparent;
-}
 
 .footer__bottom {
     background-color:#F5F5F5;
@@ -814,12 +787,6 @@ i.home-product-item__like-icon-fill {
     margin:0 auto;
 }
 
-.footer__business {
-    font-size: 1.4rem;
-    text-align: center;
-    color:#737373;
-}
-
 .footer__name {
     font-size:1.8rem;
     text-align: center;
@@ -834,40 +801,3 @@ i.home-product-item__like-icon-fill {
     color:#737373;
 }
 
-.footer__bottom-list-item-link {
-    text-align: center;
-    text-decoration: none;
-    font-size: 1.6rem;
-    color:#737373;
-    text-transform: uppercase;
-    list-style: none;
-    margin-bottom: 30px;
-}
-
-.footer__bottom-list-item--saparate {
-    text-decoration: none;
-    color:#737373;
-    font-weight:500;
-    padding:0 25px;
-}
-
-.footer__bottom-list-item-item {
-    text-decoration: none;
-    color:#737373;
-    font-weight:500;
-    padding:0 25px;
-}
-
-.footer__bottom-list-item--saparate::after {
-    content: "";
-    position:relative;
-    top:50%;
-    right:-25px;
-    height: 10px;
-    border-left:2px solid #737373;
-    transform: translateY(-50%);
-}
-
-.footer__bottom-list-item-saparate:hover {
-    color:var(--primary-color);
-}

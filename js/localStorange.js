@@ -108,7 +108,7 @@ const app = {
             id: 12,
             name: "Mẫu áo đôi đang hót cho các cặp đôi, nhanh tay rinh về tặng ngìu iu nào ",
             image: "./image/aodoi2.jpg",
-            sale: 10,
+            sale: 20,
             priceOld: 130000,
             priceNew: 104000,
             quantity: 28,

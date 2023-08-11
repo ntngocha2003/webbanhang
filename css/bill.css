@@ -1,0 +1,19 @@
+.code,.date,.total-quantity,.total-prices,.customer-name,.items-number,.return{
+    font-size: 1.3rem;
+}
+
+.code-link{
+    color: #3c8bd2f5;
+    text-decoration: none;
+}
+
+.btn-return{
+    color: var(--primary-color);
+    padding: 10px;
+    background-color: var(--white-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+.btn-action1{
+    margin-top: 20px;
+}

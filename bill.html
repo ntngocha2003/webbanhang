@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ngọc Hà_shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./gird/GirdSystem/gird.css">
+    <link rel="stylesheet" href="./css/reponsive.css">
+    <link rel="stylesheet" href="./css/cart.css">
+    <link rel="stylesheet" href="./css/bill.css">
+    <link rel="stylesheet" href="./font/themify-icons/themify-icons.css">
+
+    <link rel="stylesheet" href="./css/login_register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400, 500, 700display=swapsubset=vietnamese" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app">
+        <!-- phần đầu -->
+        
+        <header class="header">
+            <div class="grid wide">
+                <nav class="header__navbar hide-on-mobile-tablet">
+                   <ul class="header__navbar-list">
+                       <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
+                           <a href="#" class="header__navbar-icon-link">Home</a>
+                        </li>
+
+                       <li class="header__navbar-item">                           
+                            <a href="" class="header__navbar-icon-link">
+                                Kết nối
+                                <i class="header__navbar-icon fab fa-facebook"></i>
+                            </a>
+                       </li>
+                   </ul>
+ 
+                   <ul class="header__navbar-list">
+                       <li class=" header__navbar-item header__navbar-item--has-notify">
+                            <a href="" class="header__navbar-item-link">
+                                <i class="header__navbar-icon far fa-bell"></i>
+                                Thông báo
+                            </a>
+                            <div class="header__notify header__notify--no">
+                                <img >
+                            </div>
+                            <!-- <div class="header__notify">
+                                <header class="header__notify-header">
+                                    <h3>Thông báo mới nhận</h3>
+                                </header>
+                                <ul class="header__notify-list">
+                                
+                                    <li class="header__notify-item">
+                                        <a href class="header__notify-link">
+                                            <img src="data:image/jpeg;base64,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" alt="" class="header__notify-img">
+                                            <div class="header__notify-info">
+                                                <span class="header__notify-name">Giày Air Force 1</span>
+                                                <span class="header__notify-descriotion"> giá hấp dẫn :2.000.000vnđ </span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                                <footer class="header__notify-footer">
+                                    <a href="" class="header__notify-footer-btn">Xem tất cả</a>
+                                </footer>
+                            </div> -->
+                       </li>
+                      
+                       <!-- <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate">Đăng ký</li>
+                       <li class="header__navbar-item header__navbar-item--strong">Đăng nhập</li> -->
+                       <li class="header__navbar-item header__navbar-user">
+                           <img src="./image/chocon.jpg" alt="" class="header__navbar-user-img">
+                           <span class="header__navbar-user-name">Hà nguyễn</span>
+
+                           <ul class="header__navbar-user-menu">
+                                  <li class="header__navbar-user-item">
+                                     <a href="">Tài khoản của tôi</a>
+                                  </li>
+
+                                  <li class="header__navbar-user-item">
+                                    <a href="">Địa chỉ của tôi</a>
+                                 </li>
+
+                                 <li class="header__navbar-user-item">
+                                    <a href="">Đơn mua</a>
+                                 </li>
+
+                                 <li class=" header__navbar-user-item header__navbar-user-item--separate">
+                                    <a href="">Đăng xuất</a>
+                                 </li>
+                           </ul>
+                       </li>
+                   </ul>
+                </nav>
+           
+                <!-- Header with search -->
+                <div class="header-with-search">
+                    <label for="mobile-search-checkbox" class="header__mobile-search">
+                        <i class="header__mobile-search-icon fas fa-search"></i>
+                    </label>
+                    <div class="header__logo hide-on-tablet">
+                        <a href="#" class="header__logo-link">
+                            <i class="fas fa-heading header_logo-link--icon"></i>
+                            _Ngọc Hà
+                        </a>                                                        
+                    </div>
+
+                    <input type="checkbox" hidden id="mobile-search-checkbox" class="header__search-checkbox">
+
+                    <div class="header__search">
+                        <div class="header__search-input-wrap">
+                            <input type="text" class="header__search-input" placeholder="Tìm kiếm sản phẩm">
+
+                            <!-- Search-history -->
+                            <div class="header__search-history">
+                                <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
+                                <ul class="header__search-history-list">
+                                    <li class="header__search-history-item">
+                                        <a href="">Aó phông nữ</a>
+                                    </li>
+                                    <li class="header__search-history-item">
+                                        <a href="">Quần jean nam, nữ</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <button class="header__search-btn">
+                            <i class="header__search-btn-icon fas fa-search"></i>
+                        </button>
+                    </div>
+
+                    <!-- Cart layout -->
+                    <div class="header__cart">
+                        <div class="header__cart-wrap">
+                           <i class="header__cart-icon fas fa-cart-plus"></i>
+                            <span class="header__cart-notice">1</span>
+
+                            <!-- No cart: header__cart-list--no-cart -->
+                            <div class="header__cart-list">
+                                <img src="./image/no-cart.webp" alt="" class="header__cart-no-cart-img">
+                                <span class="header__cart-list-no-cart-msg">
+                                    Chưa có sản phẩm
+                                </span>
+
+                                <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
+                                <ul class="header__cart-list-item">
+                                    <!-- cart-item -->
+                                    <li class="header__cart-item">
+                                        <img src="data:image/jpeg;base64,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" alt="" class="header__cart-img">
+                                        <div class="header__cart-item-info">
+                                            <div class="header__cart-item-head">
+                                                <h5 class="header__cart-item-name">Samsung Galaxy Fit e R375</h5>
+                                                <div class="header__cart-item-price-wrap">
+                                                    <span class="header__cart-item-price">950.000đ</span>
+                                                    <span class="header__cart-item-multiply">x</span>
+                                                    <span class="header__card-item-qnt">3</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="header__cart-item-body">
+                                                <span class="header__cart-item-description">
+                                                      Màn hình Amoled,dây cao su.
+                                                </span>
+                                                <span class="header__cart-item-remove">Xóa</span>
+
+
+                                            </div>
+
+                                        </div>
+                                    </li>
+
+                                  
+                                </ul>
+                                <a href="#" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>
+                            </div>
+                        </div>                           
+                    </div>
+                </div>
+
+                <div class="footer_header">
+                    <ul class="header__navbar-list">
+
+                        <li class="header__navbar-item">
+                            <a href="" class="header__navbar-icon-link" >Nam</a>
+                         </li>
+    
+                         <li class="header__navbar-item">
+                            <a href="" class="header__navbar-icon-link" >Nữ</a>
+                        </li>
+    
+                        <li class="header__navbar-item">
+                            <a href="" class="header__navbar-icon-link" >Trẻ em</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <!-- phần nội dung -->
+        <div class="app__container">
+            <div class="grid wide">
+                <div class="app_heading">
+                    <h2> Danh sách sản phẩm đã mua</h2>
+                </div>
+
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="col-name">Code</th>
+                                <th class="col-name">Customer name</th>
+                                <th class="col-name">Date</th>
+                                <th class="col-name">Items number</th>
+                                <th class="col-name">Total quantity</th>
+                                <th class="col-name">Total Price</th>
+                                <th class="col-name">Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="item-row" id=${item.idSP}>
+                                <td class="code">
+                                        <q class="id-sp">
+                                            1
+                                        </q>
+                                        <br>
+                                        <a href=""class="code-link">Details</a>
+                                    </div>
+                                </td>
+                                <td class="customer-name">
+                                    
+                                        <h3>Name: Ngọc Hà</h3>
+                                    
+                                </td>
+                                <td class="date">
+                                    11/08/2023
+                                </td>
+                                <td class="items-number">
+                                   1
+                                </td>
+                                <td class="total-quantity">
+                                    1
+                                </td>
+
+                                <td class="total-prices">
+                                    120.000đ
+                                </td>
+                                <td class="return">
+                                    
+                                    <i class="ti-reload btn-return"></i>
+                                </td>
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+            
+                   
+                    <div class="btn-action btn-action1">
+
+                        <a href="./home.html" class="btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Back to Shopping</span>
+                        </a>
+                        
+                    </div>
+                </div>             
+            </div> 
+        </div> 
+        
+    <!-- phần cuối -->
+        <footer class="footer">
+            <div class="grid wide footer__content">
+                <div class="row">
+                    <div class="col l-3 c-6">
+                        <h3 class="footer__heading">Chăm sóc khách hàng</h3>
+                        <ul class="footer-list">
+                            <li class="footer-item">
+                                <a href="" class="footer-item__link">Trung tâm trợ giúp</a>                               
+                            </li>
+                            <li class="footer-item">
+                                <a href="" class="footer-item__link">Ngọc Hà_shop</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col l-3 c-6">
+                        <h3 class="footer__heading">Giới thiệu</h3>
+                        <ul class="footer-list">
+                            <li class="footer-item">
+                                <a href="" class="footer-item__link">Giới thiệu</a>
+                            </li>    
+                            
+                            <li class="footer-item"> 
+                                <a href="" class="footer-item__link">Điều khoản</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col l-3 c-6">
+                        <h3 class="footer__heading">Danh mục</h3>
+                        <ul class="footer-list">
+
+                            <li class="footer-item">
+                                <a href="" class="footer-item__link">Nam</a>                               
+                            </li>
+                            <li class="footer-item">
+                                <a href="" class="footer-item__link">Nữ</a>
+                            </li>
+                            <li class="footer-item">
+                                <a href="" class="footer-item__link">Trẻ em</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col l-3 c-6"> 
+                        <h3 class="footer__heading">Theo dõi</h3>
+                        <ul class="footer-list">
+                            <li class="footer-item">
+                                <a href="" class="footer-item__link">
+                                    <i class="footer-item-icon fab fa-facebook"></i>  
+                                <span class="footer-item-follow-content">Facebook</span>                                        
+                                </a>
+                            </li>    
+                        </ul>
+                    </div>
+
+                </div>                   
+            </div>
+
+            <div class="footer__bottom">
+                <div class="grid">
+                    <p class="footer__name">Công ty TNHH HDA</p>
+                    <p class="footer__address">Địa chỉ:54 Triều Khúc Tổng đài CSKH:0353280382 - Email:duybt@gmail.com</p>
+                    <p class="footer__text">© 2023 Bản quyền thuộc về công ty TNHH HDA</p>
+                    
+                </div>
+            </div>
+        </footer>
+    </div>
+<script src="./js/localStorange.js"></script>
+
+</body>
+
+</html>
