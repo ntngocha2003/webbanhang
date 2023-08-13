@@ -251,14 +251,8 @@ td:nth-child(n+2) {
     justify-content: space-around;
     font-size: 1.4rem;
 }
-.btn-down{
-    cursor: pointer;
-}
 .select-quantity-screen{
     text-align: center;
-}
-.btn-up{
-    cursor: pointer;
 }
 .subtotal{
     font-size: 1.4rem;
@@ -269,10 +263,10 @@ td:nth-child(n+2) {
     color: var(--primary-color);
 }
 .btn-remove{
-    font-size: large;
+    font-size: 1.4rem;
     padding: 10px;
-    background-color: var(--border-color);
-    border-radius: 50%;
+    color: var(--primary-color);
+    border: 0;
     cursor: pointer;
 }
 .total-price{

@@ -3,7 +3,13 @@ const keyLocalStorageListSP = "DANHSACHSP";
 const keyLocalStorageItemCart = "DANHSACHITEMCART"
 
 const app = {
-    config: JSON.parse(localStorage.getItem(keyLocalStorageListSP)) || {},
+   
+    config:JSON.parse(localStorage.getItem(keyLocalStorageListSP)) || {},
+    setconfig:function(key, value){
+            this.config[key] = value
+            localStorage.setItem(keyLocalStorageListSP, JSON.stringify(this.listData))
+    },
+   
     listData: [
         {
             id: 1,
@@ -114,12 +120,10 @@ const app = {
             quantity: 28,
         },
     ],
-    setConfig: function(key, value) {
-        this.config[key] = value;
-        localStorage.setItem(keyLocalStorageListSP, JSON.stringify(this.config));
-    },
-    render: function() {
-        const htmls = this.listData.map((data, index) => {
+    
+    render: function () {
+        
+        const htmls = this.config.map((data, index) => {
             return `
             
                     <div class="col l-2 m-4 c-6">
