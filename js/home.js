@@ -1,14 +1,9 @@
-const listDataItemsSP = getDataLocalStorage(keyLocalStorageListsSP);
-//const dataListItemsCart = getDataLocalStorage(keyLocalStorageItemsCard);
 
-if (!listDataItemsSP) {
-    setDataLocalStorage(keyLocalStorageListsSP, listData);
-}
 
   (()=> {
     const appContent=document.querySelector('.product-item')
    
-        const renderListData=listDataItemsSP.map((data) => {
+        const renderListData=listData.map((data) => {
         return `  
             <div class="col l-2 m-4 c-6">
                 <a class="home-product-item" href="#">
@@ -24,7 +19,7 @@ if (!listDataItemsSP) {
                         
                         <span class="home-product-item__sold">quanttity:${data.quantity}</span>
                         <div class="home-product-item--add">
-                        <i class="home-product-item--icon fas fa-cart-plus"></i>
+                            <i class="home-product-item--icon fas fa-cart-plus" id="${data.id}"></i>
                         </div>
                     </div>
                     <div class="div home-product-item__favourite">

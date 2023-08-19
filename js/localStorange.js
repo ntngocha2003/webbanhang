@@ -1,9 +1,9 @@
 
-const keyLocalStorageListsSP = "DANHSACHSP";
+const keyLocalStorageListsSP = "DANHSACHSPHAM";
 const keyLocalStorageItemsCart = "DANHSACHITEMCART"
 
-function getDataLocalStorage(keys) {
-    return JSON.parse(localStorage.getItem(keys));
+function getDataLocalStorage(key) {
+    return JSON.parse(localStorage.getItem(key));
   }
   
   function setDataLocalStorage(keys, value) {
