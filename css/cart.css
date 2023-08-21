@@ -40,7 +40,7 @@
     display: none;
     animation: fadeIn ease-in .3s;
     cursor: default;
-    z-index: 1;
+    z-index: 3;
 }
 
 .header__cart-list-item {
@@ -50,10 +50,18 @@
     max-height: 56vh;
     overflow-y: auto;
 }
-
+.img-cart{
+    width: 50px;
+    height: 50px;
+    margin: 0 15px;
+}
+.quantity-cart{
+    color: var(--primary-color);
+}
 .header__cart-item {
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .header__cart-item:hover {
@@ -292,4 +300,94 @@ td:nth-child(n+2) {
     border-radius: 3px;
     padding: 8px 20px;
     cursor: pointer;
+}
+
+/* modal */
+.modal__container--information{
+    width: 650px;
+    background-color: #fff;
+    max-height: 550px;
+    overflow-y: auto;
+}
+.contact-form{
+    padding: 15px 20px;
+}
+.text-heading{
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-size: 2rem;
+}
+.block{
+    margin-bottom: 10px;
+}
+.text-inner{
+    font-size: 1.4rem;
+    color: #bbb;
+}
+.asterisk{
+    color: red;
+}
+.fullname{
+    display: flex;
+}
+.input{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1.2rem;
+}
+.last-name{
+    width: 50%;
+    margin-right: 10px;
+}
+.name{
+    width: 50%;
+}
+.phone-number,.email,.address{
+    width: 100%;
+}
+.select{
+    margin-right: 54px;
+    padding: 5px 50px 5px 5px;
+    font-size: 1.4rem;
+}
+.select:nth-child(n+4){
+    margin-right: 0px;
+}
+.message-information{
+    width: 100%;
+    padding-bottom: 30px;
+}
+.contact-footer{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+.btn-cancel{
+    padding: 10px 40px;
+    background-color: red;
+    cursor: pointer;
+    border: 0;
+    border-radius: 4px;
+    color: #fff;
+}
+.btn-cancel:hover{
+    background-color: rgb(231, 49, 49);
+}
+.btn-confirm{
+    background-color: #7dcefd;
+    border: 1px solid #59a8d5;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    min-width: 125px;
+    padding: 11px 10px;
+    text-align: center;
+    transition: 0.3s background-color;
+}
+.btn-confirm:hover{
+    background-color: #59a8d5;
+}
+.open{
+    display: flex;
 }

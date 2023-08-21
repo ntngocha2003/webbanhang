@@ -52,6 +52,7 @@ function hideFormRegister(){
 }
 closeRegister.addEventListener('click',hideFormRegister)
 
+
 // xử lý đăng ký
 btnStartRegister.addEventListener('click',showFormRegister)
 linkLogin.addEventListener('click',showFormLogin)
@@ -67,14 +68,20 @@ btnRegister.addEventListener('click',(e)=>{
 
     if(sdt.trim()===''){
         messageNumber.textContent = "bạn chưa nhập số điện thoại"
+        return false
     }
-    
+    else if(sdt.trim()<10){
+        messageNumber.textContent = "bạn cần nhập đủ 10 số"
+        return false
+    }
+
     else{
         messageNumber.textContent = ""
     }
 
     if(name.trim()===''){
         messageName.textContent = "bạn chưa nhập tên tài khoản"
+        return false
     }
     
     else{
@@ -83,6 +90,11 @@ btnRegister.addEventListener('click',(e)=>{
 
     if(pass.trim()===''){
         messagePass.textContent = "bạn chưa nhập mật khẩu tài khoản"
+        return false
+    }
+    else if(pass<6){
+        messagePass.textContent = "bạn cần nhập ít nhất 6 ký tự"
+        return false
     }
     else{
         messagePass.textContent = ""
@@ -90,12 +102,13 @@ btnRegister.addEventListener('click',(e)=>{
 
     if(passAgain.trim()===''){
         messagePassAgain.textContent = "bạn cần nhập lại mật khẩu tài khoản"
+        return false
     }
     else{
         messagePassAgain.textContent = ""
     }
 
-    if(sdt!==''&& name!==''&& pass!==0 && passAgain!==0){
+    if(true){
         btnRegister.innerHTML="Loading..."
         setTimeout(()=>{
             hideFormRegister()
@@ -107,9 +120,58 @@ btnRegister.addEventListener('click',(e)=>{
             btnRegister.innerHTML="Đăng ký"
         },3000)
     }
+    
 })
-
+let acc={
+    name:'Ngọc Hà',
+    pass:'ha0806'
+}
 // xử lý đăng nhập
 btnStartLogin.addEventListener('click',showFormLogin)
 linkRegister.addEventListener('click',hideFormLogin)
 linkRegister.addEventListener('click',showFormRegister)
+
+btnLogin.addEventListener('click',(e)=>{
+    const nameLogin=inputNameLogin.value;
+    const passLogin=inputPassLogin.value;
+    e.preventDefault;
+
+    if(nameLogin.trim()===''){
+        messageNameLogin.textContent="bạn chưa nhập tên tài khoản"
+        
+        return false;
+    }
+    else if(nameLogin.trim()!==acc.name){
+        messageNameLogin.textContent="sai tên tài khoản, vui lòng nhập lại!!!!"
+        inputNameLogin.value=''
+        return false;
+    }
+    else{
+        messageNameLogin.textContent=''
+    }
+
+    if(passLogin.trim()===''){
+        messagePassLogin.textContent="bạn chưa nhập tên mật khẩu"
+        return false;
+    }
+    else if(passLogin.trim()!==acc.pass){
+        messagePassLogin.textContent="sai mật khẩu, vui lòng nhập lại!!!!"
+        inputPassLogin.value=''
+        return false;
+    }
+    else{
+        messagePassLogin.textContent=''
+    }
+
+    if(true){
+        btnLogin.innerHTML="loading..."
+        setTimeout(()=>{
+            hideFormLogin();
+            showSuccessToastLogin();
+            inputNameLogin.value=''
+            inputPassLogin.value=''
+            btnLogin.innerHTML="Đăng nhập"
+        },3000)
+    }
+
+})

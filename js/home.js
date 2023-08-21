@@ -17,7 +17,7 @@
                     </div>
                     <div class="home-product-item__action">
                         
-                        <span class="home-product-item__sold">quanttity:${data.quantity}</span>
+                        <span class="home-product-item__sold">Quanttity:${data.quantity}</span>
                         <div class="home-product-item--add">
                             <i class="home-product-item--icon fas fa-cart-plus" id="${data.id}"></i>
                         </div>

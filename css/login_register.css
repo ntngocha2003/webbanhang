@@ -37,18 +37,9 @@
  .auth-form{
     padding: 20px;
  }
- .auth-form__container{
-
- }
- .auth-form__header{
-
- }
  .auth-form__heading{
     font-size: 1.8rem;
     color: var(--primary-color);
- }
- .auth-form__switch-btn{
-
  }
  .auth-form__form{
     margin-bottom: 10px;
@@ -56,9 +47,7 @@
  .auth-form__form1{
    width: 350px;
  }
- .auth-form__group{
 
- }
  .auth-form__input{
     padding: 10px;
     width: 100%;
@@ -70,9 +59,7 @@
     line-height: 1.5;
     margin-bottom: 20px;
  }
- .auth-form__policy-text{
 
- }
  .auth-form__text-link{
     color: var(--primary-color);
     text-decoration: none;
@@ -112,9 +99,6 @@
     top: -21px;
     float: right;
 }
-.auth-form__help-forgot{
-
-}
 .auth-form__help-link{
    color: var(--primary-color);
 }
@@ -134,4 +118,7 @@
 }
 .hide{
    display: none;
+}
+.message{
+   color: red;
 }

@@ -23,7 +23,7 @@ const listData= [
         image: "./image/ao2.jpg",
         sale: 20,
         priceOld: 120000,
-        priceNew: 96,
+        priceNew: 96000,
         quantity: 22,
     },
     {
