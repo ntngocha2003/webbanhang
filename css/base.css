@@ -17,6 +17,7 @@
      line-height: 1.6rem;
      font-family:Arial, Helvetica;
      box-sizing: border-box;
+     scroll-behavior: smooth;
  }
  
  
