@@ -926,11 +926,13 @@ i.home-product-item__like-icon-fill {
     .prev, .next,.text {font-size: 11px}
   }
   .header-note{
-    margin-top: 150px;
+    margin-top: 160px;
+    margin-bottom: 10px;
     font-size: 1.4rem;
     color: var(--primary-color);
     padding: 5px;
     text-align: center;
+    background-color: #f5f5f5;
   }
   
   .slider-position img{

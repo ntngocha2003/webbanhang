@@ -4,24 +4,32 @@
 .home-category--boy{
     position: fixed;
     padding-top: 150px;
+    cursor: pointer;
 }
 .category-boy{
     color: var(--primary-color);
     display: flex;
-    margin: 20px 0 20px 5px;
     font-size: 1.8rem;
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 21px 12px;
+    border-radius: 6px;
 }
 .category-boy h3{
     margin: 1px 0 0px 10px;
 }
-.list-catalog{
-    /* display: none; */
+.home-boy{
+    display: none;
+    background-color: #fff;
+    border-radius: 6px;
+    padding-bottom: 115px;
 }
-.category-boy :hover .list-catalog{
+.open{
     display: flex;
 }
 .home-product--boy{
     padding-top: 150px;
+    
 }
 .catalog-item{
     font-size: 1.8rem;
@@ -47,7 +55,12 @@
     color: #bbb;
     line-height: 1.8;
     margin-left: 20px;
-    /* display:none; */
+    border-radius: 5px;
+    padding: 2px 8px;
+}
+.item:hover{
+    color: var(--primary-color);
+    background-color: #eee;
 }
 .price{
     font-size: 1.4rem;
@@ -70,4 +83,17 @@
     text-align: center;
     color: var(--primary-color);
     font-size: 1.4rem;
+    margin-top: 10px;
+}
+.footer {
+    background-color: #fff;
+    border-radius: 5px;
+}
+.footer__bottom {
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.footer__content{
+    margin: 0 20px;
 }
