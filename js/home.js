@@ -6,7 +6,7 @@
         const renderListData=listData.map((data) => {
         return `  
             <div class="col l-2 m-4 c-6">
-                <a class="home-product-item" href="#">
+                <a class="home-product-item" href="./product.html">
                     <div>
                         <img src="${data.image}" class="home-product-item__img">
                     </div>

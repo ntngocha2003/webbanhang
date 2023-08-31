@@ -1,5 +1,10 @@
 /* phần đầu */
-
+.openTK{
+    display: flex !important;
+}
+.hideTK{
+    display: none !important;
+}
 .app {
     overflow: hidden;
 }
@@ -33,8 +38,8 @@
     min-height: 26px;
 }
 
-.header__navbar-user {
-    display: flex;
+#header__navbar-user {
+    display: none ;
     justify-items: center;
 }
 
@@ -241,7 +246,8 @@
 }
 
 .header__notify-list {
-    padding-left: 0;
+    padding-left: 10px;
+    color: #bbb;
 }
 
 .header__notify-item {

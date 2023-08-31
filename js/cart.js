@@ -48,21 +48,30 @@ for(var i=0;i<btnRemove.length;i++){
 }
 
 
-// them san pham 
-const btnAdd=document.querySelectorAll('.home-product-item--add')
-btnAdd.forEach((btn,index)=>{
-    btn.addEventListener('click',(e)=>{
-        var btnItem=e.target
-        var product=btnItem.parentElement.parentElement.parentElement.parentElement;
-        var productImg=product.querySelector('.home-product-item__img').src
-        var productName=product.querySelector('.home-product-item__name').innerText
-        var productPrice=product.querySelector('.home-product-item__price-current').innerText
-        var productQuantity=product.querySelector('.home-product-item__sold').innerText
-        addCart(productImg,productName,productPrice,productQuantity)
-    })
-})
+// them san pham vào biểu tượng giỏ hàng
 
-function addCart(productImg,productName,productPrice,productQuantity){
+
+let newListCart=[];
+const btnAdd=document.querySelector('.btn-add--cart')
+btnAdd.addEventListener('click',(e)=>{
+        var btnItem=e.target
+        var product=btnItem.parentElement.parentElement.parentElement;
+        console.log(product)
+        var productImg=product.querySelector('.img-link').src
+        var productName=product.querySelector('.product-heading').innerText
+        var productPrice=product.querySelector('.price').innerText
+        var productQuantity=product.querySelector('.quantity').innerText
+        var productNumber=product.querySelector('.product-item-number').value
+        addCart(productImg,productName,productPrice,productQuantity,productNumber)
+        newListCart.push(productImg)
+        newListCart.push(productName)
+        newListCart.push(productPrice)
+        newListCart.push(productQuantity)
+        newListCart.push(productNumber)
+return newListCart
+    })
+
+function addCart(productImg,productName,productPrice,productQuantity,productNumber){
     const addDiv=document.createElement("div");
     const contentCart=
         `
@@ -74,12 +83,12 @@ function addCart(productImg,productName,productPrice,productQuantity){
                             <div class="header__cart-item-price-wrap">
                                 <span class="header__cart-item-price">${productPrice}</span>
                                 <span class="header__cart-item-multiply">x</span>
-                                <span class="header__card-item-qnt">3</span>
+                                <span class="header__card-item-qnt">${productNumber}</span>
                             </div>
                     </div>
 
                     <div class="header__cart-item-body">
-                        <span class="quantity-cart">${productQuantity}</span>
+                        <span class="quantity-cart">quantity:${productQuantity}</span>
                         <span class="header__cart-item-remove">Xóa</span>
                     </div>
 
@@ -91,6 +100,7 @@ function addCart(productImg,productName,productPrice,productQuantity){
     bodyCart.append(addDiv)
     ;
 }
+
 
 // bật lên modal 
 const btnBuy=document.querySelector('.btn-buy')

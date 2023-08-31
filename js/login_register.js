@@ -50,6 +50,15 @@ function hideFormRegister(){
     modalRegister.classList.remove('open');
     registerForm.classList.remove('open')
 }
+// hàm xử lý đăng nhập thành công; hiện tên tài khoản
+const headerUser=document.querySelector('#header__navbar-user')
+
+function showUser(){
+    headerUser.classList.add('openTK')
+    btnStartRegister.classList.add('hideTK')
+    btnStartLogin.classList.add('hideTK')
+}
+
 closeRegister.addEventListener('click',hideFormRegister)
 
 
@@ -57,6 +66,9 @@ closeRegister.addEventListener('click',hideFormRegister)
 btnStartRegister.addEventListener('click',showFormRegister)
 linkLogin.addEventListener('click',showFormLogin)
 linkLogin.addEventListener('click',hideFormRegister)
+
+
+
 
 
 btnRegister.addEventListener('click',(e)=>{
@@ -123,8 +135,8 @@ btnRegister.addEventListener('click',(e)=>{
     
 })
 let acc={
-    name:'Ngọc Hà',
-    pass:'ha0806'
+    name:'Nguyễn Ngọc Anh',
+    pass:'anh0806'
 }
 // xử lý đăng nhập
 btnStartLogin.addEventListener('click',showFormLogin)
@@ -167,11 +179,13 @@ btnLogin.addEventListener('click',(e)=>{
         btnLogin.innerHTML="loading..."
         setTimeout(()=>{
             hideFormLogin();
+            showUser();
             showSuccessToastLogin();
             inputNameLogin.value=''
             inputPassLogin.value=''
             btnLogin.innerHTML="Đăng nhập"
         },3000)
+
     }
 
 })

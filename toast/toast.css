@@ -11,7 +11,7 @@
     align-items: center;
     background-color: #fff;
     border-radius: 2px;
-    padding: 15px 0;
+    padding: 10px 0;
     min-width: 400px;
     max-width: 450px;
     border-left: 4px solid;
@@ -61,11 +61,11 @@
   }
   
   .toast--error {
-    border-color: #ff623d;
+    border-color: rgb(233, 54, 54);
   }
   
   .toast--error .toast__icon {
-    color: #ff623d;
+    color: rgb(233, 54, 54);
   }
   
   .toast + .toast {
@@ -73,7 +73,7 @@
   }
   
   .toast__icon {
-    font-size: 24px;
+    font-size: 2rem;
   }
   
   .toast__icon,
@@ -86,20 +86,20 @@
   }
   
   .toast__title {
-    font-size: 16px;
+    font-size: 1.4rem;
     font-weight: 600;
     color: #333;
   }
   
   .toast__msg {
-    font-size: 14px;
+    font-size: 1.2rem;
     color: #888;
     margin-top: 6px;
     line-height: 1.5;
   }
   
   .toast__close {
-    font-size: 20px;
+    font-size: 1.8rem;
     color: rgba(0, 0, 0, 0.3);
     cursor: pointer;
   }

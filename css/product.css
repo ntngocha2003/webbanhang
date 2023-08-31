@@ -104,3 +104,14 @@ background-color: #fff;
 .product-item-ensure{
     margin-right: 20px;
 }
+.product-description--heading{
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+.product-description{
+    font-size: 1.2rem;
+    color: #aaa;
+}
+.header__navbar-user{
+    display: flex !important;
+}
