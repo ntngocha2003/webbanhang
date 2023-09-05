@@ -1,0 +1,66 @@
+.admin{
+    min-height: 1000px;
+}
+/* header */
+.header_bar{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+}
+.header_bar:hover{
+    opacity: 0.8;
+}
+
+.admin_close {
+    text-align: end;
+    padding: 10px;
+    font-size: 1.4rem;
+    color: #ccc;
+    display: none;
+}
+.admin_close-icon{
+    font-weight: bold !important;
+    cursor: pointer;
+}
+.admin_close-icon:hover{
+    opacity: 0.8;
+}
+.control_link-item{
+    display: inline-block;
+    margin: 10px 34px 10px 0;
+}
+@media (min-width: 320px) and (max-width: 1023px){
+    .header__logo{
+        display: none ;
+    }
+    .header_bar{
+        display: flex;
+    }
+    .admin_close{
+        display: block;
+    }
+    .colum-1{ 
+        z-index: 1;
+        position: fixed;
+        top: -10px;
+        left: -10px;
+        border-radius: 5px;
+    }
+    
+    .admin_manager {
+        width: 250px;
+    }
+    .table-borderless {
+        display: block;
+        overflow-x: auto;
+    }
+    .openTB{
+        display: block !important;
+    }
+    .colorTB{
+        background-color: #eee;
+    }
+}
