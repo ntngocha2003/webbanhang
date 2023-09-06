@@ -101,10 +101,10 @@
                                         <a class="list_contol-item--link" href="./renderProduct.php">Quản lý sản phẩm</a>
                                     </li>
                                     <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderOrder">Quản lý đơn hàng</a>
+                                        <a class="list_contol-item--link" href="./renderOrder.php">Quản lý đơn hàng</a>
                                     </li>
                                     <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderRevenue">Quản lý doanh thu</a>
+                                        <a class="list_contol-item--link" href="./renderRevenue.php">Quản lý doanh thu</a>
                                     </li>
                                 </ul>
                             </div>
@@ -215,7 +215,7 @@
                                     </div>
                                     <div class="block">
                                         <button type="submit" class="btn btn-primary btn-save">Lưu thông tin</button>
-                                        <a onclick="return confirm('bạn có muốn hủy bỏ thao tác này không')" class="btn btn-cancel" href="./renderOrder">Hủy bỏ</a>
+                                        <a onclick="return confirm('bạn có muốn hủy bỏ thao tác này không')" class="btn btn-cancel" href="./renderOrder.php">Hủy bỏ</a>
                                     </div>
                                   </form>
                             </div>

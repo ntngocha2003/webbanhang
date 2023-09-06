@@ -100,10 +100,10 @@
                                         <a class="list_contol-item--link" href="./renderProduct.php">Quản lý sản phẩm</a>
                                     </li>
                                     <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderOrder">Quản lý đơn hàng</a>
+                                        <a class="list_contol-item--link" href="./renderOrder.php">Quản lý đơn hàng</a>
                                     </li>
                                     <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderRevenue">Quản lý doanh thu</a>
+                                        <a class="list_contol-item--link" href="./renderRevenue.php">Quản lý doanh thu</a>
                                     </li>
                                 </ul>
                             </div>

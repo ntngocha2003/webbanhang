@@ -1,6 +1,7 @@
 .header__bill{
     font-size: 2.4rem;
     text-decoration: revert;
+    display: none;
 }
 .code,.date,.total-quantity,.total-prices,.customer-name,.items-number,.return{
     font-size: 1.3rem;

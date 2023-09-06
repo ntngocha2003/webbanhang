@@ -15,6 +15,14 @@ function showSuccessToastLogin() {
       duration: 5000
     });
   }
+  function showSuccessToastLoginAdmin() {
+    toast({
+      title: "Thành công!",
+      message: "Xin chào admin, chào mừng bạn quay trở lại.",
+      type: "success",
+      duration: 5000
+    });
+  }
 
 function showErrorToast() {
     toast({
