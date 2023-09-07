@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/addStaff.css">
     <link rel="stylesheet" href="./css/renderStaff.css">
     <link rel="stylesheet" href="./css/reponsiver.css">
+    
     <!-- Latest compiled and minified CSS -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"> -->
 
@@ -25,6 +26,8 @@
     <link rel="stylesheet" href="../font/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../gird/GirdSystem/gird.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400, 500, 700display=swapsubset=vietnamese" rel="stylesheet">
+
+    
 </head>
 <body>
     <div class="admin">

@@ -26,3 +26,16 @@
 .app_bill{
     margin-top: 150px;
 }
+.info-heading{
+    color: var(--primary-color);
+    font-size: 1.4rem;
+}
+.address-user{
+    background-color: #fff;
+    padding: 10px;
+    height: 140px;
+}
+.address-user p{
+    font-size: 1.2rem;
+    color: #aaa;
+}

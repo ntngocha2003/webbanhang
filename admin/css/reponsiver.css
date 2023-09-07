@@ -1,6 +1,4 @@
-.admin{
-    min-height: 1000px;
-}
+
 /* header */
 .header_bar{
     display: none;
@@ -62,5 +60,8 @@
     }
     .colorTB{
         background-color: #eee;
+    }
+    .admin{
+        min-height: 1000px;
     }
 }

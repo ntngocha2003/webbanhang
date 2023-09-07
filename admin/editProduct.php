@@ -213,6 +213,7 @@
                                                   <option>Nam</option>
                                                   <option>Nữ</option>
                                                   <option>Trẻ em</option>
+                                                  <option>Yêu thích</option>
                                                 </select>
                                             </div>
                                           </div>

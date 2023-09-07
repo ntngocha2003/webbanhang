@@ -216,6 +216,8 @@ table {
 
 tr {
     border-bottom: 2px solid var(--primary-color);
+    color: #bbb;
+    font-weight: 600;
 }
 
 th {

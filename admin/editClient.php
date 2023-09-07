@@ -204,7 +204,7 @@
                                         <button type="submit" class="btn btn-primary btn-save">Lưu thông tin</button>
                                         <a onclick="return confirm('bạn có muốn hủy bỏ thao tác này không')" class="btn btn-cancel" href="./renderClient.php">Hủy bỏ</a>
                                     </div>
-                                  </form>
+                                </form>
                             </div>
                         </div>
                     </div>  
