@@ -125,9 +125,9 @@
                                         <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
 
-                                                <label for="sdt">Số điện thoại</label>
-                                                <input type="number" class="form-control" name="sdt"
-                                                    value="<?php echo $row['sdt']?>">
+                                                <label for="sdt">Email</label>
+                                                <input type="email" class="form-control" name="email"
+                                                    value="<?php echo $row['email']?>">
                                             </div>
                                         </div>
                                         <div class="form-group l-6 c-6 m-6 col">

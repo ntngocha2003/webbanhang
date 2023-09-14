@@ -121,14 +121,7 @@
                                 <form action="./updateOrder.php" method="post" enctype="multipart/form-data">
                                     <div class="block row">
                                         <input type="hidden" id="" name="sid" value="<?php echo $id?>">
-                                        <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="maDH">Mã đơn hàng</label>
-                                                <input type="text" class="form-control" name="maDH"
-                                                    value="<?php echo $row['ma_dh']?>">
-                                            </div>
-                                        </div>
+                                        
                                         <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
 
@@ -162,7 +155,7 @@
 
                                                 <label for="giaMoi">Giá tiền</label>
                                                 <input type="number" class="form-control" name="giaMoi"
-                                                value="<?php echo $row['gia_moi']?>">
+                                                value="<?php echo $row['tong_tien']?>">
                                             </div>
                                           </div>
                                           <div class="form-group l-6 c-6 m-6 col">

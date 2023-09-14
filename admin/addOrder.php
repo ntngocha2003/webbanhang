@@ -1,5 +1,5 @@
 <?php
-    $maDH=$_POST['maDH'];
+   
     $tenSP=$_POST['tenSP'];
     $moTa=$_POST['moTa'];
     $giaMoi=$_POST['giaMoi'];
@@ -23,8 +23,8 @@
     copy ( $file_tmp, $uploadDir_img_logo.$image);
         require_once 'connect.php';
 
-        $addDH="INSERT INTO `orders`(`id`, `ma_dh`, `ten_sp`, `mota`,`image`, `gia_moi`, `so_luong`, `ten_nv`,`ten_kh`,`tinh_trang`,`dia_chi`) 
-        VALUES (null,'$maDH','$tenSP','$moTa','$image','$giaMoi','$soLuong','$tenNV','$tenKH','$tinhTrang','$diaChi')";
+        $addDH="INSERT INTO `orders`(`id`,  `ten_sp`, `mota`,`image`, `tong_tien`, `so_luong`, `ten_nv`,`ten_kh`,`tinh_trang`,`dia_chi`) 
+        VALUES (null,'$tenSP','$moTa','$image','$giaMoi','$soLuong','$tenNV','$tenKH','$tinhTrang','$diaChi')";
 
         if(mysqli_query($conn,$addDH)){
             echo "<h1>Thêm thành công</h1>";

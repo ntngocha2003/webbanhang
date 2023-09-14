@@ -39,7 +39,7 @@
 }
 
 #header__navbar-user {
-    display: none ;
+    
     justify-items: center;
 }
 
@@ -394,6 +394,9 @@
     border-radius: 2px;
     margin-right: 3px;
     outline: none;
+    float: right;
+    position: relative;
+    top: -37px;
 }
 
 .header__search-btn:hover {

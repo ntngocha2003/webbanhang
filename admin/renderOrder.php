@@ -130,13 +130,12 @@
                                         <thead class="table-borderless-thead">
                                         <tr>
                                             <th class="table-borderless-th" >Check</th>
-                                            <th class="table-borderless-th" >Mã đơn hàng</th>
+                                           
                                             <th class="table-borderless-th" >Tên sản phẩm</th>
                                             <th class="table-borderless-th" >Ảnh</th>
                                             <th class="table-borderless-th" >Mô tả</th>
                                             <th class="table-borderless-th" >Gía tiền</th>
                                             <th class="table-borderless-th" >Số lượng</th>
-                                            <th class="table-borderless-th" >Tên nhân viên</th>
                                             <th class="table-borderless-th" >Tên khách hàng</th>
                                             <th class="table-borderless-th" >Tình trạng</th>
                                             <th class="table-borderless-th" >Địa chỉ</th>
@@ -156,9 +155,7 @@
                                                     <td class="table-borderless-td">
                                                         <input type="checkbox" name="checkbox">
                                                     </td>
-                                                    <td class="table-borderless-td">
-                                                        <?php echo $r['ma_dh'];?>
-                                                    </td>
+                                                    
                                                     <td class="table-borderless-td">
                                                         <?php echo $r['ten_sp'];?>
                                                     </td>
@@ -170,14 +167,12 @@
                                                         <?php echo $r['mota'];?>
                                                     </td>
                                                     <td class="table-borderless-td">
-                                                        <?php echo $r['gia_moi'];?>
+                                                        <?php echo $r['tong_tien'];?>
                                                     </td>
                                                     <td class="table-borderless-td">
                                                         <?php echo $r['so_luong'];?>
                                                     </td>
-                                                    <td class="table-borderless-td">
-                                                        <?php echo $r['ten_nv'];?>
-                                                    </td>
+                                                   
                                                     <td class="table-borderless-td">
                                                         <?php echo $r['ten_kh'];?>
                                                     </td>

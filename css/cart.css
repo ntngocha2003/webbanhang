@@ -138,12 +138,14 @@
 }
 
 .header__cart-item-remove {
+    
+    text-decoration: none;
     font-size: 1.4rem;
-    color:var(--text-color);
+    color: var(--primary-color);
 }
 
 .header__cart-item-remove:hover {
-    color: var(--primary-color);
+    color: #ff0000c4;
     cursor: pointer;
 }
 
@@ -180,14 +182,16 @@
 
 .header__cart-no-cart-img {
     width: 54%;
-    display: none;
+    height: 54%;
+    margin-top: 20px;
 }
 
 .header__cart-list-no-cart-msg{
-    display: none;
     font-size: 1.4rem;
     margin-top: 14px;
     color: var(--text-color);
+    display: block;
+    margin-top: 30px;
 }
 
 .header__cart-notice {
@@ -233,7 +237,7 @@ td {
 }
 
 td:first-child {
-    max-width: 400px;
+    min-width: 400px;
 }
 
 td:nth-child(n+2) {

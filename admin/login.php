@@ -5,7 +5,7 @@
 
     require_once 'connect.php';
 
-    $login="select *from account where ten_dn='$name' and mat_khau='$pass'";
+    $login="select *from account where ten_dn='$name' and mat_khau='$pass' and quen='Admin'";
 
     $test= mysqli_query($conn,$login);
 

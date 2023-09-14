@@ -28,6 +28,7 @@
     padding: 2px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    color: rgb(131, 131, 131);
 }
 .table-borderless{
     margin-top: 10px;
@@ -75,4 +76,23 @@
     border-radius: 5px;
     text-decoration: none;
     font-weight: 600;
+}
+.hide{
+    display: none !important;
+}
+.page-link-number{
+    font-size: 1.4rem;
+    padding: 5px 10px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    background-color: var(--primary-color);
+}
+#next,#prev{
+    font-size: 1.4rem;
+    padding: 5px 10px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    background-color: #89c0f1ad;
 }

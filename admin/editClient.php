@@ -120,15 +120,6 @@
                                 <form action="./updateClient.php" method="post" enctype="multipart/form-data">
                                 <input type="hidden" id="" name="sid" value="<?php echo $id?>">
                                     <div class="block row">
-
-                                        <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="maKH">Mã khách hàng</label>
-                                                <input type="text" class="form-control" name="maKH"
-                                                    value="<?php echo $row['ma_kh']?>">
-                                            </div>
-                                        </div>
                                         <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
 
@@ -137,16 +128,6 @@
                                                     value="<?php echo $row['ten_kh']?>">
                                             </div>
                                         </div>
-                                        
-                                          <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="image">Ảnh 3 x 4</label>
-                                                <input type="file" class="form-control" name="image"
-                                                    value="<?php echo $row['image']?>">
-                                                
-                                            </div>
-                                          </div>
                                           <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
 

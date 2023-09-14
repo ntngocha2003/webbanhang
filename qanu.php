@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="./css/reponsive.css">
     <link rel="stylesheet" href="./css/cart.css">
     <link rel="stylesheet" href="./css/bill.css">
-    <link rel="stylesheet" href="./cart.html">
-    <link rel="stylesheet" href="./bill.html">
     <link rel="stylesheet" href="./css/qunam.css">
     <link rel="stylesheet" href="./toast/toast.css">
     
@@ -27,156 +25,9 @@
     <div class="app">
         <!-- phần đầu -->
         
-        <header class="header">
-            <div class="grid wide">
-                <nav class="header__navbar hide-on-mobile-tablet">
-                   <ul class="header__navbar-list">
-                       <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
-                           <a href="./home.html" class="header__navbar-icon-link">Home</a>
-                        </li>
-
-                       <li class="header__navbar-item">                           
-                            <a href="" class="header__navbar-icon-link">
-                                Kết nối
-                                <i class="header__navbar-icon fab fa-facebook"></i>
-                            </a>
-                       </li>
-                   </ul>
- 
-                   <ul class="header__navbar-list">
-                       <li class=" header__navbar-item header__navbar-item--has-notify">
-                            <a href="" class="header__navbar-item-link">
-                                <i class="header__navbar-icon far fa-bell"></i>
-                                Thông báo
-                            </a>
-                            <div class="header__notify header__notify--no">
-                                <img >
-                            </div>
-                            <div class="header__notify">
-                                <header class="header__notify-header">
-                                    <h3>Thông báo mới nhận</h3>
-                                </header>
-                                <div class="header__notify-list">
-                                
-                                    <p>Chào mừng bạn đến với NgọcHà_Shop</p>
-    
-                                </div>
-                                <footer class="header__notify-footer">
-                                    <a href="" class="header__notify-footer-btn">Xem tất cả</a>
-                                </footer>
-                            </div>
-                                
-                       </li>
-                      
-                       <!-- <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate btn-start--register">Đăng ký</li>
-                       <li class="header__navbar-item header__navbar-item--strong btn-start--login">Đăng nhập</li> -->
-                       <li class="header__navbar-item header__navbar-user">
-                           <img src="./image/anhcho.jpg" alt="" class="header__navbar-user-img">
-                           <span class="header__navbar-user-name">Nguyễn Ngọc Anh</span>
-
-                           <ul class="header__navbar-user-menu">
-                                  <li class="header__navbar-user-item">
-                                     <a href="">Tài khoản của tôi</a>
-                                  </li>
-
-                                  <li class="header__navbar-user-item">
-                                    <a href="">Địa chỉ của tôi</a>
-                                 </li>
-
-                                 <li class="header__navbar-user-item">
-                                    <a href="">Đơn mua</a>
-                                 </li>
-
-                                 <li class=" header__navbar-user-item header__navbar-user-item--separate">
-                                    <a href="">Đăng xuất</a>
-                                 </li>
-                           </ul>
-                       </li>
-                   </ul>
-                </nav>
-           
-                <!-- Header with search -->
-                <div class="header-with-search">
-                    <label for="mobile-search-checkbox" class="header__mobile-search">
-                        <i class="header__mobile-search-icon fas fa-search"></i>
-                    </label>
-                    <div class="header__logo hide-on-tablet hide-on-mobile">
-                        <a href="./home.html" class="header__logo-link">
-                            <i class="fas fa-heading header_logo-link--icon"></i>
-                            _Ngọc Hà
-                        </a>                                                        
-                    </div>
-
-                    <input type="checkbox" hidden id="mobile-search-checkbox" class="header__search-checkbox">
-
-                    <div class="header__search">
-                        <div class="header__search-input-wrap">
-                            <input type="text" class="header__search-input" placeholder="Tìm kiếm sản phẩm">
-
-                            <!-- Search-history -->
-                            <div class="header__search-history">
-                                <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
-                                <ul class="header__search-history-list">
-                                    <li class="header__search-history-item">
-                                        <a href="">Aó phông nữ</a>
-                                    </li>
-                                    <li class="header__search-history-item">
-                                        <a href="">Quần jean nam, nữ</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <button class="header__search-btn">
-                            <i class="header__search-btn-icon fas fa-search"></i>
-                        </button>
-                    </div>
-
-                    <!-- Cart layout -->
-                    <div class="header__cart">
-                        <div class="header__cart-wrap">
-                           <i class="header__cart-icon fas fa-cart-plus"></i>
-                            <span class="header__cart-notice">1</span>
-
-                            <!-- No cart: header__cart-list--no-cart -->
-                            <div class="header__cart-list">
-                                <img src="./image/no-cart.webp" alt="" class="header__cart-no-cart-img">
-                                <span class="header__cart-list-no-cart-msg">
-                                    Chưa có sản phẩm
-                                </span>
-
-                                <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
-                                <div class="header__cart-list-item">
-                                    <!-- cart-item -->
-
-                                  
-                                </div>
-                                <a href="./cart.html" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>
-                            
-                            </div>
-                        </div>                           
-                    </div>
-                    <a href="./bill.html" class="header__navbar-icon-link header__bill">Bill</a>
-                </div>
-
-                <div class="footer_header">
-                    <ul class="header__navbar-list">
-
-                        <li class="header__navbar-item">
-                            <a href="./qaNam.html" class="header__navbar-icon-link" >Nam</a>
-                         </li>
-    
-                         <li class="header__navbar-item">
-                            <a href="./qanu.html" class="header__navbar-icon-link" >Nữ</a>
-                        </li>
-    
-                        <li class="header__navbar-item">
-                            <a href="#" class="header__navbar-icon-link" >Trẻ em</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </header>
+        <?php
+            require_once 'header.php';
+        ?>
         <!-- phần nội dung -->
         <div class="app__container--boy">
             <div class="grid wide">
@@ -201,6 +52,7 @@
                                             </a>
                                             <div class="">
                                                 <a href="#T-shirt" class="item">Áo phông</a>
+                                                <a href="#shirt" class="item">Áo sơ mi</a>
                                                 <a href="#pants-boy" class="item">Quần, váy</a>
                                             </div>
                                         </li>
@@ -210,6 +62,7 @@
                                                 Mùa đông 
                                             </a>
                                             <div class="">
+    
                                                 <a href="#coat" class="item">Áo khoác</a>
                                                 <a href="#hoodie" class="item">Áo hoodie</a>
                                             </div>
@@ -239,9 +92,9 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/ape1.jpg" class="home-product-item__img">
+                                                <img src="./image/pn1.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Áo phông trẻ em thoải mái cho các bé</h4>
+                                            <h4 class="home-product-item__name">Áo phông nữ đang hót cho các nàng trong mùa hè oi bức</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
                                                 <span class="home-product-item__price-boy">100000đ</span>
@@ -260,9 +113,9 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/ape2.jpg" class="home-product-item__img">
+                                                <img src="./image/pn2.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Áo phông trẻ em thoải mái cho các bé</h4>
+                                            <h4 class="home-product-item__name">Áo phông nữ đang hót cho các nàng trong mùa hè oi bức</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
                                                 <span class="home-product-item__price-boy">100000đ</span>
@@ -281,16 +134,16 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/ape3.jpg" class="home-product-item__img">
+                                                <img src="./image/pn3.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Áo phông trẻ em thoải mái cho các bé</h4>
+                                            <h4 class="home-product-item__name">Áo phông nữ đang hót cho các nàng trong mùa hè oi bức</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">100000đ</span>
+                                                <span class="home-product-item__price-boy">200000đ</span>
                                             </div>
                                             <div class="home-product-item__action">
                                                 
-                                                <span class="home-product-item__sold">Quanttity:20</span>
+                                                <span class="home-product-item__sold">Quanttity:60</span>
                                                 <div class="home-product-item--add">
                                                     <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
                                                 </div>
@@ -302,16 +155,16 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/ape4.jpg" class="home-product-item__img">
+                                                <img src="./image/pn4.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Áo phông trẻ em thoải mái cho các bé</h4>
+                                            <h4 class="home-product-item__name">Áo phông nữ đang hót cho các nàng trong mùa hè oi bức</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">100000đ</span>
+                                                <span class="home-product-item__price-boy">104000đ</span>
                                             </div>
                                             <div class="home-product-item__action">
                                                 
-                                                <span class="home-product-item__sold">Quanttity:20</span>
+                                                <span class="home-product-item__sold">Quanttity:24</span>
                                                 <div class="home-product-item--add">
                                                     <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
                                                 </div>
@@ -323,9 +176,9 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/ape5.jpg" class="home-product-item__img">
+                                                <img src="./image/pn5.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Áo phông trẻ em thoải mái cho các bé</h4>
+                                            <h4 class="home-product-item__name">Áo phông nữ đang hót cho các nàng trong mùa hè oi bức</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
                                                 <span class="home-product-item__price-boy">100000đ</span>
@@ -340,10 +193,125 @@
                                            
                                         </a>
                                     </div>
+    
                                 </div>
                             </div>
 
-                            
+                            <div id="shirt" class="home-product">
+                                <div  class="header-boy">
+                                    <h2>Áo sơ mi</h2>
+                                </div>
+    
+                                <div class="row sm-gutter catalog-item">
+                                    <div class="col l-2-4 m-4 c-6">
+                                        <a class="home-product-item" href="#">
+                                            <div>
+                                                <img src="./image/smn1.jpg" class="home-product-item__img">
+                                            </div>
+                                            <h4 class="home-product-item__name">Áo sơ mi nữ đang bán chạy, giúp các nàng thoải mái mỗi khi sở hữu</h4>
+                                            <div class="home-product-item__price">
+                                                <p class="price">Price: </p>
+                                                <span class="home-product-item__price-boy">100000đ</span>
+                                            </div>
+                                            <div class="home-product-item__action">
+                                                
+                                                <span class="home-product-item__sold">Quanttity:20</span>
+                                                <div class="home-product-item--add">
+                                                    <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
+                                                </div>
+                                            </div>
+                                           
+                                        </a>
+                                    </div>
+
+                                    <div class="col l-2-4 m-4 c-6">
+                                        <a class="home-product-item" href="#">
+                                            <div>
+                                                <img src="./image/smn2.jpg" class="home-product-item__img">
+                                            </div>
+                                            <h4 class="home-product-item__name">Áo sơ mi nữ đang bán chạy, giúp các nàng thoải mái mỗi khi sở hữu</h4>
+                                            <div class="home-product-item__price">
+                                                <p class="price">Price: </p>
+                                                <span class="home-product-item__price-boy">111000đ</span>
+                                            </div>
+                                            <div class="home-product-item__action">
+                                                
+                                                <span class="home-product-item__sold">Quanttity:21</span>
+                                                <div class="home-product-item--add">
+                                                    <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
+                                                </div>
+                                            </div>
+                                           
+                                        </a>
+                                    </div>
+
+                                    <div class="col l-2-4 m-4 c-6">
+                                        <a class="home-product-item" href="#">
+                                            <div>
+                                                <img src="./image/smn3.webp" class="home-product-item__img">
+                                            </div>
+                                            <h4 class="home-product-item__name">Áo sơ mi nữ đang bán chạy, giúp các nàng thoải mái mỗi khi sở hữu</h4>
+                                            <div class="home-product-item__price">
+                                                <p class="price">Price: </p>
+                                                <span class="home-product-item__price-boy">100000đ</span>
+                                            </div>
+                                            <div class="home-product-item__action">
+                                                
+                                                <span class="home-product-item__sold">Quanttity:30</span>
+                                                <div class="home-product-item--add">
+                                                    <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
+                                                </div>
+                                            </div>
+                                           
+                                        </a>
+                                    </div>
+
+                                    <div class="col l-2-4 m-4 c-6">
+                                        <a class="home-product-item" href="#">
+                                            <div>
+                                                <img src="./image/smn4.jpg" class="home-product-item__img">
+                                            </div>
+                                            <h4 class="home-product-item__name">Áo sơ mi nữ đang bán chạy, giúp các nàng thoải mái mỗi khi sở hữu</h4>
+                                            <div class="home-product-item__price">
+                                                <p class="price">Price: </p>
+                                                <span class="home-product-item__price-boy">100000đ</span>
+                                            </div>
+                                            <div class="home-product-item__action">
+                                                
+                                                <span class="home-product-item__sold">Quanttity:20</span>
+                                                <div class="home-product-item--add">
+                                                    <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
+                                                </div>
+                                            </div>
+                                           
+                                        </a>
+                                    </div>
+
+                                    <div class="col l-2-4 m-4 c-6">
+                                        <a class="home-product-item" href="#">
+                                            <div>
+                                                <img src="./image/smn5.jpg" class="home-product-item__img">
+                                            </div>
+                                            <h4 class="home-product-item__name">Áo sơ mi nữ đang bán chạy, giúp các nàng thoải mái mỗi khi sở hữu</h4>
+                                            <div class="home-product-item__price">
+                                                <p class="price">Price: </p>
+                                                <span class="home-product-item__price-boy">109000đ</span>
+                                            </div>
+                                            <div class="home-product-item__action">
+                                                
+                                                <span class="home-product-item__sold">Quanttity:27</span>
+                                                <div class="home-product-item--add">
+                                                    <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
+                                                </div>
+                                            </div>
+                                           
+                                        </a>
+                                    </div>
+    
+                                </div>
+                                
+                            </div>
+
                             <div id="pants-boy" class="home-product">
                                 <div  class="header-boy">
                                     <h2>Quần, váy</h2>
@@ -353,9 +321,9 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/vaye1.webp" class="home-product-item__img">
+                                                <img src="./image/vay1.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Váy xinh hết ý, cute cho các bé, nhanh tay sắm về cho các công chúa của mình nào</h4>
+                                            <h4 class="home-product-item__name">Váy xinh hết nấc cho các tình iu, ghé qua và sắm ngay cho mình 1 em nào</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
                                                 <span class="home-product-item__price-boy">100000đ</span>
@@ -374,16 +342,16 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/vaye2.jpg" class="home-product-item__img">
+                                                <img src="./image/vay2.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Váy xinh hết ý, cute cho các bé, nhanh tay sắm về cho các công chúa của mình nào</h4>
+                                            <h4 class="home-product-item__name">Váy xinh hết nấc cho các tình iu, ghé qua và sắm ngay cho mình 1 em nào</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">100000đ</span>
+                                                <span class="home-product-item__price-boy">130000đ</span>
                                             </div>
                                             <div class="home-product-item__action">
                                                 
-                                                <span class="home-product-item__sold">Quanttity:20</span>
+                                                <span class="home-product-item__sold">Quanttity:30</span>
                                                 <div class="home-product-item--add">
                                                     <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
                                                 </div>
@@ -391,12 +359,34 @@
                                            
                                         </a>
                                     </div>
+
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/vaye3.png" class="home-product-item__img">
+                                                <img src="./image/vay3.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Váy xinh hết ý, cute cho các bé, nhanh tay sắm về cho các công chúa của mình nào</h4>
+                                            <h4 class="home-product-item__name">Váy xinh hết nấc cho các tình iu, ghé qua và sắm ngay cho mình 1 em nào</h4>
+                                            <div class="home-product-item__price">
+                                                <p class="price">Price: </p>
+                                                <span class="home-product-item__price-boy">103000đ</span>
+                                            </div>
+                                            <div class="home-product-item__action">
+                                                
+                                                <span class="home-product-item__sold">Quanttity:23</span>
+                                                <div class="home-product-item--add">
+                                                    <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
+                                                </div>
+                                            </div>
+                                           
+                                        </a>
+                                    </div>
+
+                                    <div class="col l-2-4 m-4 c-6">
+                                        <a class="home-product-item" href="#">
+                                            <div>
+                                                <img src="./image/vay4.jpg" class="home-product-item__img">
+                                            </div>
+                                            <h4 class="home-product-item__name">Mẫu quần xinh hết nấc cho các tình iu, ghé qua và sắm ngay cho mình 1 em nào</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
                                                 <span class="home-product-item__price-boy">100000đ</span>
@@ -415,16 +405,16 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/vaye4.jpg" class="home-product-item__img">
+                                                <img src="./image/vay5.png" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Váy xinh hết ý, cute cho các bé, nhanh tay sắm về cho các công chúa của mình nào</h4>
+                                            <h4 class="home-product-item__name">Mẫu quần xinh hết nấc cho các tình iu, ghé qua và sắm ngay cho mình 1 em nào</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">100000đ</span>
+                                                <span class="home-product-item__price-boy">105000đ</span>
                                             </div>
                                             <div class="home-product-item__action">
                                                 
-                                                <span class="home-product-item__sold">Quanttity:20</span>
+                                                <span class="home-product-item__sold">Quanttity:50</span>
                                                 <div class="home-product-item--add">
                                                     <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
                                                 </div>
@@ -433,26 +423,6 @@
                                         </a>
                                     </div>
     
-                                    <div class="col l-2-4 m-4 c-6">
-                                        <a class="home-product-item" href="#">
-                                            <div>
-                                                <img src="./image/vaye5.jpg" class="home-product-item__img">
-                                            </div>
-                                            <h4 class="home-product-item__name">Váy xinh hết ý, cute cho các bé, nhanh tay sắm về cho các công chúa của mình nào</h4>
-                                            <div class="home-product-item__price">
-                                                <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">100000đ</span>
-                                            </div>
-                                            <div class="home-product-item__action">
-                                                
-                                                <span class="home-product-item__sold">Quanttity:20</span>
-                                                <div class="home-product-item--add">
-                                                    <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
-                                                </div>
-                                            </div>
-                                           
-                                        </a>
-                                    </div>
                                 </div>
                                 
                             </div>
@@ -474,12 +444,12 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/ake1.jpg" class="home-product-item__img">
+                                                <img src="./image/aknu1.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Áo khoác cho các bé, bậc phụ huynh nhanh tay sắm cho các con iu nào</h4>
+                                            <h4 class="home-product-item__name">Áo khoác nữ mới nhất cho các nàng trong mùa đông năm nay</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">200000đ</span>
+                                                <span class="home-product-item__price-boy">100000đ</span>
                                             </div>
                                             <div class="home-product-item__action">
                                                 
@@ -495,12 +465,12 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/ake2.webp" class="home-product-item__img">
+                                                <img src="./image/anknu2.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Áo khoác cho các bé, bậc phụ huynh nhanh tay sắm cho các con iu nào</h4>
+                                            <h4 class="home-product-item__name">Áo khoác nữ mới nhất cho các nàng trong mùa đông năm nay</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">200000đ</span>
+                                                <span class="home-product-item__price-boy">100000đ</span>
                                             </div>
                                             <div class="home-product-item__action">
                                                 
@@ -516,12 +486,12 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/ake3.jpg" class="home-product-item__img">
+                                                <img src="./image/aknu3.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Áo khoác cho các bé, bậc phụ huynh nhanh tay sắm cho các con iu nào</h4>
+                                            <h4 class="home-product-item__name">Áo khoác nữ mới nhất cho các nàng trong mùa đông năm nay</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">200000đ</span>
+                                                <span class="home-product-item__price-boy">100000đ</span>
                                             </div>
                                             <div class="home-product-item__action">
                                                 
@@ -537,12 +507,12 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/ake4.jpg" class="home-product-item__img">
+                                                <img src="./image/aknu4.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Áo khoác cho các bé, bậc phụ huynh nhanh tay sắm cho các con iu nào</h4>
+                                            <h4 class="home-product-item__name">Áo khoác nữ mới nhất cho các nàng trong mùa đông năm nay</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">200000đ</span>
+                                                <span class="home-product-item__price-boy">100000đ</span>
                                             </div>
                                             <div class="home-product-item__action">
                                                 
@@ -558,12 +528,12 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/ake5.jpg" class="home-product-item__img">
+                                                <img src="./image/aknu5.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Áo khoác cho các bé, bậc phụ huynh nhanh tay sắm cho các con iu nào</h4>
+                                            <h4 class="home-product-item__name">Áo khoác nữ mới nhất cho các nàng trong mùa đông năm nay</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">200000đ</span>
+                                                <span class="home-product-item__price-boy">100000đ</span>
                                             </div>
                                             <div class="home-product-item__action">
                                                 
@@ -575,6 +545,7 @@
                                            
                                         </a>
                                     </div>
+    
                                 </div>
                             </div>
 
@@ -587,12 +558,33 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/hde1.png" class="home-product-item__img">
+                                                <img src="./image/hdnu1.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Áo hoodie cho các bé, vừa ấm áp vừa sành địêu</h4>
+                                            <h4 class="home-product-item__name">Áo hoodie nữ form rộng cực kỳ cute cho các nàng đây</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">150000đ</span>
+                                                <span class="home-product-item__price-boy">100000đ</span>
+                                            </div>
+                                            <div class="home-product-item__action">
+                                                
+                                                <span class="home-product-item__sold">Quanttity:20</span>
+                                                <div class="home-product-item--add">
+                                                    <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
+                                                </div>
+                                            </div>
+                                           
+                                        </a>
+                                    </div>
+
+                                    <div class="col l-2-4 m-4 c-6">
+                                        <a class="home-product-item" href="#">
+                                            <div>
+                                                <img src="./image/hdnu2.png" class="home-product-item__img">
+                                            </div>
+                                            <h4 class="home-product-item__name">Áo hoodie nữ form rộng cực kỳ cute cho các nàng đây</h4>
+                                            <div class="home-product-item__price">
+                                                <p class="price">Price: </p>
+                                                <span class="home-product-item__price-boy">100000đ</span>
                                             </div>
                                             <div class="home-product-item__action">
                                                 
@@ -608,58 +600,16 @@
                                     <div class="col l-2-4 m-4 c-6">
                                         <a class="home-product-item" href="#">
                                             <div>
-                                                <img src="./image/hde2.webp" class="home-product-item__img">
+                                                <img src="./image/hdnu3.jpg" class="home-product-item__img">
                                             </div>
-                                            <h4 class="home-product-item__name">Áo hoodie cho các bé, vừa ấm áp vừa sành địêu</h4>
+                                            <h4 class="home-product-item__name">Áo hoodie nữ form rộng cực kỳ cute cho các nàng đây</h4>
                                             <div class="home-product-item__price">
                                                 <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">150000đ</span>
+                                                <span class="home-product-item__price-boy">100000đ</span>
                                             </div>
                                             <div class="home-product-item__action">
                                                 
-                                                <span class="home-product-item__sold">Quanttity:30</span>
-                                                <div class="home-product-item--add">
-                                                    <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
-                                                </div>
-                                            </div>
-                                           
-                                        </a>
-                                    </div>
-                                    
-                                    <div class="col l-2-4 m-4 c-6">
-                                        <a class="home-product-item" href="#">
-                                            <div>
-                                                <img src="./image/hde3.jpg" class="home-product-item__img">
-                                            </div>
-                                            <h4 class="home-product-item__name">Áo hoodie cho các bé, vừa ấm áp vừa sành địêu</h4>
-                                            <div class="home-product-item__price">
-                                                <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">150000đ</span>
-                                            </div>
-                                            <div class="home-product-item__action">
-                                                
-                                                <span class="home-product-item__sold">Quanttity:30</span>
-                                                <div class="home-product-item--add">
-                                                    <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
-                                                </div>
-                                            </div>
-                                           
-                                        </a>
-                                    </div>
-                                    
-                                    <div class="col l-2-4 m-4 c-6">
-                                        <a class="home-product-item" href="#">
-                                            <div>
-                                                <img src="./image/hde4.jpg" class="home-product-item__img">
-                                            </div>
-                                            <h4 class="home-product-item__name">Áo hoodie cho các bé, vừa ấm áp vừa sành địêu</h4>
-                                            <div class="home-product-item__price">
-                                                <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">150000đ</span>
-                                            </div>
-                                            <div class="home-product-item__action">
-                                                
-                                                <span class="home-product-item__sold">Quanttity:30</span>
+                                                <span class="home-product-item__sold">Quanttity:20</span>
                                                 <div class="home-product-item--add">
                                                     <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
                                                 </div>
@@ -668,28 +618,48 @@
                                         </a>
                                     </div>
 
+                                    <div class="col l-2-4 m-4 c-6">
+                                        <a class="home-product-item" href="#">
+                                            <div>
+                                                <img src="./image/hdnu4.jpg" class="home-product-item__img">
+                                            </div>
+                                            <h4 class="home-product-item__name">Áo hoodie nữ form rộng cực kỳ cute cho các nàng đây</h4>
+                                            <div class="home-product-item__price">
+                                                <p class="price">Price: </p>
+                                                <span class="home-product-item__price-boy">100000đ</span>
+                                            </div>
+                                            <div class="home-product-item__action">
+                                                
+                                                <span class="home-product-item__sold">Quanttity:20</span>
+                                                <div class="home-product-item--add">
+                                                    <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
+                                                </div>
+                                            </div>
+                                           
+                                        </a>
+                                    </div>
+
+                                    <div class="col l-2-4 m-4 c-6">
+                                        <a class="home-product-item" href="#">
+                                            <div>
+                                                <img src="./image/hdnu5.jpg" class="home-product-item__img">
+                                            </div>
+                                            <h4 class="home-product-item__name">Áo hoodie nữ form rộng cực kỳ cute cho các nàng đây</h4>
+                                            <div class="home-product-item__price">
+                                                <p class="price">Price: </p>
+                                                <span class="home-product-item__price-boy">100000đ</span>
+                                            </div>
+                                            <div class="home-product-item__action">
+                                                
+                                                <span class="home-product-item__sold">Quanttity:20</span>
+                                                <div class="home-product-item--add">
+                                                    <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
+                                                </div>
+                                            </div>
+                                           
+                                        </a>
+                                    </div>
     
-                                    <div class="col l-2-4 m-4 c-6">
-                                        <a class="home-product-item" href="#">
-                                            <div>
-                                                <img src="./image/hde5.jpg" class="home-product-item__img">
-                                            </div>
-                                            <h4 class="home-product-item__name">Áo hoodie cho các bé, vừa ấm áp vừa sành địêu</h4>
-                                            <div class="home-product-item__price">
-                                                <p class="price">Price: </p>
-                                                <span class="home-product-item__price-boy">150000đ</span>
-                                            </div>
-                                            <div class="home-product-item__action">
-                                                
-                                                <span class="home-product-item__sold">Quanttity:30</span>
-                                                <div class="home-product-item--add">
-                                                    <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
-                                                </div>
-                                            </div>
-                                           
-                                        </a>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -698,7 +668,7 @@
                         <footer class="footer">
                             <div class="grid wide footer__content">
                                 <div class="row">
-                                    <div class="col l-2-4 c-6">
+                                    <div class="col l-2-4 c-6"style="margin-left: 44px;">
                                         <h3 class="footer__heading">Chăm sóc khách hàng</h3>
                                         <ul class="footer-list">
                                             <li class="footer-item">

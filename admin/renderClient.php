@@ -131,9 +131,9 @@
                                         <tr>
                                             <th class="table-borderless-th" >Check</th>
                                             
-                                            <th class="table-borderless-th" >Mã khách hàng</th>
+                                           
                                             <th class="table-borderless-th" >Tên khách hàng</th>
-                                            <th class="table-borderless-th" >Ảnh</th>
+                                            
                                             <th class="table-borderless-th" >Email</th>
                                             <th class="table-borderless-th" >Số điện thoại</th>
                                             <th class="table-borderless-th" >Địa chỉ</th>
@@ -158,15 +158,9 @@
                                                     </td>
                                                    
                                                     <td class="table-borderless-td">
-                                                        <?php echo $r['ma_kh'];?>
-                                                    </td>
-                                                    <td class="table-borderless-td">
                                                         <?php echo $r['ten_kh'];?>
                                                     </td>
-                                                    <td class="table-borderless-td">
-                                                        <img class="table-borderless-td--img" src="./image/<?php echo $r['image']?>">
                                                     
-                                                    </td>
                                                     <td class="table-borderless-td">
                                                         <?php echo $r['email'];?>
                                                     </td>
@@ -187,7 +181,7 @@
                                                     </td>
                                                     <td class="table-borderless-td" style="display:flex;justify-content: space-around;">
                                                         <a href="editClient.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a>
-                                                        <a onclick="return confirm('bạn có muốn xóa nhân viên này không')"
+                                                        <a onclick="return confirm('bạn có muốn xóa khách hàng này không')"
                                                             href="removeClient.php?sid=<?php echo $r['id'];?>" class="btn-danger">Xóa
                                                         </a>
                                                     </td>

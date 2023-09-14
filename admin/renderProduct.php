@@ -146,7 +146,7 @@
                                             <th class="table-borderless-th" >Thao tác</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="content">
                     
                                         <?php
                                             require_once 'connect.php';
@@ -156,7 +156,7 @@
                                             while($r=mysqli_fetch_assoc($result)){
                                                 ?>
                                                 <tr class="table-borderless-tr">
-                                                    <td class="table-borderless-td">
+                                                    <!-- <td class="table-borderless-td">
                                                         <input type="checkbox" name="checkbox">
                                                     </td>
                                                     <td class="table-borderless-td">
@@ -190,7 +190,7 @@
                                                     </td>
                                                     <td class="table-borderless-td">
                                                         <?php echo $r['ten_dm'];?>
-                                                    </td>
+                                                    </td> -->
                                                     <td class="table-borderless-td" style="display:flex;justify-content: space-around;">
                                                         <a href="editProduct.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a>
                                                         <a onclick="return confirm('bạn có muốn xóa sản phẩm này không')"
@@ -204,7 +204,24 @@
                     
                                         </tbody>
                                     </table>    
-                            </div>
+                                
+                                    <div class="container_pagination" style="margin-top: 10px;
+                                                display: flex;
+                                                justify-content: space-between;"
+                                    >
+                                  
+                                        <ul class="pagination">
+                                            <li class="page-item "><a class="page-link"  id="prev" href="#">Trước</a></li>
+                                            <li class="page-item active"><a class="page-link page-link-number" id="curent" href="#">1</a></li>
+                                            
+                                            <li class="page-item"><a class="page-link "id="next" href="#">Sau</a></li>
+                                        </ul>
+                
+                                        <div class="totalRecords" style="color: var(--primary-color);">
+                                            
+                                        <div>
+                                    </div>
+
                            
                         </div>
                     </div>  
@@ -215,5 +232,6 @@
 
     </div>
     <script src="./js/main.js"></script>
+    <script src="./js/getProduct.js"></script>
 </body>
 </html>

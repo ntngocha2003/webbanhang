@@ -119,61 +119,110 @@
                                         <i class="ti-trash" style="font-weight: 900;"></i>
                                             Xóa hết
                                     </a>
-                                    <a class="control_link-item" href="#" style="margin-right: 0;">
-                                        <i class="ti-search"style="font-weight: 900;"></i>
-                                            Tìm kiếm
-                                            <input type="text" class="control_link-item--input" name="input">
+                                    <div class="control_link-item" >
+                                        <form action="renderAccount.php" method="GET"style="margin: 0;">
+                                            <!-- <i class="ti-search"style="font-weight: 900;"></i> -->
+                                            <input type="submit" name="btnSearch" value="Search" 
+                                            style="font-weight: bold;
+                                                font-size: 1.4rem;
+                                                color: var(--primary-color);
+                                                border: 0;
+                                                background-color: #fff;">
+                                            <input type="text" name="search"class="control_link-item--input">
+                                        </form>
+                                            
+                                    </div>
+                                    <a class="control_link-item" href="renderAccount.php">
+                                    
+                                        <i class="fas fa-reply" style="font-weight: 900;"></i>
+                                            Trở lại
                                     </a>
                                 </div>
-                                    <table class="table table-borderless">
-                                        <thead class="table-borderless-thead">
-                                        <tr>
-                                            <th class="table-borderless-th" >Check</th>
-                                            <th class="table-borderless-th" >Số điện thoại</th>
-                                            <th class="table-borderless-th" >Tên đăng nhập</th>
-                                            <th class="table-borderless-th" >Mật khẩu</th>
-                                            <th class="table-borderless-th" >Quyền</th>
-                                            <th class="table-borderless-th" >Thao tác</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                    
-                                        <?php
+
+                                <?php
+                        
+                                    if(isset($_REQUEST['btnSearch'])){
+                                        $search = addslashes($_GET['search']);
+                                        if($search==""){
+                                            echo "<p style='color:red';>Bạn chưa nhập từ khóa!!!</p>";
+                                            
+                                        }
+                                        else{
                                             require_once 'connect.php';
-                    
-                                            $render_sql= "SELECT * FROM `account` ";
-                                            $result=mysqli_query($conn,$render_sql);
-                                            while($r=mysqli_fetch_assoc($result)){
-                                                ?>
-                                                <tr class="table-borderless-tr">
-                                                    <td class="table-borderless-td">
-                                                        <input type="checkbox" name="checkbox">
-                                                    </td>
-                                                    <td class="table-borderless-td">
-                                                        <?php echo $r['sdt'];?>
-                                                    </td>
-                                                    <td class="table-borderless-td">
-                                                        <?php echo $r['ten_dn'];?>
-                                                    </td>
-                                                    <td class="table-borderless-td">
-                                                        <?php echo $r['mat_khau'];?>
-                                                    </td>
-                                                    <td class="table-borderless-td">
-                                                        <?php echo $r['quen'];?>
-                                                    </td>
-                                                    <td class="table-borderless-td" style="display:flex;justify-content: space-around;">
-                                                        <a href="editAccount.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a>
-                                                        <a onclick="return confirm('bạn có muốn xóa tài khoản này không')"
-                                                            href="removeAccount.php?sid=<?php echo $r['id'];?>" class="btn-danger">Xóa
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            <?php    
+                                            $query = "select * from account where ten_dn like '%$search%'";
+                                            $sql = mysqli_query($conn,$query);
+                                            $num = mysqli_num_rows($sql);
+
+                                            if($num<=0){
+                                                echo "<p style='color:red;'>Không có ket qua tra ve voi tu khoa <b>$search</b></p>";
                                             }
-                                        ?>
-                    
-                                        </tbody>
-                                    </table>    
+                                            
+                                            else if ($num > 0 && $search != "")
+                                            {
+                                                // Dùng $num để đếm số dòng trả về.
+                                                echo "<p style='color:var(--primary-color);'>$num ket qua tra ve voi tu khoa <b>$search</b></p>";
+                                                ?>
+                                                <table class="table table-borderless">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="table-borderless-th" >Check</th>
+                                                        <th class="table-borderless-th" >Email</th>
+                                                        <th class="table-borderless-th" >Tên đăng nhập</th>
+                                                        <th class="table-borderless-th" >Mật khẩu</th>
+                                                        <th class="table-borderless-th" >Quyền</th>
+                                                        <th class="table-borderless-th" >Thao tác</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <?php
+                                                            require_once 'connect.php';
+
+                                                            $query = "select * from account where ten_dn like '%$search%'";
+                                                            $sql = mysqli_query($conn,$query);
+                                                            while($r=mysqli_fetch_assoc($sql)){
+                                                                ?>
+                                                                <tr>
+                                                                    <td class="table-borderless-td">
+                                                                    <input type="checkbox" name="checkbox">
+                                                                    </td>
+                                                                    <td class="table-borderless-td">
+                                                                        <?php echo $r['email'];?>
+                                                                    </td>
+                                                                    <td class="table-borderless-td">
+                                                                        <?php echo $r['ten_dn'];?>
+                                                                    </td>
+                                                                    <td class="table-borderless-td">
+                                                                        <?php echo $r['mat_khau'];?>
+                                                                    </td>
+                                                                    <td class="table-borderless-td">
+                                                                        <?php echo $r['quen'];?>
+                                                                    </td>
+                                                                    <td class="table-borderless-td" style="display:flex;justify-content: space-around;">
+                                                                        <a href="editAccount.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a>
+                                                                        <a onclick="return confirm('bạn có muốn xóa tài khoản này không')"
+                                                                            href="removeAccount.php?sid=<?php echo $r['id'];?>" class="btn-danger">Xóa
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php    
+                                                            }
+                                                        ?>
+
+                                                    </tbody>
+                                                </table> 
+
+                                                <?php           
+                                                            
+                                            }           
+                                        }
+                                    }
+                                    else{
+                                        require_once 'contentAccount.php';
+                                    }
+                        
+                                ?>    
+                                
                             </div>
                            
                         </div>
