@@ -44,7 +44,7 @@
             $success = false;
                 if (isset($_GET['action'])) {
                     function update_cart($add = false) {
-                        // var_dump($add);exit;
+                        
                         foreach ($_POST['get'] as $id => $get) {
                             if ($get == 0) {
                                 unset($_SESSION["cart"][$id]);
@@ -57,15 +57,13 @@
                             }
                         }
                     }
-                   
-                switch ($_GET['action']) {
-                    case "add":
-                        // foreach ($_POST['get'] as $id => $get) {
-                        //     $_SESSION["cart"][$id] = $get;
-                        // }
-                        update_cart(true);
-                        header('Location: ./cart.php');
-                        break;
+                    
+                    switch ($_GET['action']) {
+                        case "add":
+                                update_cart(true);
+                                header('Location: ./cart.php');
+                                var_dump(($_SESSION["cart"][$id]));exit;
+                                break;
                     case "delete":
                         if(isset($_GET['id'])){
                             unset($_SESSION["cart"][$_GET['id']]);
@@ -77,53 +75,30 @@
                             update_cart();
                             header('Location: ./cart.php');
                         }
-                        else if(isset($_POST['order_click'])) { //Đặt hàng sản phẩm
-                            // function function_alert($message) {   
-                               
-                            //        echo "<script type ='text/JavaScript'>";  
-                            //        echo "alert('$message')";  
-                            //        echo "</script>";   
-                            //    }
-                            // if (empty($_POST['name'])) {
-                            //     function_alert(" Bạn chưa nhập tên  "); 
-                            // } else if (empty($_POST['email'])) {
-                            //     function_alert("Bạn chưa nhập email");
-                            // } else if (empty($_POST['phone'])) {
-                            //     function_alert("Bạn chưa nhập số điện thoại");
-                            // } else if (empty($_POST['date'])) {
-                            //     function_alert("Bạn chưa nhập ngày sinh");
-                            // }else if (empty($_POST['gioiTinh'])) {
-                            //     function_alert("Bạn chưa nhập giới tính");
-                            // }else if (empty($_POST['CCCD'])) {
-                            //     function_alert("Bạn chưa nhập ngày sinh");
-                            // }else if (empty($_POST['address'])) {
-                            //     function_alert("Bạn chưa nhập địa chỉ");
-                            // }else if (empty($_POST['quantity'])) {
-                            //     $error = "Giỏ hàng rỗng";
-                            // }
+                        else if(isset($_POST['order_click'])) { 
                             if ($error == false && !empty($_POST['get'])) { //Xử lý lưu giỏ hàng vào db
 
                             
                                 $products = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` IN (" . implode(",", array_keys($_POST['get'])) . ")");
                                 $total = 0;
                                 $orderProducts = array();
-                                while ($row = mysqli_fetch_array($products)) {
-                                    $orderProducts[] = $row;
-                                    $total += $row['gia_moi'] * $_POST['get'][$row['id']];
+                                while ($rowp = mysqli_fetch_array($products)) {
+                                    $orderProducts[] = $rowp;
+                                    $total += $rowp['gia_moi'] * $_POST['get'][$rowp['id']];
                                 }
-                                $accountID = $conn->insert_id;
-                                $insertOrder = mysqli_query($conn, "INSERT INTO `client` (`id`, `id_account`, `ten_kh`, `email`, `sdt`, `dia_chi`, `ngay_sinh`, `cccd`,`gioi_tinh`) 
-                                VALUES (NULL,'71', '" . $_POST['name'] . "', '', '" . $_POST['phone'] . "', '" . $_POST['address'] . "', '" . $_POST['date']. "', '" . $_POST['CCCD']. "', '" . $_POST['gender']."');");
+                               
+                                $insertOrder = mysqli_query($conn, "INSERT INTO `client` (`id`, `id_account`, `ghi_chu`, `tong_tien`, `created_time`, `last_updated`) 
+                                VALUES (NULL,'". $r['id'] ."',  '" . $_POST['note'] . "', '" . $total . "', '" . time() . "', '" . time() . "');");
                                 
                                 $clientID = $conn->insert_id;
                                 $insertString = "";
                                 foreach ($orderProducts as $key => $product) {
-                                    $insertString .= "(NULL, '" . $clientID . "', '" . $product['id'] . "', '" . $_POST['get'][$product['id']] . "', '" . $product['gia_moi'] . "','Đang chờ hàng')";
+                                    $insertString .= "(NULL, '" . $clientID . "', '" . $product['id'] . "','" . $product['gia_moi'] . "', '" . $_POST['get'][$product['id']] . "', 'Đang chờ hàng','" . time() . "', '" . time() . "')";
                                     if ($key != count($orderProducts) - 1) {
                                         $insertString .= ",";
                                     }
                                 }
-                                $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_client`, `id_product`, `so_luong`, `tong_tien`,`tinh_trang`) VALUES " . $insertString . ";");
+                                $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_client`, `id_product`, `gia_tien`, `so_luong`,`tinh_trang`,`created_time`, `last_updated`) VALUES " . $insertString . ";");
                                 $success = "Đặt hàng thành công";
                                 unset($_SESSION['cart']);
                             }
@@ -142,7 +117,6 @@
                 <div class="app_heading">
                     <h2> Danh sách sản phẩm đã thêm</h2>
                 </div>
-
                 <div class="grid wide">
                     
                         
@@ -151,16 +125,16 @@
                                     <thead>
                                         <tr>
                                             <th class="col-name">
-                                                Product Name
+                                                Thông tin sản phẩm
                                             </th>
                                             <th class="col-name">
-                                                Quantity
+                                                Số lượng mua
                                             </th>
                                             <th class="col-name">
-                                                Subtotal
+                                                Đơn giá
                                             </th>
-                                            <th class="col-name">Total</th>
-                                            <th class="col-name">Clear Cart</th>
+                                            <th class="col-name">Tổng đơn giá</th>
+                                            <th class="col-name">Xóa bỏ</th>
                                         </tr>
                                     </thead>
                                     <tbody class="list-items">
@@ -237,68 +211,38 @@
                                     <input class="btn-buy btn-buyCart" type="submit" name="update_click" value="Cập nhật" />
                                 </div>
 
-                                <!-- <section class="contact-form"> -->
+                                
                                     <h2 class="text-heading">Thông tin người mua</h2>
                                     
                                     <div class="grid wide">
-                                        <div class="row sm-gutter">
-                                            <div class="col l-6 c-6 m-6">
-        
-                                                <div class="block">
-                                                    <p class="text-inner">Họ và tên<span class="asterisk">*</span></p>
-                                                    
-                                                        <input type="text" name="name" placeholder=" Name" value="" class="name email input">
-                                                    
-                                                </div>
-                                                <div class="block">
-                                                    <p class="text-inner">Email<span class="asterisk">*</span></p>
-                                                    <input type="email" name="email" placeholder=" Email" value="" class="email input">
-                                                </div>
-                                                <div class="block">
-                                                    <p class="text-inner">Số điện thoại<span class="asterisk">*</span></p>
-                                                    <input type="number" name="phone" placeholder=" Số điện thoại" class="phone-number input"></input>
-                                                </div>
-                                                <div class="block">
-                                                    <p class="text-inner">Ngày sinh<span class="asterisk">*</span></p>
-                                                    <input type="date" name="date" class="phone-number input" style="color: #757575;"></input>
-                                                </div>
-                                            </div>
-                                            <div class="col l-6 c-6 m-6">
-                                                <div class="block">
-                                                    <p class="text-inner">Gioi tính<span class="asterisk">*</span></p>
-                                                    
-                                                    <select class="input" name="gender"class="form-control" id="exampleSelect2" required
-                                                    style="width: 100%;
-                                                        color: #757575;">
-                                                          <option>-- Chọn giới tính --</option>
-                                                          <option>Nam</option>
-                                                          <option>Nữ</option>
-                                                    </select>
-                                                               
-                                                </div>
-        
-                                                <div class="block">
-                                                    <p class="text-inner">CCCD<span class="asterisk">*</span></p>
-                                                    <input type="number" name="CCCD" class="phone-number input"></input>
-                                                </div>
-        
-                                                <div class="block">
-                                                    <p class="text-inner">Địa chỉ chi tiết<span class="asterisk">*</span></p>
-                                                    <input type="text" name="address" placeholder=" Số nhà..." class="address input"></input>
-                                                </div>
-                                            </div>
                                         
-        
-                                        </div>    
+                                            <div class="">
+                                                <p class="text-inner">Họ và tên: <?php echo $r['ten_dn']?></p>
+                                            </div>
+                                            
+                                            <div class="">
+                                                <p class="text-inner">Số điện thoại: <?php echo $r['sdt']?></p>
+                                            </div>
+                                            
+                                            <div class="">
+                                                <p class="text-inner">Địa chỉ chi tiết: <?php echo $r['dia_chi']?></p>
+                                            </div>
+                                          
+                                    </div>
+                                    <div>
+                                        <label>Ghi chú: </label>
+                                        <textarea name="note" cols="50" rows="7" ></textarea>
                                     </div>
                                     <div class="contact-footer">
-                                        <button class="btn-cancel"type="submit">Hủy</button>
+                                        <a href="account.php?id=<?php echo $r['id'];?>" style="color: #6fcef7;
+                                                                    font-size: 1.4rem;
+                                                                    text-decoration: none;">Thay đổi</a>
                                         <input class="btn-confirm" type="submit" name="order_click"value="Đặt hàng" />
                                     </div>
-                                <!-- </section> -->
+                                
                             </form>                                       
                        
-                    </div>
+                </div>
                 
             </div> 
         </div> 

@@ -8,7 +8,7 @@
         $pass=$_POST['pass'];
         if(isset($name) && isset($pass)){
 
-            $login="select *from account where ten_dn='$name' and mat_khau='$pass' and quen='Khách hàng'";
+            $login="select *from account where ten_dn='$name' and mat_khau='$pass' and quen='Khách hàng' ";
         
             $test= mysqli_query($conn,$login);
             if(mysqli_num_rows($test)>0){

@@ -2,7 +2,9 @@
     session_start();
     ob_start();
     require_once './admin/connect.php';
+    
 ?>
+
 <header class="header">
             <div class="grid wide">
                 <nav class="header__navbar hide-on-mobile-tablet">
@@ -42,42 +44,42 @@
                        </li>
                       
                        <?php
-                            if(isset($_SESSION['name'])){
-                                echo '<div class="header__navbar-item header__navbar-user" id="header__navbar-user">
-                                <img src="./image/client.jpg" alt="" class="header__navbar-user-img">
-                                <span class="header__navbar-user-name">'.$_SESSION['name'].' </span>
+                             
+                             if(isset($_SESSION['name'])){
+                                 $row=$_SESSION['name'];
+                                 $render_sql= "SELECT * FROM `account`where ten_dn='$row'";
+                                 $result=mysqli_query($conn,$render_sql);
+                                 $r=mysqli_fetch_assoc($result);
+                                
+                                echo '
+                                <div class="header__navbar-item header__navbar-user" id="header__navbar-user">
+                                    <img src="./image/client.jpg" alt="" class="header__navbar-user-img">
+                                    <span class="header__navbar-user-name">'.$_SESSION['name'].' </span>
          
-                                <div class="header__navbar-user-menu">
-                                       <div class="header__navbar-user-item">
-                                          <a href="./account.html">Tài khoản của tôi</a>
-                                       </div>
-         
-                                       <div class="header__navbar-user-item">
-                                         <a href="">Địa chỉ của tôi</a>
-                                      </div>
-         
-                                      <div class="header__navbar-user-item">
-                                         <a href="./bill.php">Đơn mua</a>
-                                      </div>
-         
-                                      <div class=" header__navbar-user-item header__navbar-user-item--separate">
-                                         <a href="./logout.php">Đăng xuất</a>
-                                      </div>
-                                </div>
-                            </div>';
+                                    <div class="header__navbar-user-menu">
+                                        <div class="header__navbar-user-item">
+                                            <a href="./account.php?id= '.$r['id'].'">Tài khoản của tôi</a>
+                                        </div>
+                                        <div class="header__navbar-user-item">
+                                            <a href="./bill.php">Đơn mua</a>
+                                        </div>
+            
+                                        <div class=" header__navbar-user-item header__navbar-user-item--separate">
+                                            <a href="./logout.php">Đăng xuất</a>
+                                        </div>
+                                    </div>
+                                </div>';
                             
                             }
                             else{
-
-                            
-                       ?>
-                        <li><a href="./registerClient.php" class="header__navbar-item header__navbar-item--strong header__navbar-item--separate btn-start--register">Đăng ký</a></li>
+                             ?>
+                                <li><a href="./registerClient.php" class="header__navbar-item header__navbar-item--strong header__navbar-item--separate btn-start--register">Đăng ký</a></li>
                        
-                        <li><a href="./loginClient.php" class="header__navbar-item header__navbar-item--strong btn-start--login">Đăng nhập</a></li>
-                        <?php
+                                <li><a href="./loginClient.php" class="header__navbar-item header__navbar-item--strong btn-start--login">Đăng nhập</a></li>
+                            <?php
                             }
-                        ?>
-                       
+                            ?>
+                      
                    </ul>
                 </nav>
            
