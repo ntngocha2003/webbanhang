@@ -12,9 +12,9 @@
         
         require_once 'connect.php';
 
-        $updateKh="UPDATE `client` set ten_kh='$tenKH',email='$email',sdt='$sdt',
-        dia_chi='$diaChi',ngay_sinh='$ngaySinh',cccd='$cccd',gioi_tinh='$gioiTinh'
-         Where id='$id' ";
+        $updateKh=" UPDATE `account` SET `sdt`='$sdt',
+        `ngay_sinh`='$ngaySinh',`gioi_tinh`='$gioiTinh',`dia_chi`='$diaChi',`quen`='Khách hàng' WHERE id='$id' ";
+        
 
         if(mysqli_query($conn,$updateKh)){
             echo "<h1>Sửa thành công</h1>";

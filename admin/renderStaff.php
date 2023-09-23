@@ -29,75 +29,17 @@
 <body>
     
     <div class="admin">
-        <header class="header header_admin">
-            <div class="grid wide">
-                <div class="content_header">
-
-                    <div class="header__logo header__logo-admin">
-                        <div href="#" class="header__logo-link">
-                            <i class="fas fa-heading header_logo-link--icon"></i>
-                            _Ngọc Hà
-                        </div>   
-                    </div>
-                    <div class="header_bar">
-                        <i class="fas fa-bars header_bar-icon"></i>
-                    </div>                                                     
-                    <div class="log-out">
-                        <a class="log-out-link" href="../home.html">
-                            <i class="fas fa-door-open"></i>
-                            <p class="out">Đăng xuất</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <?php
+            require 'header_admin.php';
+            ?> 
 
         <div class="admin_container">
             <div class="grid wide">
                 <div class="row">
                     
-                    <div class="colum-1 col l-3 m-0 c-0">
-                        <div class="admin_manager">
-                            <div class="admin_close">
-                                <i class="ti-close admin_close-icon"></i>
-                            </div>
-
-                            <div class="admin_account">
-                                <div class="admin_account-img">
-                                    <img class="img-admin" src="../image/chocon.jpg">
-                                </div>
-                                <div class="admin_account-info">
-                                    <h4 class="account-name">Hà Nguyễn</h4>
-                                </div>
-                            </div>
-                            <div class="line"></div>
-                            <div class="row sm-gutter admin_control">
-                                <ul class="list_contol">
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="#">Quản lý nhân viên</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderClient.php">Quản lý khách hàng</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderAccount.php">Quản lý tài khoản</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderCategory.php">Quản lý danh mục</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderProduct.php">Quản lý sản phẩm</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderOrder.php">Quản lý đơn hàng</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderRevenue.php">Quản lý doanh thu</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>  
+                <?php
+                        require 'admin_category.php';
+                   ?>   
                 
                     <div class="col l-9 m-12 c-12">
                         <div class="add_staff">
@@ -108,19 +50,8 @@
                                 </div>
                                 <div class="control_link">
 
-                                    <a class="control_link-item" href="addStaff.html">+ Thêm mới nhân viên</a>
-                                    <a class="control_link-item" href="#">
-                                        <i class="fas fa-file-import"></i>
-                                            Nhập file
-                                    </a>
-                                    <a class="control_link-item" href="#">
-                                        <i class="fas fa-download"></i>
-                                            Xuất file
-                                    </a>
-                                    <a class="control_link-item" href="#">
-                                        <i class="ti-trash" style="font-weight: 900;"></i>
-                                            Xóa hết
-                                    </a>
+                                    <a class="control_link-item" href="addStaff.php">+ Thêm mới nhân viên</a>
+                                    
                                     <a class="control_link-item" href="#" style="margin-right: 0;">
                                         <i class="ti-search"style="font-weight: 900;"></i>
                                             Tìm kiếm
@@ -130,7 +61,7 @@
                                     <table class="table table-borderless">
                                         <thead class="table-borderless-thead">
                                         <tr>
-                                            <th class="table-borderless-th" >Check</th>
+                                            <th class="table-borderless-th" >STT</th>
                                             <th class="table-borderless-th" >Mã nhân viên</th>
                                             <th class="table-borderless-th" >Tên nhân viên</th>
                                             <th class="table-borderless-th" >Ảnh</th>
@@ -148,14 +79,14 @@
                     
                                         <?php
                                             require_once 'connect.php';
-                    
+                                            $num=1;
                                             $render_sql= "SELECT * FROM `staff` ";
                                             $result=mysqli_query($conn,$render_sql);
                                             while($r=mysqli_fetch_assoc($result)){
                                                 ?>
                                                 <tr class="table-borderless-tr">
                                                     <td class="table-borderless-td">
-                                                        <input type="checkbox" name="checkbox">
+                                                        <?php echo $num++;?>
                                                     </td>
                                                     <td class="table-borderless-td">
                                                         <?php echo $r['ma_nv'];?>

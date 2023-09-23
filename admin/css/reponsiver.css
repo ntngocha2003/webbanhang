@@ -51,10 +51,7 @@
     .admin_manager {
         width: 250px;
     }
-    .table-borderless {
-        display: block;
-        overflow-x: auto;
-    }
+    
     .openTB{
         display: block !important;
     }
@@ -63,5 +60,19 @@
     }
     .admin{
         min-height: 1000px;
+    }
+}@media (max-width: 739px){
+
+    .table-borderless {
+        display: block;
+        overflow-x: auto;
+    }
+    .detail{
+        display: block;
+        min-width: 200px;
+    }
+    .reponsive{
+        display: block;
+        min-width: 100px;
     }
 }

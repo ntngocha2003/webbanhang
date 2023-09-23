@@ -3,12 +3,13 @@
 
     require_once 'connect.php';
 
-    $edit_sql="SELECT * FROM orders where id=$id";
+    $edit_sql="SELECT account.ten_dn,account.image, client_order.*
+    FROM account
+    INNER JOIN client_order ON account.id = client_order.id_account";
 
     $result=mysqli_query($conn,$edit_sql);
 
     $row= mysqli_fetch_assoc($result);
-
 ?>
 
 <!DOCTYPE html>
@@ -41,75 +42,17 @@
 </head>
 <body>
     <div class="admin">
-        <header class="header header_admin">
-            <div class="grid wide">
-                <div class="content_header">
-
-                    <div class="header__logo header__logo-admin hide-on-tablet">
-                        <div href="#" class="header__logo-link">
-                            <i class="fas fa-heading header_logo-link--icon"></i>
-                            _Ngọc Hà
-                        </div>                                                        
-                    </div>
-                    <div class="header_bar">
-                        <i class="fas fa-bars header_bar-icon"></i>
-                    </div>
-                    <div class="log-out">
-                        <a class="log-out-link" href="#">
-                            <i class="fas fa-door-open"></i>
-                            <p class="out">Đăng xuất</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
+    <?php
+                        require_once'header_admin.php';
+                   ?> 
 
         <div class="admin_container">
             <div class="grid wide">
                 <div class="row">
                     
-                    <div class="colum-1 col l-3 m-0 c-0">
-                        <div class="admin_manager">
-
-                            <div class="admin_account">
-                                <div class="admin_close">
-                                    <i class="ti-close admin_close-icon"></i>
-                                </div>
-                                <div class="admin_account-img">
-                                    <img class="img-admin" src="../image/chocon.jpg">
-                                </div>
-                                <div class="admin_account-info">
-                                    <h4 class="account-name">Hà Nguyễn</h4>
-                                </div>
-                            </div>
-                            <div class="line"></div>
-                            <div class="row sm-gutter admin_control">
-                                <ul class="list_contol">
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderStaff.php">Quản lý nhân viên</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderClient.php">Quản lý khách hàng</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderAccount.php">Quản lý tài khoản</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderCategory.php">Quản lý danh mục</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderProduct.php">Quản lý sản phẩm</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderOrder.php">Quản lý đơn hàng</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderRevenue.php">Quản lý doanh thu</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>  
+                <?php
+                        require_once'admin_category.php';
+                   ?>  
                 
                     <div class="col l-9 m-12 c-12">
                         <div class="add_staff">
@@ -125,27 +68,15 @@
                                         <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
 
-                                                <label for="tenSP">Tên sản phẩm</label>
-                                                <input type="text" class="form-control" name="tenSP"
-                                                    value="<?php echo $row['ten_sp']?>">
+                                                <label for="tenSP">Tên người nhận</label>
+                                                <p class="form-control" name="tenNN"><?php echo $row['ten_dn']?></p>
                                             </div>
                                         </div>
-                                        
-                                        <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="mota">Mô tả</label>
-                                                <input type="text" class="form-control" name="moTa"
-                                                value="<?php echo $row['mota']?>">
-                                            </div>
-                                        </div>
-
                                         <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
 
                                                 <label for="image">Ảnh 3 x 4</label>
-                                                <input type="file" class="form-control" name="image"
-                                                    value="<?php echo $row['image']?>">
+                                                <img class="form-control" src="./image/<?php echo $row['image']?>"style="width:40px;height:40px;">
                                             </div>
                                             
                                           </div>
@@ -153,35 +84,11 @@
                                           <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
 
-                                                <label for="giaMoi">Giá tiền</label>
-                                                <input type="number" class="form-control" name="giaMoi"
-                                                value="<?php echo $row['tong_tien']?>">
+                                                <label for="giaMoi">Tổng tiền</label>
+                                                <p class="form-control"><?php echo $row['tong_tien']?> đ</p>
+                                                
                                             </div>
                                           </div>
-                                          <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="soLuong">Số lượng</label>
-                                                <input type="number" class="form-control" name="soLuong"
-                                                value="<?php echo $row['so_luong']?>">
-                                            </div>
-                                          </div>
-                                          <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="maNV">Tên nhân viên</label>
-                                                <input type="text" class="form-control" name="tenNV"
-                                                    value="<?php echo $row['ten_nv']?>">
-                                            </div>
-                                        </div>
-                                        <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="tenKH">Tên khách hàng</label>
-                                                <input type="text" class="form-control" name="tenKH"
-                                                    value="<?php echo $row['ten_kh']?>">
-                                            </div>
-                                        </div>
                                           <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
 
@@ -199,9 +106,8 @@
                                           <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
 
-                                                <label for="diaChi">Địa chỉ</label>
-                                                <input type="text" class="form-control" name="diaChi"
-                                                    value="<?php echo $row['dia_chi']?>">
+                                                <label for="diaChi">Ghi chú</label>
+                                                <p class="form-control"><?php echo $row['ghi_chu']?></p>
                                             </div>
                                         </div>
                                           

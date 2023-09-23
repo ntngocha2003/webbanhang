@@ -29,16 +29,28 @@
                     <div class="col l-3 c-6">
                         <h3 class="footer__heading">Danh mục</h3>
                         <ul class="footer-list">
+                        
+                            
+                            <?php
+                        
+                                require_once './admin/connect.php';
 
-                            <li class="footer-item">
-                                <a href="" class="footer-item__link">Nam</a>                               
-                            </li>
-                            <li class="footer-item">
-                                <a href="" class="footer-item__link">Nữ</a>
-                            </li>
-                            <li class="footer-item">
-                                <a href="" class="footer-item__link">Trẻ em</a>
-                            </li>
+                                $sql="SELECT * FROM category where ten_dm !='Yêu thích'";
+
+                                $resultcategory=mysqli_query($conn,$sql);
+
+                                
+                                while($category=mysqli_fetch_assoc($resultcategory)){
+                                    
+                                    ?>
+                                        <li class="footer-item">
+                                            <a href="./load_product.php?id=<?php echo $category['id'];?>" class="footer-item__link" ><?php echo $category['ten_dm']?></a>
+                                        </li>
+                                    <?php
+                                }
+
+                                
+                            ?>
                         </ul>
                     </div>
 

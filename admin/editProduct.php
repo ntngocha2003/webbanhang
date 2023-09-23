@@ -11,6 +11,18 @@
 
 ?>
 
+<?php
+
+    require_once 'connect.php';
+
+    $category="SELECT * FROM category";
+
+    $result=mysqli_query($conn,$category);
+
+    $row_c= mysqli_fetch_assoc($result);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,76 +53,17 @@
 </head>
 <body>
     <div class="admin">
-        <header class="header header_admin">
-            <div class="grid wide">
-                <div class="content_header">
-
-                    <div class="header__logo header__logo-admin hide-on-tablet">
-                        <div href="#" class="header__logo-link">
-                            <i class="fas fa-heading header_logo-link--icon"></i>
-                            _Ngọc Hà
-                        </div>                                                        
-                    </div>
-                    <div class="header_bar">
-                        <i class="fas fa-bars header_bar-icon"></i>
-                    </div>
-                    <div class="log-out">
-                        <a class="log-out-link" href="#">
-                            <i class="fas fa-door-open"></i>
-                            <p class="out">Đăng xuất</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
+    <?php
+                        require_once'header_admin.php';
+                   ?> 
 
         <div class="admin_container">
             <div class="grid wide">
                 <div class="row">
                     
-                    <div class="colum-1 col l-3 m-0 c-0">
-                        <div class="admin_manager">
-
-                            <div class="admin_account">
-                                <div class="admin_close">
-                                    <i class="ti-close admin_close-icon"></i>
-                                </div>
-                                <div class="admin_account-img">
-                                    <img class="img-admin" src="../image/chocon.jpg">
-                                </div>
-
-                                <div class="admin_account-info">
-                                    <h4 class="account-name">Hà Nguyễn</h4>
-                                </div>
-                            </div>
-                            <div class="line"></div>
-                            <div class="row sm-gutter admin_control">
-                                <ul class="list_contol">
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderStaff.php">Quản lý nhân viên</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderClient.php">Quản lý khách hàng</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderAccount.php">Quản lý tài khoản</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderCategory.php">Quản lý danh mục</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderProduct.php">Quản lý sản phẩm</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderOrder.php">Quản lý đơn hàng</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderRevenue.php">Quản lý doanh thu</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>  
+                <?php
+                        require_once'admin_category.php';
+                   ?> 
                 
                     <div class="col l-9 m-12 c-12">
                         <div class="add_staff">
@@ -208,13 +161,24 @@
 
                                                 <label class="control-label">Danh mục</label>
                                                 <select name="danhMuc"class="form-control" id="exampleSelect2" required
-                                                value="<?php echo $row['ten_dm']?>">
-                                                  <option>-- Chọn danh mục --</option>
-                                                  <option>Nam</option>
-                                                  <option>Nữ</option>
-                                                  <option>Trẻ em</option>
-                                                  <option>Yêu thích</option>
-                                                </select>
+                                                >
+                                                <?php
+
+                                                    require_once 'connect.php';
+
+                                                    $category="SELECT * FROM category";
+
+                                                    $result=mysqli_query($conn,$category);
+
+                                                    $row_c= mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                                   
+                                                    foreach ($row_c as $row_category) {
+                                                        ?>
+                                                            <option value="<?php echo $row_category['id']?>"><?php echo $row_category['ten_dm']?></option> 
+                                                            <?php
+                                                    }
+                                                    ?>
+                                                    </select>
                                             </div>
                                           </div>
                                           

@@ -8,8 +8,6 @@
     
     $sql= mysqli_fetch_assoc($result);
     
-    
-
 ?>
 
 <!DOCTYPE html>
@@ -107,7 +105,7 @@
                                                     <div class="ad-user">
                                                         <div>
                                                             <i class="fas fa-phone-alt icon"></i> 
-                                                            <input  name="phone" value="<?php echo $sql['sdt'] ?>" style="color: #bbb;"
+                                                            <input type="number" name="phone" value="<?php echo $sql['sdt'] ?>" style="color: #bbb;"
                                                             />
                                                         </div>
                                                     </div>

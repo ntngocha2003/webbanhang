@@ -37,9 +37,7 @@
                                     <p>Chào mừng bạn đến với NgọcHà_Shop</p>
     
                                 </div>
-                                <footer class="header__notify-footer">
-                                    <a href="" class="header__notify-footer-btn">Xem tất cả</a>
-                                </footer>
+                                
                             </div>
                        </li>
                       
@@ -61,7 +59,7 @@
                                             <a href="./account.php?id= '.$r['id'].'">Tài khoản của tôi</a>
                                         </div>
                                         <div class="header__navbar-user-item">
-                                            <a href="./bill.php">Đơn mua</a>
+                                            <a href="./bill.php?id='.$r['id'].'">Đơn mua</a>
                                         </div>
             
                                         <div class=" header__navbar-user-item header__navbar-user-item--separate">
@@ -89,7 +87,7 @@
                         <i class="header__mobile-search-icon fas fa-search"></i>
                     </label>
                     <div class="header__logo hide-on-tablet hide-on-mobile">
-                        <a href="home.php"class="header__logo-link">
+                        <a href="./home.php"class="header__logo-link">
                             <i class="fas fa-heading header_logo-link--icon"></i>
                             _Ngọc Hà
                         </a>                                                        
@@ -129,7 +127,7 @@
                                     if(isset($_SESSION["cart"]) && isset($_SESSION['name'])){
                                         echo '<span class="header__cart-notice">'. count($_SESSION['cart']) .'</span>';
                                     }
-                                    else{
+                                    else if(!(isset($_SESSION["cart"]))){
                                         ?>
                                         <span class="header__cart-notice">0</span>;
                                     <?php
@@ -188,7 +186,25 @@
                                                 }
                                             }
                                         ?>
-                                    <a href="./cart.php" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>;
+                                    <?php
+                                        if(isset($_SESSION['name'])){
+                                            ?>
+                                            <a href="./cart.php" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>;
+                                            <?php
+                                        }
+                                        else{
+                                            ?>
+                                            <h2 style="margin: 20px 0;
+                                                                color: #FFCC00;">
+                                                                <i class="fas fa-exclamation-circle"></i>
+                                                                Bạn cần thực hiện đăng ký hoặc đăng nhập tài khoản để mua hàng
+                                                                <h2>
+                                                    <a href="./registerClient.php" class="btn" style="background-color:#ccc; margin-right: 20px;">Đăng ký</a>
+                       
+                                                    <a href="./loginClient.php" class="btn btn--primary btn-login">Đăng nhập</a>
+                                            <?php
+                                        }
+                                    ?>
                             
                             </div>
                         </div>                           
@@ -198,18 +214,27 @@
 
                 <div class="footer_header">
                     <ul class="header__navbar-list">
+                    <?php
+                        
+                        require_once './admin/connect.php';
 
-                        <li class="header__navbar-item">
-                            <a href="./qanam.php" class="header__navbar-icon-link" >Nam</a>
-                         </li>
-    
-                         <li class="header__navbar-item">
-                            <a href="./qanu.php" class="header__navbar-icon-link" >Nữ</a>
-                        </li>
-    
-                        <li class="header__navbar-item">
-                            <a href="./qatem.php" class="header__navbar-icon-link" >Trẻ em</a>
-                        </li>
+                        $sql="SELECT * FROM category where ten_dm !='Yêu thích'";
+
+                        $resultcategory=mysqli_query($conn,$sql);
+
+                        
+                        while($category=mysqli_fetch_assoc($resultcategory)){
+                            
+                            ?>
+                                <li class="header__navbar-item">
+                                    <a href="./load_product.php?id=<?php echo $category['id'];?>" class="header__navbar-icon-link" ><?php echo $category['ten_dm']?></a>
+                                </li>
+                            <?php
+                        }
+
+                        
+                    ?>
+
                     </ul>
                 </div>
             </div>

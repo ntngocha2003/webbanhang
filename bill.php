@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,9 +46,9 @@
                                 <div class="col l-4 m-4 c-4">
                                     <h3 class="info-heading">Địa chỉ người nhận</h3>
                                     <div class="address-user">
-                                        <p><?php echo $r['ten_dn']?></p>
-                                        <p><?php echo $r['dia_chi']?></p>
-                                        <p><?php echo $r['sdt']?></p>
+                                        <p>Tên: <?php echo $r['ten_dn']?></p>
+                                        <p>Địa chỉ: <?php echo $r['dia_chi']?></p>
+                                        <p>SĐT: <?php echo $r['sdt']?></p>
                                     </div>
                                 </div>
 
@@ -77,45 +78,68 @@
                     <table style="margin-top: 20px;">
                         <thead>
                             <tr>
+                                <th class="col-name">STT</th>
                                 <th class="col-name">Chi tiết</th>
-                                <th class="col-name">Khách hàng</th>
-                                <th class="col-name">Ngày đặt</th>
-                                <th class="col-name">Số lượng sản phẩm</th>
+                                <th class="col-name">Tên người nhận</th>
                                 <th class="col-name">Tổng tiền</th>
-                                <th class="col-name">Hủy bỏ</th>
+                                <th class="col-name">Ngày đặt</th>
+                                <th class="col-name">Tình trạng</th>
+                                <!-- <th class="col-name">Hủy bỏ</th> -->
                             </tr>
                         </thead>
                         <tbody>
+                        <?php
+                        require_once './admin/connect.php';
+                        $id_acc=$_GET['id'];
+                        $num = 1;
+                        $bill="SELECT account.ten_dn, client_order.*
+                        FROM account
+                        INNER JOIN client_order ON account.id = client_order.id_account
+                        WHERE account.id ='$id_acc' ";
+                        $result=mysqli_query($conn,$bill); 
+                        $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                        ?>
+                        <?php
+                    
+                        foreach ($sql as $row) {
+                            $id_bill=($row['id']);
+                            $bill_detail="SELECT  client_order.*, orders.*, product.mota,product.image, product.ten_sp
+                            FROM client_order
+                            INNER JOIN orders ON client_order.id = orders.id_client
+                            INNER JOIN product ON product.id = orders.id_product
+                            WHERE client_order.id ='$id_bill'";
+                            $result1=mysqli_query($conn,$bill_detail);
+                            $sql1 = mysqli_fetch_all($result1, MYSQLI_ASSOC);
+                            ?>
                             <tr class="item-row">
-                                <td class="code">
-                                        <a href=""class="code-link">Details</a>
-                                    
-                                </td>
-                                <td class="customer-name">
-                                    
-                                        <p><?php echo $r['ten_dn']?></p>
-                                    
-                                </td>
-                                <td class="date">
-                                    11/08/2023
-                                </td>
+                            <td class="stt">
+                                <?php echo $num++; ?>
                                 
-                                <td class="total-quantity">
-                                    1
+                            </td>
+                            <td class="code">
+                                <a href="order_detail-user.php?id=<?=$row['id']?>"class="code-link">Chi tiết</a>
                                 </td>
-
-                                <td class="total-prices">
-                                    117.000đ
-                                </td>
-                                <td class="return">
-                                    <button class="btn-return">
-
-                                        <i class="ti-reload "></i>
-                                    </button>
-                                </td>
-
-
-                            </tr>
+                            <td class="customer-name">
+                                
+                                <p><?php echo $row['ten_dn']?></p>
+                                
+                            </td>
+                            <td class="total-prices">
+                                <?php echo $row['tong_tien']?>đ
+                            </td>
+                            <td class="date">
+                                <?=date('d/m/Y', $row['created_time'])?>
+                            </td>
+                            <td class="total-prices">
+                                <?php echo $row['tinh_trang']?>
+                            </td>
+                            
+                        </tr>
+                            <?php
+                            
+                        }
+                        ?>
+                            
                         </tbody>
                     </table>
             
@@ -137,10 +161,6 @@
             require_once 'footer.php';
         ?>
     </div>
-
-
-<script src="./js/localStorange.js"></script>
-<script src="./js/bill.js"></script>
 
 </body>
 

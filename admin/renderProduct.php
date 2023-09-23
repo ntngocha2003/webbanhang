@@ -1,3 +1,55 @@
+<?php
+    session_start();
+    ob_start();
+    require_once 'connect.php';
+        if(!empty($_GET['action']) && $_GET['action'] == 'search' && !empty($_POST)){
+            $_SESSION['product_filter'] = $_POST;
+            // var_dump($_SESSION['product_filter']);exit;
+            header('Location: renderProduct.php');
+        }
+        if(!empty($_GET['action']) && $_GET['action'] == 'return' && !empty($_POST)){
+            unset($_SESSION['product_filter']);
+            header('Location: renderProduct.php');
+        }
+        
+        if(!empty($_SESSION['product_filter'])){
+            $where = "";
+            foreach ($_SESSION['product_filter'] as $field => $value) {
+                
+                if(!empty($field)){
+                    switch ($field) {
+                        case 'ten_sp':
+                            $where .= (!empty($where))?" AND ". "`".$field."` LIKE '%".$value."%'" : "`".$field."` LIKE '%".$value."%'";
+                            break;
+                            
+                        }
+                    }
+                }
+                extract($_SESSION['product_filter']);
+            }
+            $item_per_page = (!empty($_GET['per_page'])) ? $_GET['per_page'] : 4;
+            $current_page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
+            // var_dump($current_page);
+            $offset = ($current_page - 1) * $item_per_page;
+            if(!empty($where)){
+                $totalRecords = mysqli_query($conn, "SELECT * FROM `product` where (".$where.")");
+                // var_dump($where);exit;
+        }else{
+            $totalRecords = mysqli_query($conn, "SELECT * FROM `product`");
+        }
+        $totalRecords = $totalRecords->num_rows;
+        $totalPages = ceil($totalRecords / $item_per_page);
+        if(!empty($where)){
+            $products = mysqli_query($conn, "SELECT * FROM `product` where (".$where.") ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
+        }else{
+            
+            $products = mysqli_query($conn, "SELECT * FROM `product` ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
+            // var_dump($products);exit;
+        }
+        
+        mysqli_close($conn);
+    ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,75 +83,17 @@
 </head>
 <body>
     <div class="admin">
-        <header class="header header_admin">
-            <div class="grid wide">
-                <div class="content_header">
-
-                    <div class="header__logo header__logo-admin hide-on-tablet">
-                        <div href="#" class="header__logo-link">
-                            <i class="fas fa-heading header_logo-link--icon"></i>
-                            _Ngọc Hà
-                        </div>                                                        
-                    </div>
-                    <div class="header_bar">
-                        <i class="fas fa-bars header_bar-icon"></i>
-                    </div>
-                    <div class="log-out">
-                        <a class="log-out-link" href="../home.html">
-                            <i class="fas fa-door-open"></i>
-                            <p class="out">Đăng xuất</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <?php
+            require 'header_admin.php';
+            ?> 
 
         <div class="admin_container">
             <div class="grid wide">
                 <div class="row">
                     
-                    <div class="colum-1 col l-3 m-0 c-0">
-                        <div class="admin_manager">
-
-                            <div class="admin_account">
-                                <div class="admin_close">
-                                    <i class="ti-close admin_close-icon"></i>
-                                </div>
-                                <div class="admin_account-img">
-                                    <img class="img-admin" src="../image/chocon.jpg">
-                                </div>
-                                <div class="admin_account-info">
-                                    <h4 class="account-name">Hà Nguyễn</h4>
-                                </div>
-                            </div>
-                            <div class="line"></div>
-                            <div class="row sm-gutter admin_control">
-                                <ul class="list_contol">
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderStaff.php">Quản lý nhân viên</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderClient.php">Quản lý khách hàng</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderAccount.php">Quản lý tài khoản</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderCategory.php">Quản lý danh mục</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="#">Quản lý sản phẩm</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderOrder.php">Quản lý đơn hàng</a>
-                                    </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderRevenue.php">Quản lý doanh thu</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>  
+                    <?php
+                        require 'admin_category.php';
+                   ?>
                 
                     <div class="col l-9 m-12 c-12">
                         <div class="add_staff">
@@ -110,29 +104,41 @@
                                 </div>
                                 <div class="control_link">
 
-                                    <a class="control_link-item" href="addProduct.html">+ Thêm mới sản phẩm</a>
+                                    <a class="control_link-item" href="addProduct.php">+ Thêm mới sản phẩm</a>
                                     <a class="control_link-item" href="#">
                                         <i class="fas fa-file-import"></i>
                                             Nhập file
                                     </a>
-                                    <a class="control_link-item" href="#">
-                                        <i class="fas fa-download"></i>
-                                            Xuất file
-                                    </a>
-                                    <a class="control_link-item" href="#">
-                                        <i class="ti-trash" style="font-weight: 900;"></i>
-                                            Xóa hết
-                                    </a>
-                                    <a class="control_link-item" href="#" style="margin-right: 0;">
-                                        <i class="ti-search"style="font-weight: 900;"></i>
-                                            Tìm kiếm
-                                            <input type="text" class="control_link-item--input" name="input">
-                                    </a>
+                                    
+                                    <form class="control_link-item" style="margin-right: 0;"action="renderProduct.php?action=search" method="POST">
+                                        <!-- <i class="ti-search"style="font-weight: 900;"></i> -->
+                                        <input type="submit" name="btnSearch" value="Tìm kiếm" 
+                                            style="font-weight: bold;
+                                                font-size: 1.4rem;
+                                                color: var(--primary-color);
+                                                border: 0;
+                                                background-color: #fff;
+                                                cursor: pointer;">
+                                            
+                                        <input type="text" class="control_link-item--input" name="ten_sp"value="<?=!empty($name)?$name:""?>">
+                                    </form>
+                                    <form class="control_link-item" style="margin-right: 0;"action="renderProduct.php?action=return" method="POST">
+                                        <!-- <i class="ti-search"style="font-weight: 900;"></i> -->
+                                        <input type="submit" name="btnSearch" value="Trở lại" 
+                                            style="font-weight: bold;
+                                                font-size: 1.4rem;
+                                                color: var(--primary-color);
+                                                border: 0;
+                                                background-color: #fff;
+                                                cursor: pointer;">
+                                            
+                                    </form>
+                                    
                                 </div>
                                     <table class="table table-borderless">
                                         <thead class="table-borderless-thead">
                                         <tr>
-                                            <th class="table-borderless-th" >Check</th>
+                                            <th class="table-borderless-th" >STT</th>
                                             <th class="table-borderless-th" >Mã sản phẩm</th>
                                             <th class="table-borderless-th" >Tên sản phẩm</th>
                                             <th class="table-borderless-th" >Mô tả</th>
@@ -150,14 +156,13 @@
                     
                                         <?php
                                             require_once 'connect.php';
-                    
-                                            $render_sql= "SELECT * FROM `product` ";
-                                            $result=mysqli_query($conn,$render_sql);
-                                            while($r=mysqli_fetch_assoc($result)){
+                                            $num=1;
+                                            
+                                            while ($r = mysqli_fetch_array($products)){
                                                 ?>
                                                 <tr class="table-borderless-tr">
-                                                    <!-- <td class="table-borderless-td">
-                                                        <input type="checkbox" name="checkbox">
+                                                    <td class="table-borderless-td">
+                                                        <?php echo $num++;?>
                                                     </td>
                                                     <td class="table-borderless-td">
                                                         <?php echo $r['ma_sp'];?>
@@ -166,7 +171,10 @@
                                                         <?php echo $r['ten_sp'];?>
                                                     </td>
                                                     <td class="table-borderless-td">
-                                                        <?php echo $r['mota'];?>
+                                                        <div class="detail">
+
+                                                            <?php echo $r['mota'];?>
+                                                        </div>
                                                     </td>
                                                     <td class="table-borderless-td">
                                                         <img class="table-borderless-td--img" src="./image/<?php echo $r['image']?>">
@@ -190,7 +198,7 @@
                                                     </td>
                                                     <td class="table-borderless-td">
                                                         <?php echo $r['ten_dm'];?>
-                                                    </td> -->
+                                                    </td>
                                                     <td class="table-borderless-td" style="display:flex;justify-content: space-around;">
                                                         <a href="editProduct.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a>
                                                         <a onclick="return confirm('bạn có muốn xóa sản phẩm này không')"
@@ -204,22 +212,26 @@
                     
                                         </tbody>
                                     </table>    
-                                
-                                    <div class="container_pagination" style="margin-top: 10px;
-                                                display: flex;
-                                                justify-content: space-between;"
-                                    >
-                                  
-                                        <ul class="pagination">
-                                            <li class="page-item "><a class="page-link"  id="prev" href="#">Trước</a></li>
-                                            <li class="page-item active"><a class="page-link page-link-number" id="curent" href="#">1</a></li>
-                                            
-                                            <li class="page-item"><a class="page-link "id="next" href="#">Sau</a></li>
-                                        </ul>
-                
-                                        <div class="totalRecords" style="color: var(--primary-color);">
-                                            
-                                        <div>
+                                    <?php
+                                    include '../pagination.php';
+                                    ?>
+                                    
+                                    <div class="totalRecords"style="color: var(--primary-color);
+                                                                            text-align: end;
+                                                                            ">
+                                        <?php
+                                            if(isset($_SESSION['product_filter'])){
+                                                ?>
+                                                    <strong><?=$totalRecords?> <span>kết quả trả về cho từ khóa </span><?=$value?> trên <span><?=$totalPages?></span> trang</strong>
+                                                <?php
+                                            }
+                                            else {
+                                                ?>
+                                                <span>Có tất cả <strong><?=$totalRecords?></strong> sản phẩm trên <strong><?=$totalPages?></strong> trang</span>
+                                                <?php
+                                            }
+                                        ?>
+                                        
                                     </div>
 
                            
@@ -232,6 +244,5 @@
 
     </div>
     <script src="./js/main.js"></script>
-    <script src="./js/getProduct.js"></script>
 </body>
 </html>

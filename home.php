@@ -121,7 +121,7 @@
 
                                                     <?php
                                                         require_once './admin/connect.php';
-
+                                                        
                                                         $query = "select * from product where ten_sp like '%$search%'";
                                                         $sql = mysqli_query($conn,$query);
                                                         while($r=mysqli_fetch_assoc($sql)){
@@ -149,7 +149,7 @@
                                                                             <span>Yêu thích</span>
                                                                         </div>
                                                                         <div class="home-product-item__sale-off">
-                                                                            <span class="home-product-item__sale-off-percent"> <?php echo $r['sale'];?></span>
+                                                                            <span class="home-product-item__sale-off-percent"> <?php echo $r['sale'];?>%</span>
                                                                             <span class="home-product-item__sale-off-label">GIẢM</span>
                                                                         </div>
                                                                     </a>

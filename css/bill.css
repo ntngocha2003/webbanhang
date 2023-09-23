@@ -3,10 +3,24 @@
     text-decoration: revert;
     display: none;
 }
-.code,.date,.total-quantity,.total-prices,.customer-name,.items-number,.return{
+.code-link:hover .bill_detail{
+    display: flex;
+    cursor: pointer;
+}
+.bill_detail{
+    background-color: var(--white-color);
+    width: 400px;
+    border-radius: 2px;
+    box-shadow: 0 1px 3.125rem 0 rgba(0, 0, 0, 0.2);
+    display: none;
+    animation: fadeIn ease-in .3s;
+    cursor: default;
+    z-index: 3;
+    padding-top: 10px; 
+}
+.stt,.code,.date,.total-quantity,.total-prices,.customer-name,.items-number,.return{
     font-size: 1.3rem;
 }
-
 .code-link{
     color: #3c8bd2f5;
     text-decoration: none;

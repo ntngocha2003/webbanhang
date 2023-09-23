@@ -236,9 +236,6 @@ td {
     padding: 10px;
 }
 
-td:first-child {
-    min-width: 400px;
-}
 
 td:nth-child(n+2) {
     text-align: center;

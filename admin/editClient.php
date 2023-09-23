@@ -3,7 +3,7 @@
 
     require_once 'connect.php';
 
-    $edit_sql="SELECT * FROM client where id=$id";
+    $edit_sql="SELECT * FROM account where id=$id";
 
     $result=mysqli_query($conn,$edit_sql);
 
@@ -125,7 +125,7 @@
 
                                                 <label for="tenKH">Tên khách hàng</label>
                                                 <input type="text" class="form-control" name="tenKH"
-                                                    value="<?php echo $row['ten_kh']?>">
+                                                    value="<?php echo $row['ten_dn']?>">
                                             </div>
                                         </div>
                                           <div class="form-group l-6 c-6 m-6 col">
@@ -160,14 +160,7 @@
                                                     value="<?php echo $row['ngay_sinh']?>">
                                             </div>
                                           </div>
-                                          <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="cccd">CCCD</label>
-                                                <input type="number" class="form-control" name="cccd"
-                                                    value="<?php echo $row['cccd']?>">
-                                            </div>
-                                          </div>
+                                          
                                           <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
 

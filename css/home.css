@@ -670,7 +670,6 @@ i.home-product-item__like-icon-fill {
 .home-product-item__sold {
     font-size: 1.2rem; 
     color:var(--primary-color);
-    margin-left: 6px;
 }
 
 .home-product-item__origin {

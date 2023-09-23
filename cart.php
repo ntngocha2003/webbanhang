@@ -76,32 +76,33 @@
                             header('Location: ./cart.php');
                         }
                         else if(isset($_POST['order_click'])) { 
-                            if ($error == false && !empty($_POST['get'])) { //Xử lý lưu giỏ hàng vào db
+                            if (!empty($_POST['get'])) { //Xử lý lưu giỏ hàng vào db
 
                             
                                 $products = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` IN (" . implode(",", array_keys($_POST['get'])) . ")");
+                                
                                 $total = 0;
                                 $orderProducts = array();
                                 while ($rowp = mysqli_fetch_array($products)) {
                                     $orderProducts[] = $rowp;
                                     $total += $rowp['gia_moi'] * $_POST['get'][$rowp['id']];
                                 }
+                                    $insertOrder = mysqli_query($conn, "INSERT INTO `client_order` (`id`, `id_account`, `ghi_chu`, `tong_tien`,`tinh_trang`, `created_time`, `last_updated`) 
+                                    VALUES (NULL,'". $r['id'] ."', '" . $_POST['note'] . "', '" . $total . "','Đang chờ hàng', '" . time() . "', '" . time() . "');");
                                
-                                $insertOrder = mysqli_query($conn, "INSERT INTO `client` (`id`, `id_account`, `ghi_chu`, `tong_tien`, `created_time`, `last_updated`) 
-                                VALUES (NULL,'". $r['id'] ."',  '" . $_POST['note'] . "', '" . $total . "', '" . time() . "', '" . time() . "');");
-                                
                                 $clientID = $conn->insert_id;
                                 $insertString = "";
                                 foreach ($orderProducts as $key => $product) {
-                                    $insertString .= "(NULL, '" . $clientID . "', '" . $product['id'] . "','" . $product['gia_moi'] . "', '" . $_POST['get'][$product['id']] . "', 'Đang chờ hàng','" . time() . "', '" . time() . "')";
+                                    $insertString .= "(NULL, '" . $clientID . "', '" . $product['id'] . "','" . $product['gia_moi'] . "', '" . $_POST['get'][$product['id']] . "', '" . time() . "', '" . time() . "')";
                                     if ($key != count($orderProducts) - 1) {
                                         $insertString .= ",";
                                     }
                                 }
-                                $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_client`, `id_product`, `gia_tien`, `so_luong`,`tinh_trang`,`created_time`, `last_updated`) VALUES " . $insertString . ";");
+                                $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_client`, `id_product`, `gia_tien`, `so_luong`,`created_time`, `last_updated`) VALUES " . $insertString . ";");
                                 $success = "Đặt hàng thành công";
                                 unset($_SESSION['cart']);
                             }
+                            header('Location: ./cart.php');
                         } 
                         break;   
                 }
@@ -230,8 +231,8 @@
                                           
                                     </div>
                                     <div>
-                                        <label>Ghi chú: </label>
-                                        <textarea name="note" cols="50" rows="7" ></textarea>
+                                        <label class="text-inner">Ghi chú: </label>
+                                        <textarea class="text-inner" name="note" cols="50" rows="7" ></textarea>
                                     </div>
                                     <div class="contact-footer">
                                         <a href="account.php?id=<?php echo $r['id'];?>" style="color: #6fcef7;
