@@ -11,9 +11,10 @@
                                            
                                             require_once './admin/connect.php';
 
-                                            $query = "select * from product where ten_dm='29'";
-                                            $sql = mysqli_query($conn,$query);
-
+                                            $sql = mysqli_query($conn, "SELECT category.ten_dm, product.*
+                                            FROM category
+                                            INNER JOIN product ON category.id = product.id_dm
+                                            WHERE ten_dm='Yêu thích'");
                                             
                                             while($r=mysqli_fetch_assoc($sql)){
                                         ?>

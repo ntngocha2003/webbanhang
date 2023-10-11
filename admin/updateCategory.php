@@ -4,7 +4,7 @@
      $id=$_POST['sid'];
          require_once 'connect.php';
 
-        $updateDM="UPDATE `category` set ma_dm='$maDM',ten_dm='$tenDM'Where id='$id' ";
+        $updateDM="UPDATE `category` set ten_dm='$tenDM'Where id='$id' ";
 
         if(mysqli_query($conn,$updateDM)){
             echo "<h1>Sửa thành công</h1>";

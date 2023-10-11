@@ -17,6 +17,7 @@
             foreach ($_SESSION['product_filter'] as $field => $value) {
                 
                 if(!empty($field)){
+                
                     switch ($field) {
                         case 'ten_sp':
                             $where .= (!empty($where))?" AND ". "`".$field."` LIKE '%".$value."%'" : "`".$field."` LIKE '%".$value."%'";
@@ -40,10 +41,15 @@
         $totalRecords = $totalRecords->num_rows;
         $totalPages = ceil($totalRecords / $item_per_page);
         if(!empty($where)){
-            $products = mysqli_query($conn, "SELECT * FROM `product` where (".$where.") ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
+            $products = mysqli_query($conn, "SELECT category.ten_dm, product.*
+                                            FROM category
+                                            INNER JOIN product ON category.id = product.id_dm
+                                            where (".$where.") ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
         }else{
             
-            $products = mysqli_query($conn, "SELECT * FROM `product` ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
+            $products = mysqli_query($conn, "SELECT category.ten_dm, product.*
+            FROM category
+            INNER JOIN product ON category.id = product.id_dm ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
             // var_dump($products);exit;
         }
         
@@ -105,10 +111,6 @@
                                 <div class="control_link">
 
                                     <a class="control_link-item" href="addProduct.php">+ Thêm mới sản phẩm</a>
-                                    <a class="control_link-item" href="#">
-                                        <i class="fas fa-file-import"></i>
-                                            Nhập file
-                                    </a>
                                     
                                     <form class="control_link-item" style="margin-right: 0;"action="renderProduct.php?action=search" method="POST">
                                         <!-- <i class="ti-search"style="font-weight: 900;"></i> -->
@@ -139,7 +141,6 @@
                                         <thead class="table-borderless-thead">
                                         <tr>
                                             <th class="table-borderless-th" >STT</th>
-                                            <th class="table-borderless-th" >Mã sản phẩm</th>
                                             <th class="table-borderless-th" >Tên sản phẩm</th>
                                             <th class="table-borderless-th" >Mô tả</th>
                                             <th class="table-borderless-th" >Ảnh</th>
@@ -164,9 +165,7 @@
                                                     <td class="table-borderless-td">
                                                         <?php echo $num++;?>
                                                     </td>
-                                                    <td class="table-borderless-td">
-                                                        <?php echo $r['ma_sp'];?>
-                                                    </td>
+                                                   
                                                     <td class="table-borderless-td">
                                                         <?php echo $r['ten_sp'];?>
                                                     </td>

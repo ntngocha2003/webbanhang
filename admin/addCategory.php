@@ -1,11 +1,10 @@
 <?php
     if(isset($_POST['addC'])){
-        $maDM=$_POST['maDM'];
         $tenDM=$_POST['tenDM'];
         require_once 'connect.php';
 
-        $addDm="INSERT INTO `category`(`id`, `ma_dm`, `ten_dm`) 
-        VALUES (null,'$maDM','$tenDM')";
+        $addDm="INSERT INTO `category`(`id`,  `ten_dm`) 
+        VALUES (null,'$tenDM')";
 
         if(mysqli_query($conn,$addDm)){
             echo "<h1>Thêm thành công</h1>";
@@ -43,7 +42,7 @@
 <body>
     <div class="admin">
     <?php
-                        require_once'header_admin.php';
+                        require 'header_admin.php';
                    ?> 
 
         <div class="admin_container">
@@ -51,7 +50,7 @@
                 <div class="row">
                     
                     <?php
-                        require_once'admin_category.php';
+                        require 'admin_category.php';
                    ?>   
                 
                     <div class="col l-9 m-12 c-12">
@@ -64,14 +63,7 @@
                                 <form action="./addCategory.php" method="post" enctype="multipart/form-data">
                                     <div class="block row">
 
-                                        <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="maDM">Mã danh mục</label>
-                                                <input type="text" class="form-control" name="maDM">
-                                            </div>
-                                        </div>
-                                        <div class="form-group l-6 c-6 m-6 col">
+                                        <div class="form-group l-12 c-12 m-12 col">
                                             <div class="group">
 
                                                 <label for="tenDM">Tên danh mục</label>

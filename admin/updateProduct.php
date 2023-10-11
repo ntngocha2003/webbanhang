@@ -1,5 +1,4 @@
 <?php
-    $maSP=$_POST['maSP'];
     $tenSP=$_POST['tenSP'];
     $moTa=$_POST['moTa'];
     $sale=$_POST['sale'];
@@ -23,8 +22,8 @@
     copy ( $file_tmp, $uploadDir_img_logo.$image);
         require_once 'connect.php';
 
-        $updateSp="UPDATE `product` set ma_sp='$maSP',ten_sp='$tenSP',mota='$moTa',image='$image',sale='$sale',gia_goc='$giaGoc',
-        gia_moi='$giaMoi',tinh_trang='$tinhTrang',so_luong='$soLuong',ten_dm='$danhMuc'
+        $updateSp="UPDATE `product` set ten_sp='$tenSP',mota='$moTa',image='$image',sale='$sale',gia_goc='$giaGoc',
+        gia_moi='$giaMoi',tinh_trang='$tinhTrang',so_luong='$soLuong',id_dm='$danhMuc'
          Where id='$id' ";
 
         if(mysqli_query($conn,$updateSp)){

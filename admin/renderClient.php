@@ -127,6 +127,7 @@
                                         <tr>
                                             <th class="table-borderless-th" >STT</th>
                                             <th class="table-borderless-th" >Tên khách hàng</th>
+                                            <th class="table-borderless-th" >Ảnh</th>
                                             <th class="table-borderless-th" >Email</th>
                                             <th class="table-borderless-th" >Số điện thoại</th>
                                             <th class="table-borderless-th" >Địa chỉ</th>
@@ -140,8 +141,6 @@
                                         <?php
                                             require_once 'connect.php';
                                             
-                                            // $render_sql= "SELECT * FROM `account` where quen='Khách hàng'";
-                                            // $result=mysqli_query($conn,$render_sql);
                                             $num=1;
                                             while ($r = mysqli_fetch_array($clients)){
                                                
@@ -156,6 +155,12 @@
 
                                                             <?php echo $r['ten_dn'];?>
                                                         </div>
+                                                    </td>
+
+                                                    <td class="table-borderless-td">
+                                                        
+                                                            <img class="table-borderless-td--img" src="./image/<?php echo $r['image']?>">
+                                                        
                                                     </td>
                                                     
                                                     <td class="table-borderless-td">
@@ -185,7 +190,7 @@
                                                             <?php echo $r['gioi_tinh'];?>
                                                         </div>
                                                     </td>
-                                                    <td class="table-borderless-td" style="display:flex;justify-content: space-around;">
+                                                    <td class="table-borderless-td">
                                                         <div class="reponsive">
                                                             
                                                             <a onclick="return confirm('bạn có muốn xóa khách hàng này không')"

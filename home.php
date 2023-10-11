@@ -93,8 +93,7 @@
                     if(isset($_REQUEST['btnSearch'])){
                         $search = addslashes($_GET['search']);
                         if($search==""){
-                            echo "<p style='color:red';>Bạn chưa nhập từ khóa!!!</p>";
-                                            
+                            echo "<p style='color:red';>Bạn chưa nhập từ khóa!!!</p>";                                            
                         }
                         else{
                             require_once './admin/connect.php';
@@ -139,10 +138,21 @@
                                                                         </div>
                                                                         <div class="home-product-item__action">
                                                                                                         
-                                                                            <span class="home-product-item__sold">Quanttity: <?php echo $r['so_luong'];?></span>
-                                                                            <div class="home-product-item--add">
-                                                                                <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
-                                                                            </div>
+                                                                        <?php
+                                                                            if($r['so_luong']>0){
+                                                                                ?>
+                                                                                    <span class="home-product-item__sold">Còn hàng</span>
+                                                                                    <div class="home-product-item--add">
+                                                                                        <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
+                                                                                    </div>
+                                                                                <?php
+                                                                            }
+                                                                            else{
+                                                                                ?>
+                                                                                    <span class="home-product-item__sold"style="color:red;">Hết hàng</span>
+                                                                                <?php
+                                                                            }
+                                                                        ?> 
                                                                         </div>
                                                                         <div class="div home-product-item__favourite">
                                                                             <i class="fas fa-check"></i>
@@ -178,9 +188,7 @@
                 ?>  
             </div> 
         </div> 
-        <!-- <?php
-                include 'pagination.php';
-                ?> -->
+        
     <!-- phần cuối -->
         
         <?php
@@ -195,9 +203,9 @@
         <!-- toast message -->
         <div id="toast"></div>
 
-        <script src="./js/cart.js"></script>
-        <!-- <script src="./js/login_register.js"></script>
-        <script src="./js/toast.js"></script> -->
+        
+        <!-- <script src="./js/home.js"></script> -->
+        <script src="./js/toast.js"></script>
         <script src="./js/section.js"></script>
 
 </body>

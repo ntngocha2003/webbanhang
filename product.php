@@ -15,8 +15,6 @@
     <link rel="stylesheet" href="./css/bill.css">
     <link rel="stylesheet" href="./css/product.css">
 
-    <link rel="stylesheet" href="./home.html">
-
     <link rel="stylesheet" href="./css/login_register.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400, 500, 700display=swapsubset=vietnamese" rel="stylesheet">
@@ -59,7 +57,7 @@
                                         <div class="product-item-price-wrap">
                                             <p class="product-item-price">Gía bán: <span class="price"><?=$product['gia_moi']?></span>đ</p>
                                             <p class="number">số lượng: </p>
-                                            <input class="product-item-number" type="number" min="1" max="100" value="1"name="get[<?=$product['id']?>]" size="2">
+                                            <input class="product-item-number" type="number" min="1" max="<?=$product['so_luong']?>" value="1"name="get[<?=$product['id']?>]" size="2">
                                             
                                         </div>
                                         <div class="product-item-size">
@@ -79,9 +77,23 @@
                                         </div>
                                         <?php
                                             if(isset($_SESSION['name'])){
-                                                echo'
+                                                if($product['so_luong']>0){
+                                                    
+                                                    echo'
                                                     <input type="submit" class="btn btn-add btn-add--cart" value="Thêm vào giỏ hàng" name="buyCart">
                                                     <button class="btn btn-buys btn-buy">Mua ngay</button>';
+                                                   
+                                                }
+                                                else{
+                                                    ?>
+                                                        <h2 style="margin: 20px 0;
+                                                                color: red;">
+                                                                <i class="fas fa-exclamation-circle"></i>
+                                                                    Sản phẩm này hiện đã hết hàng
+                                                                <h2>
+                                                    <?php
+                                                }
+                                                
                                             }
                                             else{
                                                 ?>

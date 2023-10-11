@@ -49,12 +49,7 @@
                 <?php
         
                     require_once './admin/connect.php';
-                    $order="SELECT account.ten_dn,account.image,account.dia_chi,account.sdt, client_order.*
-                        FROM account
-                        INNER JOIN client_order ON account.id = client_order.id_account
-                        where client_order.id =". $_GET['id'];                            
-                        $result=mysqli_query($conn,$order); 
-                        $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                    
                     
                     $bill_detail="SELECT  client_order.*, orders.*, product.mota,product.image, product.ten_sp
                     FROM client_order
@@ -71,13 +66,13 @@
                         <div id="order-detail">
                             <h1 class="detail_user">Chi tiết đơn hàng</h1>
                             <label class="detail_user-item">Người nhận: </label>
-                            <span class="item-name"> <?= $sql[0]['ten_dn'] ?></span>
+                            <span class="item-name"> <?= $r['ten_dn'] ?></span>
                             <br/>
                             <label class="detail_user-item">Điện thoại: </label>
-                            <span class="item-name"> <?= $sql[0]['sdt'] ?></span>
+                            <span class="item-name"> <?= $r['sdt'] ?></span>
                             <br/>
                             <label class="detail_user-item">Địa chỉ: </label>
-                            <span class="item-name"> <?= $sql[0]['dia_chi'] ?></span>
+                            <span class="item-name"> <?= $r['dia_chi'] ?></span>
                             <br/>
                             <hr/>
                             <h3 class="detail_product">Danh sách sản phẩm</h3>

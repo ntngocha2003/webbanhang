@@ -11,17 +11,6 @@
 
 ?>
 
-<?php
-
-    require_once 'connect.php';
-
-    $category="SELECT * FROM category";
-
-    $result=mysqli_query($conn,$category);
-
-    $row_c= mysqli_fetch_assoc($result);
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +43,7 @@
 <body>
     <div class="admin">
     <?php
-                        require_once'header_admin.php';
+                        require 'header_admin.php';
                    ?> 
 
         <div class="admin_container">
@@ -75,17 +64,9 @@
                                 <form action="./updateProduct.php" method="post" enctype="multipart/form-data">
                                     <div class="block row">
                                         <input type="hidden" id="" name="sid" value="<?php echo $id?>">
+                                        
                                         <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
-
-                                                <label for="maSP">Mã sản phẩm</label>
-                                                <input type="text" class="form-control" name="maSP"
-                                                    value="<?php echo $row['ma_sp']?>">
-                                            </div>
-                                        </div>
-                                        <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
                                                 <label for="tenSP">Tên sản phẩm</label>
                                                 <input type="text" class="form-control" name="tenSP"
                                                     value="<?php echo $row['ten_sp']?>">
@@ -171,6 +152,7 @@
                                                     $result=mysqli_query($conn,$category);
 
                                                     $row_c= mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                                
                                                    
                                                     foreach ($row_c as $row_category) {
                                                         ?>

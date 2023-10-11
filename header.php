@@ -65,6 +65,7 @@
                                         <div class=" header__navbar-user-item header__navbar-user-item--separate">
                                             <a href="./logout.php">Đăng xuất</a>
                                         </div>
+                                        
                                     </div>
                                 </div>';
                             
@@ -97,20 +98,6 @@
                         <form action="home.php" method="GET" class="header__search-input-wrap">
                             
                             <input type="text"name="search" class="header__search-input" placeholder="Tìm kiếm sản phẩm">
-
-
-                            <!-- Search-history
-                            <div class="header__search-history">
-                                <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
-                                <ul class="header__search-history-list">
-                                    <li class="header__search-history-item">
-                                        <a href="">Aó phông nữ</a>
-                                    </li>
-                                    <li class="header__search-history-item">
-                                        <a href="">Quần jean nam, nữ</a>
-                                    </li>
-                                </ul>
-                            </div> -->
                             <button type="submit" name="btnSearch" class="header__search-btn">
                                 <i class="header__search-btn-icon fas fa-search"></i>
                             </button>

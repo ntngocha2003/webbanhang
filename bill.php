@@ -90,7 +90,7 @@
                         <tbody>
                         <?php
                         require_once './admin/connect.php';
-                        $id_acc=$_GET['id'];
+                        $id_acc=$r['id'];
                         $num = 1;
                         $bill="SELECT account.ten_dn, client_order.*
                         FROM account
@@ -98,18 +98,12 @@
                         WHERE account.id ='$id_acc' ";
                         $result=mysqli_query($conn,$bill); 
                         $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                        
+                        
                         ?>
                         <?php
                     
                         foreach ($sql as $row) {
-                            $id_bill=($row['id']);
-                            $bill_detail="SELECT  client_order.*, orders.*, product.mota,product.image, product.ten_sp
-                            FROM client_order
-                            INNER JOIN orders ON client_order.id = orders.id_client
-                            INNER JOIN product ON product.id = orders.id_product
-                            WHERE client_order.id ='$id_bill'";
-                            $result1=mysqli_query($conn,$bill_detail);
-                            $sql1 = mysqli_fetch_all($result1, MYSQLI_ASSOC);
                             ?>
                             <tr class="item-row">
                             <td class="stt">
@@ -125,13 +119,20 @@
                                 
                             </td>
                             <td class="total-prices">
-                                <?php echo $row['tong_tien']?>đ
+                                <?php echo $row['tong_tien']?> đ
                             </td>
                             <td class="date">
                                 <?=date('d/m/Y', $row['created_time'])?>
                             </td>
                             <td class="total-prices">
                                 <?php echo $row['tinh_trang']?>
+                            </td>
+
+                            <td>
+                                <form method="POST" action="updateBill.php" class="" enctype="multipart/form-data">
+                                    <input type="hidden" id="" name="id" value="<?php echo $row['id']?>">
+                                    <input type="submit" name="confirm" class="btn-confirm" value="Xác nhận đã lấy hàng"/>
+                                </form>
                             </td>
                             
                         </tr>
@@ -152,6 +153,8 @@
                         </a>
                         
                     </div>
+
+                    
                 </div>             
             </div> 
         </div> 

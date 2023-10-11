@@ -31,18 +31,18 @@
             $current_page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
             $offset = ($current_page - 1) * $item_per_page;
             if(!empty($where)){
-                $totalRecords = mysqli_query($conn, "SELECT * FROM `account` where (".$where.")");
+                $totalRecords = mysqli_query($conn, "SELECT * FROM `account` where `quen`!='admin' and (".$where.")");
                 // var_dump($where);exit;
         }else{
-            $totalRecords = mysqli_query($conn, "SELECT * FROM `account`");
+            $totalRecords = mysqli_query($conn, "SELECT * FROM `account`where `quen`!='admin'");
         }
         $totalRecords = $totalRecords->num_rows;
         $totalPages = ceil($totalRecords / $item_per_page);
         if(!empty($where)){
-            $account = mysqli_query($conn, "SELECT * FROM `account` where (".$where.") ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
+            $account = mysqli_query($conn, "SELECT * FROM `account` where `quen`!='admin' and (".$where.") ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
         }else{
             
-            $account = mysqli_query($conn, "SELECT * FROM `account` ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
+            $account = mysqli_query($conn, "SELECT * FROM `account`where `quen`!='admin' ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
             // var_dump($products);exit;
         }
         
@@ -140,8 +140,7 @@
                                             <?php
                                                 require_once 'connect.php';
                                                 $num=1;
-                                                // $render_sql= "SELECT * FROM `account` ";
-                                                // $result=mysqli_query($conn,$render_sql);
+                                               
                                                 while ($r = mysqli_fetch_array($account)){
                                                     ?>
                                                     <tr class="table-borderless-tr">

@@ -1,19 +1,17 @@
-<?php
-    
+<?php    
     $sdt=$_POST['phone'];
     $diaChi=$_POST['address'];
-    $ngaySinh=$_POST['date'];
     $gioiTinh=$_POST['gender'];
     
     $id=$_POST['id'];
-         require_once './admin/connect.php';
+         require_once '../admin/connect.php';
 
         $updateTK=" UPDATE `account` SET `sdt`='$sdt',
-        `ngay_sinh`='$ngaySinh',`gioi_tinh`='$gioiTinh',`dia_chi`='$diaChi',`quen`='Khách hàng' WHERE id='$id' ";
+        `gioi_tinh`='$gioiTinh',`dia_chi`='$diaChi',`quen`='Nhân viên' WHERE id='$id' ";
 
         if(mysqli_query($conn,$updateTK)){
             echo "<h1>Sửa thành công</h1>";
-            header("location: account.php");
+            header("location: homeStaff.php");
         }
    
 

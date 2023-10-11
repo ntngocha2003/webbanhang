@@ -63,16 +63,7 @@
                                 <input type="hidden" id="" name="sid" value="<?php echo $id?>">
                                 
                                     <div class="block row">
-
-                                        <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="maDM">Mã danh mục</label>
-                                                <input type="text" class="form-control" name="maDM"
-                                                    value="<?php echo $row['ma_dm']?>">
-                                            </div>
-                                        </div>
-                                        <div class="form-group l-6 c-6 m-6 col">
+                                        <div class="form-group l-12 c-12 m-12 col">
                                             <div class="group">
 
                                                 <label for="tenDM">Tên danh mục</label>

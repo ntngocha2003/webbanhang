@@ -45,6 +45,10 @@
                         
                         $totalClients = $totalClients->num_rows;
 
+                        $totalStaffs = mysqli_query($conn, "SELECT * FROM `account`where quen='Nhân viên'");
+                        
+                        $totalStaffs = $totalStaffs->num_rows;
+
                         $totalOrders = mysqli_query($conn, "SELECT account.ten_dn,account.image, client_order.*
                                         FROM account
                                         INNER JOIN client_order ON account.id = client_order.id_account");
@@ -99,16 +103,26 @@
                                         </div>
                                         <div class="col l-6 m-6 c-6 ">
                                             <div class="statistics_section">
+
+                                                <h3 class="statistics-heading">Tổng số nhân viên</h3>
+                                                <div class="total_revenue">
+                                                    <p>Có: <?php echo $totalStaffs?> nhân viên</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+    
+                                    </div>
+
+                                    <div class="row sm-gutter "style="margin: 10px 0;">
+                                        <div class="col l-6 m-6 c-6 ">
+                                            <div class="statistics_section">
                                                 <h3 class="statistics-heading">Tổng số đơn hàng</h3>
                                                 <div class="total_revenue">
                                                     <p>Có: <?php echo $totalOrders?> đơn hàng</p>
                                                 </div>
                                             </div>
                                         </div>
-    
-                                    </div>
-
-                                    <div class="row sm-gutter "style="margin: 10px 0;">
                                         <div class="col l-6 m-6 c-6 ">
                                             <div class="statistics_section">
                                                 <h3 class="statistics-heading">Tổng số đơn hàng chưa hoàn thành</h3>
@@ -118,6 +132,9 @@
                                             </div>
                                         </div>
     
+                                    </div>
+                                    
+                                    <div class="row sm-gutter "style="margin: 10px 0;">
                                         <div class="col l-6 m-6 c-6 ">
                                             <div class="statistics_section">
                                                 <h3 class="statistics-heading">Tổng số đơn hàng đã giao</h3>
@@ -126,13 +143,8 @@
                                                 </div>
                                             </div>
                                         </div>
-    
                                         
-                                    </div>
-                                    
-                                    <div class="row sm-gutter "style="margin: 10px 0;">
-                                        
-                                        <div class="col l-12 m-12 c-12 ">
+                                        <div class="col l-6 m-6 c-6 ">
                                             <div class="statistics_section">
                                                 
                                                 <h3 class="statistics-heading">Tổng số doanh thu</h3>

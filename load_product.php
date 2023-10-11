@@ -57,10 +57,11 @@
                                        
                                         require_once './admin/connect.php';
                                         $id=$_GET['id'];
-                
-                                        $query = "select * from product where ten_dm='$id' and ten_dm !='29'";
 
-                                        $sql = mysqli_query($conn,$query);
+                                        $sql = mysqli_query($conn, "SELECT category.ten_dm, product.*
+                                            FROM category
+                                            INNER JOIN product ON category.id = product.id_dm
+                                            WHERE id_dm='$id'");
                                         
                                         while($r=mysqli_fetch_assoc($sql)){
                                     ?>
@@ -118,14 +119,10 @@
         ?>
         
     </div>
-    <!-- modal đăng nhập , đăng ký -->
-    
-        
-
+   
         <!-- toast message -->
         <div id="toast"></div>
 
-        <script src="./js/cart.js"></script>
         <!-- <script src="./js/login_register.js"></script>
         <script src="./js/toast.js"></script> -->
         <script src="./js/section.js"></script>

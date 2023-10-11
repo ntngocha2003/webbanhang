@@ -17,14 +17,15 @@
                             <div class="row sm-gutter admin_control">
                                 <ul class="list_contol">
                                     <li class="list_contol-item">
+                                        <a class="list_contol-item--link" href="./renderAccount.php">Quản lý tài khoản</a>
+                                    </li>
+                                    <li class="list_contol-item">
                                         <a class="list_contol-item--link" href="./renderStaff.php">Quản lý nhân viên</a>
                                     </li>
                                     <li class="list_contol-item">
                                         <a class="list_contol-item--link" href="./renderClient.php">Quản lý khách hàng</a>
                                     </li>
-                                    <li class="list_contol-item">
-                                        <a class="list_contol-item--link" href="./renderAccount.php">Quản lý tài khoản</a>
-                                    </li>
+                                    
                                     <li class="list_contol-item">
                                         <a class="list_contol-item--link" href="./renderCategory.php">Quản lý danh mục</a>
                                     </li>

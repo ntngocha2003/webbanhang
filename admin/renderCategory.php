@@ -129,7 +129,6 @@
                                         <thead class="table-borderless-thead">
                                         <tr>
                                             <th class="table-borderless-th" >STT</th>
-                                            <th class="table-borderless-th" >Mã danh mục</th>
                                             <th class="table-borderless-th" >Tên danh mục</th>
                                             <th class="table-borderless-th" >Thao tác</th>
                                         </tr>
@@ -147,12 +146,7 @@
                                                     <td class="table-borderless-td">
                                                         <?php echo $num++;?>
                                                     </td>
-                                                    <td class="table-borderless-td">
-                                                        <div class="reponsive">
-                                                           
-                                                            <?php echo $r['ma_dm'];?>
-                                                        </div>
-                                                    </td>
+                                                   
                                                     <td class="table-borderless-td">
                                                         <div class="reponsive">
                                                            

@@ -1,6 +1,5 @@
 <?php
 if(isset($_POST['addP'])){
-    $maSP=$_POST['maSP'];
     $tenSP=$_POST['tenSP'];
     $moTa=$_POST['moTa'];
     $sale=$_POST['sale'];
@@ -24,8 +23,8 @@ if(isset($_POST['addP'])){
     copy ( $file_tmp, $uploadDir_img_logo.$image);
         require_once 'connect.php';
 
-        $addSp="INSERT INTO `product`(`id`, `ma_sp`, `ten_sp`, `mota`,`image`, `sale`, `gia_goc`, `gia_moi`,`tinh_trang`,`so_luong`,`ten_dm`) 
-        VALUES (null,'$maSP','$tenSP','$moTa','$image','$sale','$giaGoc','$giaMoi','$tinhTrang','$soLuong','$danhMuc')";
+        $addSp="INSERT INTO `product`(`id`, `ten_sp`, `mota`,`image`, `sale`, `gia_goc`, `gia_moi`,`tinh_trang`,`so_luong`,`id_dm`) 
+        VALUES (null,'$tenSP','$moTa','$image','$sale','$giaGoc','$giaMoi','$tinhTrang','$soLuong','$danhMuc')";
 
         if(mysqli_query($conn,$addSp)){
             echo "<h1>Thêm thành công</h1>";
@@ -85,14 +84,6 @@ if(isset($_POST['addP'])){
                             <div class="add-content">
                                 <form action="./addProduct.php" method="post" enctype="multipart/form-data">
                                     <div class="block row">
-
-                                        <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="maSP">Mã sản phẩm</label>
-                                                <input type="text" class="form-control" name="maSP">
-                                            </div>
-                                        </div>
                                         <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
 

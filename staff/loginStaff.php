@@ -1,20 +1,20 @@
 <?php
     session_start();
     ob_start();
-    require_once 'connect.php';
+    require_once '../admin/connect.php';
 
     if(isset($_POST['name'])){
         $name=$_POST['name'];
         $pass=$_POST['pass'];
         if(isset($name) && isset($pass)){
 
-            $login="select *from account where ten_dn='$name' and mat_khau='$pass' and quen='admin' ";
+            $login="select *from account where ten_dn='$name' and mat_khau='$pass' and quen='Nhân viên' ";
         
             $test= mysqli_query($conn,$login);
             if(mysqli_num_rows($test)>0){
-                // $_SESSION['nameAdmin']=$name;
-                // $_SESSION['passAdmin']=$pass;
-                header("location: renderOrder.php");
+                $_SESSION['nameStaff']=$name;
+                $_SESSION['passStaff']=$pass;
+                header("location: ./homeStaff.php");
             }else{
                 echo '<center class="alert alert-danger">Đăng nhập thất bại</center>';
             }
@@ -30,7 +30,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập với tư cách admin</title>
+    <title>Đăng nhập với tư cách nhân viên</title>
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../gird/GirdSystem/gird.css">
@@ -56,11 +56,11 @@
 </head>
 <body>
        
-    <form action="login.php" method="post" class="vh-100">
+    <form action="./loginStaff.php" method="post" class="vh-100">
         <div class="container py-5 h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">
             <div class="col-md-8 col-lg-7 col-xl-6">
-              <img src="./image/anhcho.jpg"
+              <img src="../image/anhcho.jpg"
                 class="img-fluid" alt="Phone image">
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
@@ -93,20 +93,19 @@
       
       
                       <div class="auth-form__controls"style="width: 350px;">
-                          <a href="loginClient.php" class="btn auth-form__controls-back btn--normal" 
-                            style="background-color: #aaa;
-                            display: flex;">TRỞ LẠI</a>
-                          <input name="login" type="submit" class="btn btn--primary btn-login" value="ĐĂNG NHẬP"/>
+                          <p>Bạn có thể đăng nhập để quản lý thông tin của mình!</p>
+                            </br>
+                          <input name="loginStaff" type="submit" class="btn btn--primary btn-login" value="ĐĂNG NHẬP"/>
                       </div>
-        
-                </div>
 
-                
-             
+                      <p class="question"style="text-align: left;">
+                          Bạn chưa có tài khoản?
+                          <a class="link-register" href="./registerStaff.php">Đăng ký</a>
+                      </p>
+                </div>
             </div>
           </div>
         </div>
       </form>
-      <!-- <script src="./js/login.js"></script> -->
 </body>
 </html>

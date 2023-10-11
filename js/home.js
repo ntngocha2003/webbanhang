@@ -2,12 +2,12 @@
 
 
 const appContent=document.querySelector('.product-item')
-// const totalRecords=document.querySelector('.totalRecords')
-// let currentPage=1;
-// let pageSize=3;
-// const prevBtn=document.querySelector("#prev");
-// const curentBtn=document.querySelector('#curent');
-// const nextBtn=document.querySelector('#next');
+const totalRecords=document.querySelector('.totalRecords')
+let currentPage=1;
+let pageSize=3;
+const prevBtn=document.querySelector("#prev");
+const curentBtn=document.querySelector('#curent');
+const nextBtn=document.querySelector('#next');
 
 ajaxGet();
 
@@ -21,15 +21,15 @@ async function ajaxGet(){
    
     renderPagination(data2);
 
-    // renderTotalRecords(data2);
+    renderTotalRecords(data2);
 }
-// function renderTotalRecords(data){
-//     let totalRecordss=
-//         `
-//             <h3>Tổng số bản ghi là: ${data.totalRecords}</h3>
-//         `
-//         totalRecords.innerHTML=totalRecordss;
-// }
+function renderTotalRecords(data){
+    let totalRecordss=
+        `
+            <h3>Tổng số bản ghi là: ${data.totalRecords}</h3>
+        `
+        totalRecords.innerHTML=totalRecordss;
+}
 function render(data){
     
     let contentString=data.records.map(record =>
@@ -67,36 +67,36 @@ function render(data){
         appContent.innerHTML=contentString;
     
 }
-// let maxPage;
-// function renderPagination(data){
-//      maxPage=(Math.floor(data.totalRecords / pageSize)+1);
+let maxPage;
+function renderPagination(data){
+     maxPage=(Math.floor(data.totalRecords / pageSize)+1);
     
-//     console.log(data.totalRecords)
-//     console.log(maxPage)
+    console.log(data.totalRecords)
+    console.log(maxPage)
 
-//     curentBtn.innerHTML=currentPage;
-//     console.log(currentPage)
+    curentBtn.innerHTML=currentPage;
+    console.log(currentPage)
 
-//     if(currentPage >maxPage){
-//         nextBtn.classList.add('hide');
+    if(currentPage >maxPage){
+        nextBtn.classList.add('hide');
 
-//     }
-//     else{
-//         nextBtn.classList.remove('hide');
-//     }
-//     if(currentPage <=1){
-//         prevBtn.classList.add('hide');
+    }
+    else{
+        nextBtn.classList.remove('hide');
+    }
+    if(currentPage <=1){
+        prevBtn.classList.add('hide');
 
-//     }
-//     else{
-//         prevBtn.classList.remove('hide');
-//     }
-// }
-// nextBtn.addEventListener('click',()=>{
-//     currentPage++;
-//     ajaxGet();
-// })
-// prevBtn.addEventListener('click',()=>{
-//     currentPage--;
-//     ajaxGet();
-// })
+    }
+    else{
+        prevBtn.classList.remove('hide');
+    }
+}
+nextBtn.addEventListener('click',()=>{
+    currentPage++;
+    ajaxGet();
+})
+prevBtn.addEventListener('click',()=>{
+    currentPage--;
+    ajaxGet();
+})

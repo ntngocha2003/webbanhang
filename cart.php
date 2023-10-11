@@ -6,7 +6,6 @@
     if (!isset($_SESSION["cart"])) {
         $_SESSION["cart"] = array();
     }
-
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,8 +39,7 @@
         <?php
             require_once './admin/connect.php';
             
-            $error = false;
-            $success = false;
+            
                 if (isset($_GET['action'])) {
                     function update_cart($add = false) {
                         
@@ -77,15 +75,17 @@
                         }
                         else if(isset($_POST['order_click'])) { 
                             if (!empty($_POST['get'])) { //Xử lý lưu giỏ hàng vào db
-
-                            
+                                
                                 $products = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` IN (" . implode(",", array_keys($_POST['get'])) . ")");
                                 
                                 $total = 0;
+                                $quantity;
                                 $orderProducts = array();
                                 while ($rowp = mysqli_fetch_array($products)) {
                                     $orderProducts[] = $rowp;
                                     $total += $rowp['gia_moi'] * $_POST['get'][$rowp['id']];
+                                    
+                                    // var_dump($quantity);exit;
                                 }
                                     $insertOrder = mysqli_query($conn, "INSERT INTO `client_order` (`id`, `id_account`, `ghi_chu`, `tong_tien`,`tinh_trang`, `created_time`, `last_updated`) 
                                     VALUES (NULL,'". $r['id'] ."', '" . $_POST['note'] . "', '" . $total . "','Đang chờ hàng', '" . time() . "', '" . time() . "');");
@@ -94,15 +94,21 @@
                                 $insertString = "";
                                 foreach ($orderProducts as $key => $product) {
                                     $insertString .= "(NULL, '" . $clientID . "', '" . $product['id'] . "','" . $product['gia_moi'] . "', '" . $_POST['get'][$product['id']] . "', '" . time() . "', '" . time() . "')";
+                                    $quantity=$product['so_luong']-$_POST['get'][$product['id']];
+                                    $whereProduct=$product['id'];
+                                    $updateProduct= mysqli_query($conn, "UPDATE `product` set `so_luong`='$quantity' where id=$whereProduct");
                                     if ($key != count($orderProducts) - 1) {
                                         $insertString .= ",";
+                                        $whereProduct .=",";
                                     }
                                 }
                                 $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_client`, `id_product`, `gia_tien`, `so_luong`,`created_time`, `last_updated`) VALUES " . $insertString . ";");
-                                $success = "Đặt hàng thành công";
+
+                               
+                                
                                 unset($_SESSION['cart']);
                             }
-                            header('Location: ./cart.php');
+                            header('Location: ./bill.php');
                         } 
                         break;   
                 }
@@ -159,7 +165,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="select-quantity">                                      
-                                                            <input class="select-quantity-screen" type="number" min="0" max="100" value="<?= $_SESSION["cart"][$row['id']] ?>"
+                                                            <input class="select-quantity-screen" type="number" min="0" max="<?=$row['so_luong']?>" value="<?= $_SESSION["cart"][$row['id']] ?>"
                                                             name="get[<?= $row['id'] ?>]" />
                                                         </div>
                                                     </td>
@@ -237,7 +243,7 @@
                                     <div class="contact-footer">
                                         <a href="account.php?id=<?php echo $r['id'];?>" style="color: #6fcef7;
                                                                     font-size: 1.4rem;
-                                                                    text-decoration: none;">Thay đổi</a>
+                                                                   ">Thay đổi</a>
                                         <input class="btn-confirm" type="submit" name="order_click"value="Đặt hàng" />
                                     </div>
                                 
@@ -253,8 +259,6 @@
             require_once 'footer.php';
         ?>
     </div>
-    
-    <!-- <script src="./js/cart.js"></script> -->
 
 </body>
 

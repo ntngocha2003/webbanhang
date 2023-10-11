@@ -3,7 +3,7 @@
     header("Access-Control-Allow-Origin: *");
     require_once './admin/connect.php';
 
-    $pageSize= isset($_GET['pageSize']) ? $_GET['pageSize']:12;
+    $pageSize= isset($_GET['pageSize']) ? $_GET['pageSize']:2;
     $page= isset($_GET['page']) ? $_GET['page']:1;
     $start =($page-1) * $pageSize;
 
@@ -26,6 +26,7 @@
   
 
     // trả về tổng số
+
     $sql2="select * from product";
     $result2 = mysqli_query($conn,$sql2);
     $totalRecords=mysqli_num_rows($result2);
