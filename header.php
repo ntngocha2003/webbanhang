@@ -97,7 +97,7 @@
                     <div class="header__search">
                         <form action="home.php" method="GET" class="header__search-input-wrap">
                             
-                            <input type="text"name="search" class="header__search-input" placeholder="Tìm kiếm sản phẩm">
+                            <input type="text" value="<?=isset($_GET['search']) ? $_GET['search'] : ""?>"name="search" class="header__search-input" placeholder="Tìm kiếm sản phẩm">
                             <button type="submit" name="btnSearch" class="header__search-btn">
                                 <i class="header__search-btn-icon fas fa-search"></i>
                             </button>
@@ -105,6 +105,11 @@
                         </form>
                         
                     </div>
+                    <!-- <select id="sort-box" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                        <option value="">Sắp xếp giá</option>
+                        <option <?php if(isset($_GET['sort']) && $_GET['sort'] == "desc") { ?> selected <?php } ?> value="?<?=$sortParam?>field=gia_moi&sort=desc">Cao đến thấp</option>
+                        <option <?php if(isset($_GET['sort']) && $_GET['sort'] == "asc") { ?> selected <?php } ?> value="?<?=$sortParam?>field=gia_moi&sort=asc">Thấp đến cao</option>
+                    </select> -->
 
                     <!-- Cart layout -->
                     <div class="header__cart">

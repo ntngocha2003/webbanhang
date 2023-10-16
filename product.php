@@ -50,14 +50,14 @@
 
                                 <div class="col l-7 m-12 c-12">
                                     <h1 class="product-heading"><?=$product['mota']?></h1>
-                                    <p class="quantity-sold">Quantity:<span class="quantity"><?=$product['so_luong']?></span></p>
+                                    <p class="quantity-sold">Số lượng hàng: <span class="quantity"><?=$product['so_luong']?></span></p>
 
                                     <form class="product-btn" id="add-to-cart-form" action="cart.php?action=add&id=<?= $product['id'] ?>" method="POST">
                                     
                                         <div class="product-item-price-wrap">
                                             <p class="product-item-price">Gía bán: <span class="price"><?=$product['gia_moi']?></span>đ</p>
                                             <p class="number">số lượng: </p>
-                                            <input class="product-item-number" type="number" min="1" max="<?=$product['so_luong']?>" value="1"name="get[<?=$product['id']?>]" size="2">
+                                            <input class="product-item-number" type="number" min="1" max="<?=$product['so_luong']?>" value="1"name="get[<?=$product['id']?>]">
                                             
                                         </div>
                                         <div class="product-item-size">
@@ -144,8 +144,6 @@
         ?>
     </div>
 
-    <div id="toast"></div>
-    <script src="./js/toast.js"></script>
 
 </body>
 </html>

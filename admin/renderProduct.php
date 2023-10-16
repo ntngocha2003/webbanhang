@@ -113,7 +113,7 @@
                                     <a class="control_link-item" href="addProduct.php">+ Thêm mới sản phẩm</a>
                                     
                                     <form class="control_link-item" style="margin-right: 0;"action="renderProduct.php?action=search" method="POST">
-                                        <!-- <i class="ti-search"style="font-weight: 900;"></i> -->
+                                        
                                         <input type="submit" name="btnSearch" value="Tìm kiếm" 
                                             style="font-weight: bold;
                                                 font-size: 1.4rem;
@@ -122,10 +122,10 @@
                                                 background-color: #fff;
                                                 cursor: pointer;">
                                             
-                                        <input type="text" class="control_link-item--input" name="ten_sp"value="<?=!empty($name)?$name:""?>">
+                                        <input type="text" class="control_link-item--input" name="ten_sp"value="<?=!empty($value)?$value:""?>">
                                     </form>
                                     <form class="control_link-item" style="margin-right: 0;"action="renderProduct.php?action=return" method="POST">
-                                        <!-- <i class="ti-search"style="font-weight: 900;"></i> -->
+                                        
                                         <input type="submit" name="btnSearch" value="Trở lại" 
                                             style="font-weight: bold;
                                                 font-size: 1.4rem;
@@ -160,6 +160,7 @@
                                             $num=1;
                                             
                                             while ($r = mysqli_fetch_array($products)){
+                                                
                                                 ?>
                                                 <tr class="table-borderless-tr">
                                                     <td class="table-borderless-td">
@@ -220,9 +221,16 @@
                                                                             ">
                                         <?php
                                             if(isset($_SESSION['product_filter'])){
-                                                ?>
-                                                    <strong><?=$totalRecords?> <span>kết quả trả về cho từ khóa </span><?=$value?> trên <span><?=$totalPages?></span> trang</strong>
+                                                if(empty($value)){
+                                                    ?>
+                                                        <span style='color:red'> Bạn chưa nhập từ khóa!!!</span>
+                                                    <?php 
+                                                }
+                                                else{
+                                                    ?>
+                                                    <span><?=$totalRecords?> <span>kết quả trả về cho từ khóa </span><strong><?=$value?></strong> trên <span><?=$totalPages?></span> trang</span>
                                                 <?php
+                                                }
                                             }
                                             else {
                                                 ?>

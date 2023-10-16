@@ -3,12 +3,19 @@
         $tenDM=$_POST['tenDM'];
         require_once 'connect.php';
 
-        $addDm="INSERT INTO `category`(`id`,  `ten_dm`) 
-        VALUES (null,'$tenDM')";
+        $err=[];
+        if(empty($tenDM)){
+            $err['tenDM']='Bạn chưa nhập tên danh mục';
+        }
+        if(empty($err)){
 
-        if(mysqli_query($conn,$addDm)){
-            echo "<h1>Thêm thành công</h1>";
-            header("location: renderCategory.php");
+            $addDm="INSERT INTO `category`(`id`,  `ten_dm`) 
+            VALUES (null,'$tenDM')";
+    
+            if(mysqli_query($conn,$addDm)){
+                echo "<h1>Thêm thành công</h1>";
+                header("location: renderCategory.php");
+            }
         }
     }
 ?>
@@ -68,6 +75,11 @@
 
                                                 <label for="tenDM">Tên danh mục</label>
                                                 <input type="text" class="form-control" name="tenDM">
+                                                <span class="message">
+                                                    <?php
+                                                        echo (isset($err['tenDM'])?($err['tenDM']):'');
+                                                    ?>
+                                                </span>
                                             </div>
                                         </div>
                                         

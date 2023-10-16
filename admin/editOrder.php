@@ -1,11 +1,11 @@
 <?php
-    $id=$_GET['sid'];
-
+    
     require_once 'connect.php';
 
     $edit_sql="SELECT account.ten_dn,account.image, client_order.*
     FROM account
-    INNER JOIN client_order ON account.id = client_order.id_account";
+    INNER JOIN client_order ON account.id = client_order.id_account
+    where client_order.id =". $_GET['sid'];
 
     $result=mysqli_query($conn,$edit_sql);
 
@@ -17,7 +17,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tạo đơn hàng</title>
+    <title>Sửa đơn hàng</title>
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="./css/addStaff.css">
@@ -43,7 +43,7 @@
 <body>
     <div class="admin">
     <?php
-                        require_once'header_admin.php';
+                        require 'header_admin.php';
                    ?> 
 
         <div class="admin_container">
@@ -51,7 +51,7 @@
                 <div class="row">
                     
                 <?php
-                        require_once'admin_category.php';
+                        require 'admin_category.php';
                    ?>  
                 
                     <div class="col l-9 m-12 c-12">
@@ -94,10 +94,9 @@
 
                                                 <label for="tinhTrang">Tình trạng</label>
                                                 <select class="form-control" name="tinhTrang"
-                                                value="<?php echo $row['tinh_trang']?>">
-                                                    <option>-- Chọn tình trạng --</option>
-                                                    <option>Đang chờ hàng</option>
+                                                value="<?php echo $row['tinh_trang']?>">                                                   
                                                     <option>Đang giao</option>
+                                                    <option>Đang chờ hàng</option>
                                                     <option>Đã giao</option>
                                                 </select>
                                             </div>

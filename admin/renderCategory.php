@@ -21,6 +21,7 @@
                         case 'ten_dm':
                             $where .= (!empty($where))?" AND ". "`".$field."` LIKE '%".$value."%'" : "`".$field."` LIKE '%".$value."%'";
                             break;
+                            // var_dump($where);exit;
                             
                         }
                     }
@@ -111,7 +112,7 @@
                                                 background-color: #fff;
                                                 cursor: pointer;">
                                             
-                                        <input type="text" class="control_link-item--input" name="ten_dm"value="<?=!empty($name)?$name:""?>">
+                                        <input type="text" class="control_link-item--input" name="ten_dm"value="<?=!empty($value)?$value:""?>">
                                     </form>
                                     <form class="control_link-item" style="margin-right: 0;"action="renderCategory.php?action=return" method="POST">
                                         <!-- <i class="ti-search"style="font-weight: 900;"></i> -->
@@ -138,8 +139,7 @@
                                         <?php
                                             require_once 'connect.php';
                                             $num=1;
-                                            // $render_sql= "SELECT * FROM `category` ";
-                                            // $result=mysqli_query($conn,$render_sql);
+                                            
                                             while ($r = mysqli_fetch_array($categorys)){
                                                 ?>
                                                 <tr class="table-borderless-tr">
@@ -177,10 +177,17 @@
                                                                             text-align: end;
                                                                             ">
                                         <?php
-                                            if(isset($_SESSION['product_filter'])){
-                                                ?>
-                                                    <strong><?=$totalRecords?> <span>kết quả trả về cho từ khóa </span><?=$value?> trên <span><?=$totalPages?></span> trang</strong>
+                                            if(isset($_SESSION['category_filter'])){
+                                                if(empty($value)){
+                                                    ?>
+                                                     <span style='color:red'> Bạn chưa nhập từ khóa!!!</span>
+                                                    <?php 
+                                                }
+                                                else{
+                                                    ?>
+                                                    <span><?=$totalRecords?> <span>kết quả trả về cho từ khóa </span><strong><?=$value?></strong> trên <span><?=$totalPages?></span> trang</span>
                                                 <?php
+                                                }
                                             }
                                             else {
                                                 ?>

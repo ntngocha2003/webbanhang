@@ -53,7 +53,7 @@
             $orders = mysqli_query($conn, "SELECT account.ten_dn,account.image, client_order.*
             FROM account
             INNER JOIN client_order ON account.id = client_order.id_account ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
-            // var_dump($products);exit;
+            
         }
         
         mysqli_close($conn);
@@ -109,12 +109,7 @@
                                     <h2 class="container_heading">Danh sách đơn hàng</h2>
                                 </div>
                                 <div class="control_link">
-                                    
-                                    <a class="control_link-item" href="#">
-                                        <i class="fas fa-download"></i>
-                                            Xuất file
-                                    </a>
-                                    
+                                   
                                     <form class="control_link-item" style="margin-right: 0;"action="renderOrder.php?action=search" method="POST">
                                         <!-- <i class="ti-search"style="font-weight: 900;"></i> -->
                                         <input type="submit" name="btnSearch" value="Tìm kiếm" 
@@ -125,7 +120,7 @@
                                                 background-color: #fff;
                                                 cursor: pointer;">
                                             
-                                        <input type="text" class="control_link-item--input" name="ten_dn"value="<?=!empty($name)?$name:""?>">
+                                        <input type="text" class="control_link-item--input" name="ten_dn"value="<?=!empty($value)?$value:""?>">
                                     </form>
                                     <form class="control_link-item" style="margin-right: 0;"action="renderOrder.php?action=return" method="POST">
                                         <!-- <i class="ti-search"style="font-weight: 900;"></i> -->
@@ -159,11 +154,6 @@
                                         <?php
                                             require_once 'connect.php';
                                            
-                                            // $order="SELECT account.ten_dn,account.image, client_order.*
-                                            // FROM account
-                                            // INNER JOIN client_order ON account.id = client_order.id_account";
-                                            
-                                            // $result=mysqli_query($conn,$order); 
                                             $sql = mysqli_fetch_all($orders, MYSQLI_ASSOC);
                                             $num=1;
                                             foreach($sql as $r){
@@ -217,7 +207,7 @@
                                                     <td class="table-borderless-td">
                                                         <!-- target="_blank"  -->
                                                         <div class="reponsive">
-                                                            <a href="order_detail.php?id=<?=$r['id']?>" 
+                                                            <a target="_blank" href="order_detail.php?id=<?=$r['id']?>" 
                                                             style="color:#bbb">Chi tiết</a>
                                                         </div>
                                                     </td>
@@ -241,10 +231,18 @@
                                                                             text-align: end;
                                                                             ">
                                         <?php
-                                            if(isset($_SESSION['account_filter'])){
-                                                ?>
-                                                    <strong><?=$totalRecords?> <span>kết quả trả về cho từ khóa </span><?=$value?> trên <span><?=$totalPages?></span> trang</strong>
+                                            if(isset($_SESSION['order_filter'])){
+                                                if(empty($value)){
+                                                    ?>
+                                                     <span style='color:red'> Bạn chưa nhập từ khóa!!!</span>
+                                                    <?php 
+                                                }
+                                                else{
+                                                    ?>
+                                                    <span><?=$totalRecords?> <span>kết quả trả về cho từ khóa </span><strong><?=$value?></strong> trên <span><?=$totalPages?></span> trang</span>
                                                 <?php
+                                                }
+                                                
                                             }
                                             else {
                                                 ?>

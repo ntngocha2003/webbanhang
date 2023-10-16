@@ -1,9 +1,7 @@
 <?php
-    session_start();
-    ob_start();
     require_once 'connect.php';
 
-    if(isset($_POST['name'])){
+    if(isset($_POST['login'])){
         $name=$_POST['name'];
         $pass=$_POST['pass'];
         if(isset($name) && isset($pass)){
@@ -12,8 +10,6 @@
         
             $test= mysqli_query($conn,$login);
             if(mysqli_num_rows($test)>0){
-                // $_SESSION['nameAdmin']=$name;
-                // $_SESSION['passAdmin']=$pass;
                 header("location: renderOrder.php");
             }else{
                 echo '<center class="alert alert-danger">Đăng nhập thất bại</center>';

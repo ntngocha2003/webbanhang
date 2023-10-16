@@ -43,7 +43,7 @@
         <div class="app__container">
             <div class="grid wide">
                 <div class="app_heading">
-                    <h2>Danh sách các loại quần áo nam</h2>
+                    <h2>Danh sách các loại quần áo</h2>
                 </div>
                 
                         <div class="row sm-gutter app__content">

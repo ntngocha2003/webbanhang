@@ -1,4 +1,20 @@
-
+ <?php
+        include './admin/connect.php';
+        $item_per_page = !empty($_GET['per_page'])?$_GET['per_page']:12;
+        $current_page = !empty($_GET['page'])?$_GET['page']:1; //Trang hiện tại
+        $offset = ($current_page - 1) * $item_per_page;
+        $products = mysqli_query($conn, "SELECT category.ten_dm, product.*
+        FROM category
+        INNER JOIN product ON category.id = product.id_dm
+        WHERE ten_dm='Yêu thích'
+        ORDER BY `id` ASC  LIMIT " . $item_per_page . " OFFSET " . $offset);
+        $totalRecords = mysqli_query($conn, "SELECT category.ten_dm, product.*
+        FROM category
+        INNER JOIN product ON category.id = product.id_dm
+        WHERE ten_dm='Yêu thích'");
+        $totalRecords = $totalRecords->num_rows;
+        $totalPages = ceil($totalRecords / $item_per_page);
+        ?>
     
         <div class="row sm-gutter app__content">
                             
@@ -10,13 +26,8 @@
                                         <?php
                                            
                                             require_once './admin/connect.php';
-
-                                            $sql = mysqli_query($conn, "SELECT category.ten_dm, product.*
-                                            FROM category
-                                            INNER JOIN product ON category.id = product.id_dm
-                                            WHERE ten_dm='Yêu thích'");
-                                            
-                                            while($r=mysqli_fetch_assoc($sql)){
+     
+                                            while($r=mysqli_fetch_assoc($products)){
                                         ?>
                                         <div class="col l-2 m-4 c-6">
                                             <a class="home-product-item" href="product.php?id=<?= $r['id'] ?>">
@@ -66,4 +77,6 @@
                                 
                             </div>  
         </div>
-<!-- <script src="./js/home.js"></script> -->
+            <?php
+                include './pagination.php';
+                ?>

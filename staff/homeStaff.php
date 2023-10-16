@@ -61,20 +61,13 @@
                                                                                     margin-left:20px">
                                                     <div class="product-img">
                                                             <h2 class="title-user">Thông tin cá nhân</h2>
-                                                            <input type="hidden" id="" name="id" value="<?php echo $r_nv['id']?>">
+                                                            <input type="hidden" id="" name="id" value="<?php echo $r_nv['id']?>"/>
                                                             <div class="block row">
                                                                 <div class="user_account-img col l-3 c-3 m-3">
-                                                                    <img class="img-admin" src="../admin/image/<?php echo $r_nv['image'] ?>"style="
-                                                                    width: 80px;
-                                                                    height: 80px;
-                                                                    border-radius: 50%;
-                                                                    ">
+                                                                    <img class="img-admin" src="../admin/image/<?php echo $r_nv['image'] ?>"style="width: 80px;height: 80px;border-radius: 50%;">
                                                                    
                                                                 </div>
-                                                                <div class="fullname col l-9 c-9 m-9" style="
-                                                                                                        display: flex;
-                                                                                                        align-items: center;
-                                                                                                        ">
+                                                                <div class="fullname col l-9 c-9 m-9" style="display: flex;align-items: center;">
                                                                     <lable class="text-inner">Họ và tên: 
                                                                         <p name="name"class="last-name input"style="width: 100%; color: #bbb;font-size:1.4rem">
                                                                             <?php echo $r_nv['ten_dn'] ?>
@@ -89,8 +82,6 @@
                                                                     <p name="date"class="form-check-input">
                                                                         <?php echo $r_nv['ngay_sinh'] ?>
                                                                     </p>
-                                                                >
-                                                                
                                                                 </label>
                                                             </div>
                                                             <div class="form-check-inline">
@@ -113,7 +104,7 @@
                                                     <div class="ad-user">
                                                         <div>
                                                             <i class="fas fa-phone-alt icon"></i> 
-                                                            <input type="text" name="phone" value="<?php echo $r_nv['sdt'] ?>" style="color: #bbb;"
+                                                            <input type="text" name="phone" value="0<?php echo $r_nv['sdt'] ?>" style="color: #bbb;"
                                                             />
                                                         </div>
                                                     </div>

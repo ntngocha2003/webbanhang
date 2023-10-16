@@ -78,7 +78,7 @@
 <body>
     <div class="admin">
         <?php
-            require_once'header_admin.php';
+            require 'header_admin.php';
             ?> 
 
         <div class="admin_container">
@@ -86,7 +86,7 @@
                 <div class="row">
                     
                     <?php
-                        require_once'admin_category.php';
+                        require 'admin_category.php';
                    ?> 
                 
                     <div class="col l-9 m-12 c-12">
@@ -108,7 +108,7 @@
                                                 background-color: #fff;
                                                 cursor: pointer;">
                                             
-                                        <input type="text" class="control_link-item--input" name="ten_dn"value="<?=!empty($name)?$name:""?>">
+                                        <input type="text" class="control_link-item--input" name="ten_dn"value="<?=!empty($value)?$value:""?>">
                                     </form>
                                     <form class="control_link-item" style="margin-right: 0;"action="renderClient.php?action=return" method="POST">
                                         <!-- <i class="ti-search"style="font-weight: 900;"></i> -->
@@ -169,8 +169,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="table-borderless-td">
-                                                        <div class="reponsive">
-                                                            <?php echo $r['sdt'];?>
+                                                        <div class="reponsive">0<?php echo $r['sdt'];?>
                                                         </div>
                                                     </td>
                                                     <td class="table-borderless-td">
@@ -213,9 +212,16 @@
                                                                             ">
                                         <?php
                                             if(isset($_SESSION['client_filter'])){
-                                                ?>
-                                                    <strong><?=$totalRecords?> <span>kết quả trả về cho từ khóa </span><?=$value?> trên <span><?=$totalPages?></span> trang</strong>
+                                                if(empty($value)){
+                                                    ?>
+                                                     <span style='color:red'> Bạn chưa nhập từ khóa!!!</span>
+                                                    <?php 
+                                                }
+                                                else{
+                                                    ?>
+                                                    <span><?=$totalRecords?> <span>kết quả trả về cho từ khóa </span><strong><?=$value?></strong> trên <span><?=$totalPages?></span> trang</span>
                                                 <?php
+                                                }
                                             }
                                             else {
                                                 ?>

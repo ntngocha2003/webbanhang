@@ -33,6 +33,14 @@ function showErrorToast() {
     });
   }
 
+  function showSuccessToastAddcart() {
+    toast({
+      title: "Thành công!",
+      message: "Bạn đã thêm vào giỏ hàng thành công.",
+      type: "success",
+      duration: 5000
+    });
+  }
   // Toast function
 function toast({ title = "", message = "", type = "info", duration = 3000 }) {
     const main = document.getElementById("toast");
@@ -80,3 +88,5 @@ function toast({ title = "", message = "", type = "info", duration = 3000 }) {
     }
   }
   
+  // const btnAddCart=document.querySelector('.btn-add--cart');
+  // btnAddCart.addEventListener('submit',showSuccessToastAddcart());

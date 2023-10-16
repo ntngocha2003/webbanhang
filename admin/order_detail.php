@@ -10,8 +10,6 @@
         <link rel="stylesheet" href="./css/addStaff.css">
         <link rel="stylesheet" href="./css/renderStaff.css">
         <link rel="stylesheet" href="./css/reponsiver.css">
-        <!-- Latest compiled and minified CSS -->
-        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"> -->
 
         <!-- jQuery library -->
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
@@ -30,7 +28,7 @@
     <body>
 
     <div class="admin">
-        <?php
+        <!-- <?php
                 require 'header_admin.php';
                 
             ?> 
@@ -44,12 +42,12 @@
                    ?>
                     
                     <div class="col l-9 m-12 c-12">
-                        <div class="add_staff">
+                        <div class="add_staff"> -->
 
-                            <div class="container">
+                            <!-- <div class="container">
                                 <div class="container_title">
                                     <h2 class="container_heading">Chi tiết đơn hàng</h2>
-                                </div>
+                                </div> -->
                                 
                                 <?php
         
@@ -71,14 +69,14 @@
                                 $sql_detail = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                 
                                 ?>
-                                <div id="order-detail-wrapper">
+                                <div id="order-detail-wrapper" style=" width: 500px; margin-top: 80px;">
                                     <div id="order-detail">
                                         <h1 class="detail_user">Chi tiết đơn hàng</h1>
                                         <label class="detail_user-item">Người nhận: </label>
                                         <span class="item-name"> <?= $sql[0]['ten_dn'] ?></span>
                                         <br/>
                                         <label class="detail_user-item">Điện thoại: </label>
-                                        <span class="item-name"> <?= $sql[0]['sdt'] ?></span>
+                                        <span class="item-name"> 0<?= $sql[0]['sdt'] ?></span>
                                         <br/>
                                         <label class="detail_user-item">Địa chỉ: </label>
                                         <span class="item-name"> <?= $sql[0]['dia_chi'] ?></span>
@@ -120,12 +118,12 @@
                                     </div>
                                 </div>
                                 
-                            </div>
+                            <!-- </div> -->
                            
-                        </div>
+                        <!-- </div>
                     </div>  
                 </div>
-            </div> 
+            </div>  -->
         </div> 
 
 

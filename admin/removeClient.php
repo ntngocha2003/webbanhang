@@ -1,9 +1,9 @@
 <?php
-    $ip=$_GET['sid'];
+    $id=$_GET['sid'];
 
     require_once 'connect.php';
 
-    $remove_sql="DELETE FROM account where id=$ip";
+    $remove_sql="DELETE FROM account where id=$id";
 
     if(mysqli_query($conn,$remove_sql)){
         

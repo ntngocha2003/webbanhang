@@ -21,7 +21,13 @@
         $dmyhis=date("Y").date("m").date("d").date("H").date("i").date("s");
         
         $image=$dmyhis.$file_name; 
-        copy ( $file_tmp, $uploadDir_img_logo.$image);
+        // copy ( $file_tmp, $uploadDir_img_logo.$image);
+        if(!empty($file_name)){
+            copy ( $file_tmp, $uploadDir_img_logo.$image);
+        }
+        else if(empty($file_name)){
+            $err['image']='Bạn chưa chọn ảnh';
+        }
 
         if(empty($email)){
             $err['email']='Bạn chưa nhập email';

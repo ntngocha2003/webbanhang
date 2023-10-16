@@ -1,8 +1,5 @@
 <?php 
   
-//   session_start();
-//    ob_start();
-   
     if (!isset($_SESSION["cart"])) {
         $_SESSION["cart"] = array();
     }
@@ -44,6 +41,7 @@
                     function update_cart($add = false) {
                         
                         foreach ($_POST['get'] as $id => $get) {
+                            // var_dump($_POST['get']);exit;
                             if ($get == 0) {
                                 unset($_SESSION["cart"][$id]);
                             } else {
@@ -51,6 +49,7 @@
                                     $_SESSION["cart"][$id] += $get;
                                 } else {
                                     $_SESSION["cart"][$id] = $get;
+                                    
                                 }
                             }
                         }
@@ -60,15 +59,15 @@
                         case "add":
                                 update_cart(true);
                                 header('Location: ./cart.php');
-                                var_dump(($_SESSION["cart"][$id]));exit;
+                               
                                 break;
-                    case "delete":
-                        if(isset($_GET['id'])){
-                            unset($_SESSION["cart"][$_GET['id']]);
-                        }
-                        header("location:cart.php");
-                        break;
-                    case "submit":
+                        case "delete":
+                            if(isset($_GET['id'])){
+                                unset($_SESSION["cart"][$_GET['id']]);
+                            }
+                            header("location:cart.php");
+                            break;
+                        case "submit":
                         if (isset($_POST['update_click'])) { //Cập nhật số lượng sản phẩm
                             update_cart();
                             header('Location: ./cart.php');
@@ -105,7 +104,6 @@
                                 $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_client`, `id_product`, `gia_tien`, `so_luong`,`created_time`, `last_updated`) VALUES " . $insertString . ";");
 
                                
-                                
                                 unset($_SESSION['cart']);
                             }
                             header('Location: ./bill.php');
@@ -115,6 +113,7 @@
             }
             if (!empty($_SESSION["cart"])) {
                 $products = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` IN (".implode(",", array_keys($_SESSION["cart"])).")");
+                //  var_dump($_SESSION["cart"]);exit;
             }
         ?>
 
@@ -228,7 +227,7 @@
                                             </div>
                                             
                                             <div class="">
-                                                <p class="text-inner">Số điện thoại: <?php echo $r['sdt']?></p>
+                                                <p class="text-inner">Số điện thoại: 0<?php echo $r['sdt']?></p>
                                             </div>
                                             
                                             <div class="">

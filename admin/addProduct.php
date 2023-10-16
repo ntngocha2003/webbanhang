@@ -20,15 +20,46 @@ if(isset($_POST['addP'])){
 
     $dmyhis=date("Y").date("m").date("d").date("H").date("i").date("s");
     $image=$dmyhis.$file_name; 
-    copy ( $file_tmp, $uploadDir_img_logo.$image);
+
+    $err=[];
+
+    if(!empty($file_name)){
+        copy ( $file_tmp, $uploadDir_img_logo.$image);
+    }
+    else if(empty($file_name)){
+        $err['image']='Bạn chưa chọn ảnh';
+        // header("location: addProduct.php");
+    }
+
+    if(empty($tenSP)){
+        $err['tenSP']='Bạn chưa nhập tên sản phẩm';
+    }
+    if(empty($moTa)){
+        $err['moTa']='Bạn chưa nhập mô tả';
+    }
+    if(empty($sale)){
+        $err['sale']='Bạn chưa nhập sale';
+    }
+    if(empty($giaGoc)){
+        $err['giaGoc']='Bạn chưa nhập giá';
+    }
+    if(empty($giaMoi)){
+        $err['giaMoi']='Bạn chưa nhập giá';
+    }
+    if(empty($soLuong)){
+        $err['soLuong']='Bạn chưa nhập số lượng';
+    }
+   
         require_once 'connect.php';
+        if(empty($err)){
 
-        $addSp="INSERT INTO `product`(`id`, `ten_sp`, `mota`,`image`, `sale`, `gia_goc`, `gia_moi`,`tinh_trang`,`so_luong`,`id_dm`) 
-        VALUES (null,'$tenSP','$moTa','$image','$sale','$giaGoc','$giaMoi','$tinhTrang','$soLuong','$danhMuc')";
-
-        if(mysqli_query($conn,$addSp)){
-            echo "<h1>Thêm thành công</h1>";
-            header("location: renderProduct.php");
+            $addSp="INSERT INTO `product`(`id`, `ten_sp`, `mota`,`image`, `sale`, `gia_goc`, `gia_moi`,`tinh_trang`,`so_luong`,`id_dm`) 
+            VALUES (null,'$tenSP','$moTa','$image','$sale','$giaGoc','$giaMoi','$tinhTrang','$soLuong','$danhMuc')";
+    
+            if(mysqli_query($conn,$addSp)){
+                echo "<h1>Thêm thành công</h1>";
+                header("location: renderProduct.php");
+            }
         }
 }
 
@@ -63,8 +94,8 @@ if(isset($_POST['addP'])){
 </head>
 <body>
     <div class="admin">
-    <?php
-                        require_once'header_admin.php';
+                    <?php
+                        require 'header_admin.php';
                    ?> 
 
         <div class="admin_container">
@@ -72,7 +103,7 @@ if(isset($_POST['addP'])){
                 <div class="row">
                     
                     <?php
-                    require_once'admin_category.php';
+                    require 'admin_category.php';
                     ?> 
                 
                     <div class="col l-9 m-12 c-12">
@@ -89,6 +120,11 @@ if(isset($_POST['addP'])){
 
                                                 <label for="tenSP">Tên sản phẩm</label>
                                                 <input type="text" class="form-control" name="tenSP">
+                                                <span class="message">
+                                                    <?php
+                                                        echo (isset($err['tenSP'])?($err['tenSP']):'');
+                                                    ?>
+                                                </span>
                                             </div>
                                         </div>
                                         
@@ -97,6 +133,11 @@ if(isset($_POST['addP'])){
 
                                                 <label for="mota">Mô tả</label>
                                                 <input type="text" class="form-control" name="moTa">
+                                                <span class="message">
+                                                    <?php
+                                                        echo (isset($err['moTa'])?($err['moTa']):'');
+                                                    ?>
+                                                </span>
                                             </div>
                                             
                                           </div>
@@ -106,6 +147,12 @@ if(isset($_POST['addP'])){
 
                                                 <label for="image">Ảnh 3 x 4</label>
                                                 <input type="file" class="form-control" name="image">
+
+                                                <span class="message">
+                                                    <?php
+                                                        echo (isset($err['image'])?($err['image']):'');
+                                                    ?>
+                                                </span>
                                             </div>
                                           </div>
 
@@ -114,13 +161,24 @@ if(isset($_POST['addP'])){
 
                                                 <label for="sale">Sale</label>
                                                 <input type="number" class="form-control" name="sale">
+                                                <span class="message">
+                                                    <?php
+                                                        echo (isset($err['sale'])?($err['sale']):'');
+                                                    ?>
+                                                </span>
                                             </div>
+                                            
                                           </div>
                                           <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
 
                                                 <label for="giaGoc">Gía gốc</label>
                                                 <input type="number" class="form-control" name="giaGoc">
+                                                <span class="message">
+                                                    <?php
+                                                        echo (isset($err['giaGoc'])?($err['giaGoc']):'');
+                                                    ?>
+                                                </span>
                                             </div>
                                           </div>
                                           <div class="form-group l-6 c-6 m-6 col">
@@ -128,6 +186,11 @@ if(isset($_POST['addP'])){
 
                                                 <label for="giaMoi">Giá mới</label>
                                                 <input type="number" class="form-control" name="giaMoi">
+                                                <span class="message">
+                                                    <?php
+                                                        echo (isset($err['giaMoi'])?($err['giaMoi']):'');
+                                                    ?>
+                                                </span>
                                             </div>
                                           </div>
                                           <div class="form-group l-6 c-6 m-6 col">
@@ -135,7 +198,7 @@ if(isset($_POST['addP'])){
 
                                                 <label for="tinhTrang">Tình trạng</label>
                                                 <select class="form-control" name="tinhTrang">
-                                                    <option>-- Chọn tình trạng --</option>
+                                                    
                                                     <option>Còn hàng</option>
                                                     <option>Hết hàng</option>
                                                     
@@ -147,6 +210,11 @@ if(isset($_POST['addP'])){
 
                                                 <label for="soLuong">Số lượng</label>
                                                 <input type="number" class="form-control" name="soLuong">
+                                                <span class="message">
+                                                    <?php
+                                                        echo (isset($err['soLuong'])?($err['soLuong']):'');
+                                                    ?>
+                                                </span>
                                             </div>
                                           </div>
                                           <div class="form-group l-6 c-6 m-6 col">

@@ -93,7 +93,7 @@
       
       
                       <div class="auth-form__controls"style="width: 350px;">
-                          <a href="loginClient.php" class="btn auth-form__controls-back btn--normal" 
+                          <a href="home.php" class="btn auth-form__controls-back btn--normal" 
                             style="background-color: #aaa;
                             display: flex;">TRỞ LẠI</a>
                           <input name="login" type="submit" class="btn btn--primary btn-login" value="ĐĂNG NHẬP"/>

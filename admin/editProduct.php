@@ -86,8 +86,9 @@
                                             <div class="group">
 
                                                 <label for="image">Ảnh 3 x 4</label>
-                                                <input type="file" class="form-control" name="image"
-                                                    value="<?php echo $row['image']?>">
+                                                <img src="./image/<?php echo $row['image']?>" style="width:60px;height:60px;border-radius: 50%;"/>
+                                                <!-- <input type="file" class="form-control" name="moTa"
+                                                value="./image/<?php echo $row['image']?>"> -->
                                             </div>
                                             
                                           </div>
@@ -122,7 +123,7 @@
                                                 <label for="tinhTrang">Tình trạng</label>
                                                 <select class="form-control" name="tinhTrang"
                                                 value="<?php echo $row['tinh_trang']?>">
-                                                    <option>-- Chọn tình trạng --</option>
+                                                    
                                                     <option>Còn hàng</option>
                                                     <option>Hết hàng</option>
                                                     

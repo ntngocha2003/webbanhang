@@ -94,7 +94,7 @@
                                                     <div class="ad-user">
                                                         <div>
                                                             <i class="fas fa-phone-alt icon"></i> 
-                                                            <input type="text" name="phone" value="<?php echo $r['sdt'] ?>" style="color: #bbb;"
+                                                            <input type="text" name="phone" value="0<?php echo $r['sdt'] ?>" style="color: #bbb;"
                                                             />
                                                         </div>
                                                     </div>

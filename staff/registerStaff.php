@@ -23,7 +23,13 @@
         $dmyhis=date("Y").date("m").date("d").date("H").date("i").date("s");
         
         $image=$dmyhis.$file_name; 
-        copy ( $file_tmp, $uploadDir_img_logo.$image);
+
+        if(!empty($file_name)){
+            copy ( $file_tmp, $uploadDir_img_logo.$image);
+        }
+        else if(empty($file_name)){
+            $err['image']='Bạn chưa chọn ảnh';
+        }
 
         if(empty($email)){
             $err['email']='Bạn chưa nhập email';
@@ -43,10 +49,10 @@
         if(empty($date)){
             $err['date']='Bạn chưa nhập ngày sinh';
         }
-        if(empty($date)){
+        if(empty($gender)){
             $err['gender']='Bạn chưa nhập giới tính';
         }
-        if(empty($date)){
+        if(empty($address)){
             $err['address']='Bạn chưa nhập địa chỉ';
         }
         if(empty($err)){
@@ -54,8 +60,7 @@
             VALUES (null,'$email',$sdt,'$tenDN','$MK','$image','$date','$gender','$address','Nhân viên')" ;
 
             if(mysqli_query($conn,$addTK)){
-                
-                header("location: ./loginStaff.php");
+               header("location: ./loginStaff.php");
             }
             else{
                 echo "<h1>Đăng ký thất bại</h1>";
@@ -184,7 +189,7 @@
 
                     <div class="auth-form__form">
                         <div class="auth-form__group">
-                            <input type="phone" class="auth-form__input" id="phoneRegister" placeholder="Sdt"name="sdt">
+                            <input type="phone" class="auth-form__input" id="phoneRegister" placeholder="Sdt"name="sdt"/>
                         </div>
                         <span class="message messageNumber">
                             <?php
@@ -193,7 +198,7 @@
                         </span>
                     </div>
                         <div class="auth-form__group">
-                            <input type="date" class="auth-form__input" id="dateRegister" name="date">
+                            <input type="date" class="auth-form__input" id="dateRegister" name="date"/>
                         </div>
                         
                         <span class="message messageNumber">

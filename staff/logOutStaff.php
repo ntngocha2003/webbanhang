@@ -2,7 +2,7 @@
         session_start();
         if(isset($_SESSION['nameStaff'])){
 
-            session_destroy();
+            unset($_SESSION["nameStaff"]);
             header("location: loginStaff.php");
         }
         ?>

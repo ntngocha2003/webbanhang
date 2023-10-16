@@ -1,5 +1,4 @@
 <?php
-     $maDM=$_POST['maDM'];
      $tenDM=$_POST['tenDM'];
      $id=$_POST['sid'];
          require_once 'connect.php';
@@ -10,6 +9,4 @@
             echo "<h1>Sửa thành công</h1>";
             header("location: renderCategory.php");
         }
-   
-
 ?>

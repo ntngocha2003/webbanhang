@@ -3,7 +3,7 @@
     ob_start();
     require_once '../admin/connect.php';
 
-    if(isset($_POST['name'])){
+    if(isset($_POST['loginStaff'])){
         $name=$_POST['name'];
         $pass=$_POST['pass'];
         if(isset($name) && isset($pass)){

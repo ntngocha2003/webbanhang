@@ -59,7 +59,7 @@
                                 <h3>Sửa thông tin danh mục</h3>
                             </div>
                             <div class="add-content">
-                                <form action="./updateCategory.php" method="post" enctype="multipart/form-data">
+                                <form action="./updateCategory.php" method="post">
                                 <input type="hidden" id="" name="sid" value="<?php echo $id?>">
                                 
                                     <div class="block row">
