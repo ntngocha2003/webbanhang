@@ -40,85 +40,193 @@
         <div class="app__container app_bill">
             <div class="grid wide">
 
-                <div class="app_heading">
+                <!-- <div class="app_heading">
                     <h2> Chi tiết đơn hàng</h2>
-                </div>
+                </div> -->
 
                 
                 <div>
-                <?php
-        
-                    require_once './admin/connect.php';
-                    
-                    
-                    $bill_detail="SELECT  client_order.*, orders.*, product.mota,product.image, product.ten_sp
-                    FROM client_order
-                    INNER JOIN orders ON client_order.id = orders.id_client
-                    INNER JOIN product ON product.id = orders.id_product
-                    WHERE client_order.id =". $_GET['id'];
-                    $result=mysqli_query($conn,$bill_detail);
-
-                    // $sql= mysqli_fetch_assoc($result);  
-                    $sql_detail = mysqli_fetch_all($result, MYSQLI_ASSOC);
-                    
-                    ?>
-                    <div id="order-detail-wrapper">
-                        <div id="order-detail">
-                            <h1 class="detail_user">Chi tiết đơn hàng</h1>
-                            <label class="detail_user-item">Người nhận: </label>
-                            <span class="item-name"> <?= $r['ten_dn'] ?></span>
-                            <br/>
-                            <label class="detail_user-item">Điện thoại: </label>
-                            <span class="item-name"> <?= $r['sdt'] ?></span>
-                            <br/>
-                            <label class="detail_user-item">Địa chỉ: </label>
-                            <span class="item-name"> <?= $r['dia_chi'] ?></span>
-                            <br/>
-                            <hr/>
-                            <h3 class="detail_product">Danh sách sản phẩm</h3>
-                            <ul>
-                                <?php
-                                $totalQuantity = 0;
-                                $totalMoney = 0;
-                                foreach ($sql_detail as $row) {
-                                    ?>
-                                    <li>
-                                        <label class="detail_user-item">Tên sản phẩm: </label>
-                                        <span class="item-name"><?= $row['ten_sp'] ?></span>
-                                        <br/>
-                                        <label class="detail_user-item">Mô tả: </label>
-                                        <span class="item-name"><?= $row['mota'] ?></span>
-                                        <br/>
-                                        <label class="detail_user-item">Số lượng: </label>
-                                        <span class="item-name"><?= $row['so_luong'] ?> sản phẩm</span>
-                                    </li>
-                                    <?php
-                                    $totalMoney += ($row['gia_tien'] * $row['so_luong']);
-                                    $totalQuantity += $row['so_luong'];
-                                }
-                                ?>
-                            </ul>
-                            <hr/>
-                            <label class="detail_user-item">Tổng SL:</label> 
-                            <span class="item-name"><?= $totalQuantity ?></span>
-                            <br/>
-                            <label class="detail_user-item">Tổng tiền:</label> 
-                            <span class="item-name"><?= number_format($totalMoney, 0, ",", ".") ?> đ</span>
-                            <br/>
-                            <label class="detail_user-item">Ghi chú: </label>
-                            <span class="item-name"><?= $sql_detail[0]['ghi_chu'] ?></span>
-                            
-                        </div>
-                    </div>
-                   
-                    <div class="btn-action btn-action1">
-
-                        <a href="./home.php" class="btn-back">
-                            <i class="fas fa-arrow-left"></i>
-                            <span>Back to Shopping</span>
-                        </a>
+                    <?php
+            
+                        require_once './admin/connect.php';
                         
-                    </div>
+                        
+                        $bill_detail="SELECT  client_order.*, orders.*, product.mota,product.image, product.ten_sp
+                        FROM client_order
+                        INNER JOIN orders ON client_order.id = orders.id_client
+                        INNER JOIN product ON product.id = orders.id_product
+                        WHERE client_order.id =". $_GET['id'];
+                        $result=mysqli_query($conn,$bill_detail);
+
+                        // $sql= mysqli_fetch_assoc($result);  
+                        $sql_detail = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                        
+                        ?>
+                    
+                   
+                    <div class="app__container app_bill">
+                        <div class="grid wide">
+
+                            <div class="app_heading">
+                                <h2>Chi tiết đơn hàng</h2>
+                            </div>
+
+                            <div class="row sm-gutter">
+                                
+
+                                <div class="col l-12 m-12 c-12">
+
+                                    <div class="info">
+                                        <div class="row sm-gutter ">
+                                            <div class="col l-4 m-4 c-4">
+                                                <h3 class="info-heading">Địa chỉ người nhận</h3>
+                                                <div class="address-user">
+                                                    <p>Tên: <?php echo $r['ten_dn']?></p>
+                                                    <p>Địa chỉ: <?php echo $r['dia_chi']?></p>
+                                                    <p>SĐT: 0<?php echo $r['sdt']?></p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col l-4 m-4 c-4">
+                                                <h3 class="info-heading">Hình thức giao hàng</h3>
+                                                <div class="address-user">
+                                                    <p>Giao hàng tiết kiệm, được giao bởi NgọcHà_Shop</p>
+                                                    <p>Hàng được giao nhanh trong vòng 3 - 4 ngày</p>
+                                                    <p style="color:var(--primary-color)">Dự kiến giao vào ngày 
+                                                    <?php
+                                                    foreach ($sql_detail as $row) {
+
+                                                        $n=date('d/m/Y', $row['created_time']);
+                                                        $ngaygiao = DateTime::createFromFormat('d/m/yy', $n);
+                                                        $ngaygiao->add(new DateInterval('P3D'));
+
+                                                        echo $ngaygiao->format('d/m/Y'); 
+                                                    }
+                                                                            
+                                                                        ?>
+                                                    </p>
+                                                    <p>Phí vận chuyển: 0đ</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col l-4 m-4 c-4">
+                                                <h3 class="info-heading">Hình thức thanh toán</h3>
+                                                <div class="address-user">
+                                                    
+                                                    <p>Thanh toán tiền mặt khi nhận hàng</p>
+                                                    
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                            <div style="margin-top: 30px;
+                            background-color: #fff;">
+                                <table class="tableListProduct">
+                                        <thead>
+                                            <tr>
+                                                <th class="col-name">
+                                                    STT
+                                                </th>
+                                                <th class="col-name" style="text-align: left;">
+                                                    Thông tin sản phẩm
+                                                </th>
+                                                <th class="col-name">
+                                                    Số lượng
+                                                </th>
+                                                <th class="col-name">
+                                                    Đơn giá
+                                                </th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody class="list-items">
+                                            <?php
+                                               $totalQuantity = 0;
+                                               $totalMoney = 0;
+                                               $num=1;
+                                                foreach ($sql_detail as $row) {
+                                                
+                                                    ?>
+                                                    <tr class="item-row" id="">
+                                                        <td>
+                                                            <div style="margin-left:10px"><?php echo $num++; ?></div>
+                                                        </td>
+                                                        <td class="order-item">
+                                                            <img src="./admin/image/<?=$row['image']?>"
+                                                                style="width: 80px;
+                                                                height: 80px;" alt="" >
+                                                            <div class="product">
+                                                                <h2 class="product-name" style="font-size: 1.3rem;">
+                                                                    <?=$row['mota']?>
+                                                                </h2>
+                                                            
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="select-quantity">                                      
+                                                                <span class="select-quantity-screen"><?=$row['so_luong']?></span>
+                                                            </div>
+                                                        </td>
+                                                        <td class="subtotal">
+                                                            <?=number_format($row['gia_tien'], 0, ",", ".")?>đ
+                                                            
+                                                        </td>
+                                                        
+                                                    </tr>
+                                                    <?php
+                                                    $totalMoney += ($row['gia_tien'] * number_format($row['so_luong'], 0, ",", "."));
+                                                    $totalQuantity += $row['so_luong'];
+                                                    }
+                                                    ?>
+                                                    
+                                        </tbody>
+                                </table>
+                                                
+                                <div class="total-price"style="padding-top: 15px;
+                                    padding-bottom: 15px;">
+                                    <div class="col l-2 c-2 m-2">
+                                        <h2 class="title">Tạm tính: </h2>
+                                        <h2 class="title">Phí vận chuyển: </h2>
+                                        <h2 class="title">Tổng tiền: </h2>
+                                       
+                                    </div>
+                                    <div class="col l-2 c-2 m-2">
+                                        <h2><?=number_format($totalMoney, 0, ",", ".")?> đ</h2>
+                                        <h2>0 đ</h2>
+                                        <h2><?=number_format($totalMoney, 0, ",", ".")?> đ</h2>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div style="background-color: #F5F5F5;
+                                            padding-top: 30px;
+                                            padding-bottom: 20px;
+                                            display: flex;">
+                                    <div class="btn-action" style="margin-left:20px;margin-top: 5px;">
+
+                                        <a href="./bill.php" class="btn-back">
+                                            <i class="fas fa-arrow-left"></i>
+                                            <span>Trở lại đơn hàng của tôi</span>
+                                        </a>
+
+                                    </div>
+
+                                    <div class="btn-action--next" style="margin-left:20px">
+
+                                        <a href="" class="btn-next">
+                                            <span>Theo dõi đơn hàng</span>
+                                        </a>
+
+                                    </div>
+                                </div>
+                               
+                                
+                            </div>             
+                        </div> 
+                    </div> 
                 </div>             
             </div> 
         </div> 

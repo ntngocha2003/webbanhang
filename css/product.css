@@ -93,6 +93,7 @@ background-color: #fff;
 .btn-add:hover{
     color:#fff;
     cursor: pointer;
+    opacity: 0.5;
 }
 .btn-buys:hover{
     cursor: pointer;

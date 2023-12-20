@@ -1,16 +1,8 @@
 <?php
-    $id=$_GET['sid'];
-
+    session_start();
+    ob_start();
     require_once 'connect.php';
-
-    $edit_sql="SELECT * FROM category where id=$id";
-
-    $result=mysqli_query($conn,$edit_sql);
-
-    $row= mysqli_fetch_assoc($result);
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +33,7 @@
 <body>
     <div class="admin">
     <?php
-                        require_once'header_admin.php';
+                        require 'header_admin.php';
                    ?> 
 
         <div class="admin_container">
@@ -49,7 +41,7 @@
                 <div class="row">
                     
                 <?php
-                        require_once'admin_category.php';
+                        require 'admin_category.php';
                    ?>  
                 
                     <div class="col l-9 m-12 c-12">
@@ -58,6 +50,19 @@
                             <div class="add-header">
                                 <h3>Sửa thông tin danh mục</h3>
                             </div>
+                            <?php
+                                $id=$_GET['sid'];
+
+                                require_once 'connect.php';
+
+                                $edit_sql="SELECT * FROM category where id=$id";
+
+                                $result=mysqli_query($conn,$edit_sql);
+
+                                $row= mysqli_fetch_assoc($result);
+
+                            ?>
+
                             <div class="add-content">
                                 <form action="./updateCategory.php" method="post">
                                 <input type="hidden" id="" name="sid" value="<?php echo $id?>">
@@ -68,7 +73,8 @@
 
                                                 <label for="tenDM">Tên danh mục</label>
                                                 <input type="text" class="form-control" name="tenDM"
-                                                    value="<?php echo $row['ten_dm']?>">
+                                                    value="<?php echo $row['ten_dm'] ?>">
+                                               
                                             </div>
                                         </div>
                                     </div>   

@@ -1,4 +1,9 @@
 <?php
+    session_start();
+    ob_start();
+    require_once 'connect.php';
+?>
+<?php
     if(isset($_POST['addC'])){
         $tenDM=$_POST['tenDM'];
         require_once 'connect.php';

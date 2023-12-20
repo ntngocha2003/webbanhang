@@ -12,7 +12,7 @@
                         <i class="fas fa-bars header_bar-icon"></i>
                     </div>
                     <div class="log-out">
-                        <a class="log-out-link" href="./login.php">
+                        <a class="log-out-link" href="./logOutAdmin.php">
                             <i class="fas fa-door-open"></i>
                             <p class="out">Đăng xuất</p>
                         </a>

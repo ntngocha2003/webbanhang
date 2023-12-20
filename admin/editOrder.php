@@ -1,17 +1,9 @@
+
 <?php
-    
+    session_start();
+    ob_start();
     require_once 'connect.php';
-
-    $edit_sql="SELECT account.ten_dn,account.image, client_order.*
-    FROM account
-    INNER JOIN client_order ON account.id = client_order.id_account
-    where client_order.id =". $_GET['sid'];
-
-    $result=mysqli_query($conn,$edit_sql);
-
-    $row= mysqli_fetch_assoc($result);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,58 +50,40 @@
                         <div class="add_staff">
 
                             <div class="add-header">
-                                <h3>Sửa thông tin đơn hàng</h3>
+                                <h3>Cập nhật trạng thái đơn hàng</h3>
                             </div>
+                            <?php
+                                $id=$_GET['sid'];
+                                require_once 'connect.php';
+
+                                $edit_sql="SELECT account.ten_dn,account.image, client_order.*
+                                FROM account
+                                INNER JOIN client_order ON account.id = client_order.id_account
+                                where client_order.id =". $_GET['sid'];
+
+                                $result=mysqli_query($conn,$edit_sql);
+
+                                $row= mysqli_fetch_assoc($result);
+                            ?>
                             <div class="add-content">
-                                <form action="./updateOrder.php" method="post" enctype="multipart/form-data">
+                                <form action="./updateOrder.php" method="post">
                                     <div class="block row">
-                                        <input type="hidden" id="" name="sid" value="<?php echo $id?>">
+                                    <input type="hidden" id="" name="sid" value="<?php echo $id?>">
                                         
-                                        <div class="form-group l-6 c-6 m-6 col">
+                                        
+                                        <div class="form-group l-12 c-12 m-12 col">
                                             <div class="group">
-
-                                                <label for="tenSP">Tên người nhận</label>
-                                                <p class="form-control" name="tenNN"><?php echo $row['ten_dn']?></p>
-                                            </div>
-                                        </div>
-                                        <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="image">Ảnh 3 x 4</label>
-                                                <img class="form-control" src="./image/<?php echo $row['image']?>"style="width:40px;height:40px;">
-                                            </div>
-                                            
-                                          </div>
-
-                                          <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="giaMoi">Tổng tiền</label>
-                                                <p class="form-control"><?php echo $row['tong_tien']?> đ</p>
-                                                
-                                            </div>
-                                          </div>
-                                          <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="tinhTrang">Tình trạng</label>
-                                                <select class="form-control" name="tinhTrang"
-                                                value="<?php echo $row['tinh_trang']?>">                                                   
-                                                    <option>Đang giao</option>
+                                                <label class="control-label">Trạng thái</label>
+                                               
+                                                <select name="tinhTrang"class="form-control" id="exampleSelect2" required>
+                                                    
                                                     <option>Đang chờ hàng</option>
-                                                    <option>Đã giao</option>
+                                                    <option>Đang giao hàng</option>
+                                                    <option>Đã giao hàng</option>
                                                 </select>
                                             </div>
-                                          </div>
-
-                                          <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="diaChi">Ghi chú</label>
-                                                <p class="form-control"><?php echo $row['ghi_chu']?></p>
-                                            </div>
                                         </div>
-                                          
+                                        
                                     </div>
                                     <div class="block">
                                         <button type="submit" class="btn btn-primary btn-save">Lưu thông tin</button>

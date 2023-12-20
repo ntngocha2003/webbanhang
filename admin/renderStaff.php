@@ -1,14 +1,16 @@
 <?php
+    
     session_start();
     ob_start();
+    
     require_once 'connect.php';
         if(!empty($_GET['action']) && $_GET['action'] == 'search' && !empty($_POST)){
             $_SESSION['staff_filter'] = $_POST;
-            header('Location: renderClient.php');
+            header('Location: renderStaff.php');
         }
         if(!empty($_GET['action']) && $_GET['action'] == 'return' && !empty($_POST)){
             unset($_SESSION['staff_filter']);
-            header('Location: renderClient.php');
+            header('Location: renderStaff.php');
         }
         
         if(!empty($_SESSION['staff_filter'])){
@@ -26,26 +28,26 @@
                 }
                 extract($_SESSION['staff_filter']);
             }
-            $item_per_page = (!empty($_GET['per_page'])) ? $_GET['per_page'] : 4;
+            $item_per_page = (!empty($_GET['per_page'])) ? $_GET['per_page'] : 5;
             $current_page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
             $offset = ($current_page - 1) * $item_per_page;
             if(!empty($where)){
-                $totalRecords = mysqli_query($conn, "SELECT * FROM `account` where (".$where.") and quen='Nhân viên'");
+                $totalRecords = mysqli_query($conn, "SELECT * FROM `account` where quen LIKE '%Nhân viên%' and (".$where.") ");
                 // var_dump($where);exit;
         }else{
-            $totalRecords = mysqli_query($conn, "SELECT * FROM `account`where quen='Nhân viên'");
+            $totalRecords = mysqli_query($conn, "SELECT * FROM `account`where quen LIKE '%Nhân viên%'");
         }
         $totalRecords = $totalRecords->num_rows;
         $totalPages = ceil($totalRecords / $item_per_page);
         if(!empty($where)){
-            $staffs = mysqli_query($conn, "SELECT * FROM `account` where (".$where.") and quen='Nhân viên'ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
+            $staffs = mysqli_query($conn, "SELECT * FROM `account` where quen LIKE '%Nhân viên%' and (".$where.") ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
         }else{
             
-            $staffs = mysqli_query($conn, "SELECT * FROM `account` where quen='Nhân viên' ORDER BY `id` DESC LIMIT  " . $item_per_page . " OFFSET " . $offset);
-            // var_dump($clients);exit;
+            $staffs = mysqli_query($conn, "SELECT * FROM `account` where quen LIKE '%Nhân viên%' ORDER BY `id` DESC LIMIT  " . $item_per_page . " OFFSET " . $offset);
+            // var_dump( $totalRecords);exit;
         }
         
-        mysqli_close($conn);
+        // mysqli_close($conn);
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +80,7 @@
 <body>
     <div class="admin">
         <?php
-            require_once'header_admin.php';
+            require 'header_admin.php';
             ?> 
 
         <div class="admin_container">
@@ -98,7 +100,7 @@
                                 </div>
                                 <div class="control_link">
                                     
-                                    <form class="control_link-item" style="margin-right: 0;"action="renderClient.php?action=search" method="POST">
+                                    <form class="control_link-item" style="margin-right: 0;"action="renderStaff.php?action=search" method="POST">
                                         <!-- <i class="ti-search"style="font-weight: 900;"></i> -->
                                         <input type="submit" name="btnSearch" value="Tìm kiếm" 
                                             style="font-weight: bold;
@@ -110,7 +112,7 @@
                                             
                                         <input type="text" class="control_link-item--input" name="ten_dn"value="<?=!empty($value)?$value:""?>">
                                     </form>
-                                    <form class="control_link-item" style="margin-right: 0;"action="renderClient.php?action=return" method="POST">
+                                    <form class="control_link-item" style="margin-right: 0;"action="renderStaff.php?action=return" method="POST">
                                         <!-- <i class="ti-search"style="font-weight: 900;"></i> -->
                                         <input type="submit" name="btnSearch" value="Trở lại" 
                                             style="font-weight: bold;
@@ -127,12 +129,12 @@
                                         <tr>
                                             <th class="table-borderless-th" >STT</th>
                                             <th class="table-borderless-th" >Tên nhân viên</th>
-                                            <th class="table-borderless-th" >Ảnh</th>
                                             <th class="table-borderless-th" >Email</th>
                                             <th class="table-borderless-th" >Số điện thoại</th>
                                             <th class="table-borderless-th" >Địa chỉ</th>
-                                            <th class="table-borderless-th" >Ngày sinh</th>
+                                            
                                             <th class="table-borderless-th" >Giới tính</th>
+                                            <th class="table-borderless-th" >Chức vụ</th>
                                             <th class="table-borderless-th" >Thao tác</th>
                                         </tr>
                                         </thead>
@@ -158,12 +160,6 @@
                                                     </td>
 
                                                     <td class="table-borderless-td">
-                                                        
-                                                            <img class="table-borderless-td--img" src="./image/<?php echo $r['image']?>">
-                                                        
-                                                    </td>
-                                                    
-                                                    <td class="table-borderless-td">
                                                         <div class="reponsive">
                                                             <?php echo $r['email'];?>
                                                         </div>
@@ -178,17 +174,21 @@
                                                             <?php echo $r['dia_chi'];?>
                                                         </div>
                                                     </td>
-                                                    <td class="table-borderless-td">
-                                                        <div class="reponsive">
-                                                            <?php echo $r['ngay_sinh'];?>
-                                                        </div>
-                                                    </td>
+                                                    
                                                     <td class="table-borderless-td">
                                                         <div class="reponsive">
                                                            
                                                             <?php echo $r['gioi_tinh'];?>
                                                         </div>
                                                     </td>
+
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                           
+                                                            <?php echo $r['quen'];?>
+                                                        </div>
+                                                    </td>
+
                                                     <td class="table-borderless-td">
                                                         <div class="reponsive">
                                                             

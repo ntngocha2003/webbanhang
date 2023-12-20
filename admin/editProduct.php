@@ -1,16 +1,8 @@
 <?php
-    $id=$_GET['sid'];
-
+    session_start();
+    ob_start();
     require_once 'connect.php';
-
-    $edit_sql="SELECT * FROM product where id=$id";
-
-    $result=mysqli_query($conn,$edit_sql);
-
-    $row= mysqli_fetch_assoc($result);
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +43,7 @@
                 <div class="row">
                     
                 <?php
-                        require_once'admin_category.php';
+                        require 'admin_category.php';
                    ?> 
                 
                     <div class="col l-9 m-12 c-12">
@@ -60,6 +52,19 @@
                             <div class="add-header">
                                 <h3>Sửa sản phẩm</h3>
                             </div>
+                            <?php
+                                $id=$_GET['sid'];
+
+                                require_once 'connect.php';
+
+                                $edit_sql="SELECT * FROM product where id=$id";
+
+                                $result=mysqli_query($conn,$edit_sql);
+
+                                $row= mysqli_fetch_assoc($result);
+
+                            ?>
+
                             <div class="add-content">
                                 <form action="./updateProduct.php" method="post" enctype="multipart/form-data">
                                     <div class="block row">
@@ -109,27 +114,7 @@
                                                 value="<?php echo $row['gia_goc']?>">
                                             </div>
                                           </div>
-                                          <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="giaMoi">Giá mới</label>
-                                                <input type="number" class="form-control" name="giaMoi"
-                                                value="<?php echo $row['gia_moi']?>">
-                                            </div>
-                                          </div>
-                                          <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="tinhTrang">Tình trạng</label>
-                                                <select class="form-control" name="tinhTrang"
-                                                value="<?php echo $row['tinh_trang']?>">
-                                                    
-                                                    <option>Còn hàng</option>
-                                                    <option>Hết hàng</option>
-                                                    
-                                                </select>
-                                            </div>
-                                          </div>
+                                          
                                           <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
 

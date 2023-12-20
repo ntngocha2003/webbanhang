@@ -33,12 +33,21 @@ function showErrorToast() {
     });
   }
 
-  function showSuccessToastAddcart() {
+  function showSuccessToastPayCard() {
     toast({
       title: "Thành công!",
-      message: "Bạn đã thêm vào giỏ hàng thành công.",
+      message: "Bạn đã thêm thành công thẻ visa",
       type: "success",
       duration: 5000
+    });
+  }
+
+  function showSuccessToastPayAccuracy() {
+    toast({
+      title: "Thành công!",
+      message: "Bạn đã thanh toán thành công",
+      type: "success",
+      duration: 10000
     });
   }
   // Toast function
@@ -90,3 +99,6 @@ function toast({ title = "", message = "", type = "info", duration = 3000 }) {
   
   // const btnAddCart=document.querySelector('.btn-add--cart');
   // btnAddCart.addEventListener('submit',showSuccessToastAddcart());
+       
+        // payCard.addEventListener('click', showSuccessToast)
+        

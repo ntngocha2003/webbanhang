@@ -52,10 +52,32 @@
 .list_contol{
     list-style: none;
     font-size: 1.6rem;
+    margin-left: 20px;
 }
 .list_contol-item{
     margin: 20px 0;
     
+}
+.list_acc{
+    color: #bbb;
+    font-weight: 600;
+}
+.list_acc-items{
+    display: block;
+    margin-left: 20px;
+    font-size: 1.4rem;
+}
+
+.list_acc-item{
+    margin: 20px 0;
+}
+.icon-right{
+    display: flex;
+    padding: 0 15px;
+}
+.icon-open{
+    display: flex;
+    padding: 0 15px;
 }
 .list_contol-item--link{
     text-decoration: none;

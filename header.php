@@ -51,7 +51,7 @@
                                 
                                 echo '
                                 <div class="header__navbar-item header__navbar-user" id="header__navbar-user">
-                                    <img src="./image/client.jpg" alt="" class="header__navbar-user-img">
+                                    <img src="./admin/image/'.$r['image'].'" alt="" class="header__navbar-user-img">
                                     <span class="header__navbar-user-name">'.$_SESSION['name'].' </span>
          
                                     <div class="header__navbar-user-menu">
@@ -155,7 +155,7 @@
                                                             <div class="header__cart-item-head">
                                                                 <h5 class="header__cart-item-name"><?=$row['mota']?></h5>
                                                                     <div class="header__cart-item-price-wrap">
-                                                                        <span class="header__cart-item-price"><?=$row['gia_moi']?>đ</span>
+                                                                        <span class="header__cart-item-price"><?=$row['gia_goc']-($row['gia_goc']*$row['sale']/100)?>đ</span>
                                                                         <span class="header__cart-item-multiply">x</span>
                                                                         <input type='text' class="header__card-item-qnt"value="<?= $_SESSION["cart"][$row['id']] ?>"
                                                                         name="get[<?= $row['id'] ?>]" style="width: 25px;

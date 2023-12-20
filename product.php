@@ -55,7 +55,7 @@
                                     <form class="product-btn" id="add-to-cart-form" action="cart.php?action=add&id=<?= $product['id'] ?>" method="POST">
                                     
                                         <div class="product-item-price-wrap">
-                                            <p class="product-item-price">Gía bán: <span class="price"><?=$product['gia_moi']?></span>đ</p>
+                                            <p class="product-item-price">Gía bán: <span class="price"><?=$product['gia_goc']-($product['gia_goc']*$product['sale']/100)?></span>đ</p>
                                             <p class="number">số lượng: </p>
                                             <input class="product-item-number" type="number" min="1" max="<?=$product['so_luong']?>" value="1"name="get[<?=$product['id']?>]">
                                             
@@ -117,6 +117,15 @@
                                 </div>
 
                             </div>
+                            <div class="btn-action btn-action1">
+
+                                <a href="./home.php" class="btn-back">
+                                    <i class="fas fa-arrow-left"></i>
+                                    <span>Back to Shopping</span>
+                                </a>
+                                
+                            </div>
+
                             <h2 class="product-description--heading">Chi tiết sản phẩm</h2>
                             <div class="row sm-gutter product-description">
                                 <div class="col l-2 c-2 m-2">

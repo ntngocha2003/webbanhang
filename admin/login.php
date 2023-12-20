@@ -1,4 +1,7 @@
 <?php
+ session_start();
+ ob_start();
+ 
     require_once 'connect.php';
 
     if(isset($_POST['login'])){
@@ -6,11 +9,34 @@
         $pass=$_POST['pass'];
         if(isset($name) && isset($pass)){
 
-            $login="select *from account where ten_dn='$name' and mat_khau='$pass' and quen='admin' ";
+            $login="select *from account where ten_dn='$name' and mat_khau='$pass' and quen!='Khách hàng' ";
         
             $test= mysqli_query($conn,$login);
             if(mysqli_num_rows($test)>0){
-                header("location: renderOrder.php");
+                $_SESSION['nameAdmin']=$name;
+
+                if(isset($_SESSION['nameAdmin'])){
+                    $row=$_SESSION['nameAdmin'];
+                    $render_sql= "SELECT * FROM `account`where ten_dn='$row'";
+                    $result=mysqli_query($conn,$render_sql);
+                    $r=mysqli_fetch_assoc($result);
+
+                    if(($r['quen']=='admin')){
+                        header("location: renderAccount.php");
+                    }
+                    else if(($r['quen']=='Nhân viên chăm sóc khách hàng')){
+                        header("location: renderClient.php");
+                    }
+                    else if(($r['quen']=='Nhân viên quản lý kho')){
+                        header("location: renderProduct.php");
+                    }
+                    else if(($r['quen']=='Nhân viên quản lý đơn hàng')){
+                        header("location: renderOrder.php");
+                    }
+                    
+                    
+                }
+                
             }else{
                 echo '<center class="alert alert-danger">Đăng nhập thất bại</center>';
             }

@@ -1,6 +1,6 @@
 <?php
-    session_start();
-    ob_start();
+   session_start();
+   ob_start();
     require_once 'connect.php';
         if(!empty($_GET['action']) && $_GET['action'] == 'search' && !empty($_POST)){
             $_SESSION['client_filter'] = $_POST;
@@ -26,7 +26,7 @@
                 }
                 extract($_SESSION['client_filter']);
             }
-            $item_per_page = (!empty($_GET['per_page'])) ? $_GET['per_page'] : 4;
+            $item_per_page = (!empty($_GET['per_page'])) ? $_GET['per_page'] : 5;
             $current_page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
             $offset = ($current_page - 1) * $item_per_page;
             if(!empty($where)){
@@ -45,7 +45,7 @@
             // var_dump($clients);exit;
         }
         
-        mysqli_close($conn);
+        // mysqli_close($conn);
     ?>
 <!DOCTYPE html>
 <html lang="en">

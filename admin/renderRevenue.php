@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    ob_start();
+    require_once 'connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,6 +41,7 @@
                 <div class="row">
                     
                     <?php
+                    
                         require 'admin_category.php';
                    ?>
                     
@@ -45,7 +51,7 @@
                         
                         $totalClients = $totalClients->num_rows;
 
-                        $totalStaffs = mysqli_query($conn, "SELECT * FROM `account`where quen='Nhân viên'");
+                        $totalStaffs = mysqli_query($conn, "SELECT * FROM `account`where quen like '%Nhân viên%'");
                         
                         $totalStaffs = $totalStaffs->num_rows;
 
@@ -57,20 +63,20 @@
                         $totalOrders1 = mysqli_query($conn, "SELECT account.ten_dn,account.image, client_order.*
                                         FROM account
                                         INNER JOIN client_order ON account.id = client_order.id_account
-                                        where tinh_trang !='Đã giao'");
+                                        where client_order.tinh_trang !='Đã giao hàng'");
                        
                         $totalOrders1 = $totalOrders1->num_rows;
 
                         $totalOrders2 = mysqli_query($conn, "SELECT account.ten_dn,account.image, client_order.*
                                         FROM account
                                         INNER JOIN client_order ON account.id = client_order.id_account
-                                        where tinh_trang='Đã giao'");
+                                        where client_order.tinh_trang='Đã giao hàng'");
                         $totalOrders2 = $totalOrders2->num_rows;
 
                         $totalOrders3 = mysqli_query($conn, "SELECT account.ten_dn,account.image, client_order.*
                                         FROM account
                                         INNER JOIN client_order ON account.id = client_order.id_account
-                                        where tinh_trang='Đã giao'");
+                                        where client_order.tinh_trang='Đã giao hàng'");
                                         // $totalOrders3 = $totalOrders3->num_rows;
 
                                         $total=0;

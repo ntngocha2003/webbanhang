@@ -1,14 +1,17 @@
 <?php
+    session_start();
+    ob_start();
+    require_once 'connect.php';
+?>
+<?php
 if(isset($_POST['addP'])){
     $tenSP=$_POST['tenSP'];
     $moTa=$_POST['moTa'];
     $sale=$_POST['sale'];
     $giaGoc=$_POST['giaGoc'];
-    $giaMoi=$_POST['giaMoi'];
-    $tinhTrang=$_POST['tinhTrang'];
     $soLuong=$_POST['soLuong'];
     $danhMuc=$_POST['danhMuc'];
-
+    $nhaCC=$_POST['nCC'];
 
     $uploadDir_img_logo = "./image/";
 
@@ -37,14 +40,9 @@ if(isset($_POST['addP'])){
     if(empty($moTa)){
         $err['moTa']='Bạn chưa nhập mô tả';
     }
-    if(empty($sale)){
-        $err['sale']='Bạn chưa nhập sale';
-    }
+    
     if(empty($giaGoc)){
         $err['giaGoc']='Bạn chưa nhập giá';
-    }
-    if(empty($giaMoi)){
-        $err['giaMoi']='Bạn chưa nhập giá';
     }
     if(empty($soLuong)){
         $err['soLuong']='Bạn chưa nhập số lượng';
@@ -53,8 +51,8 @@ if(isset($_POST['addP'])){
         require_once 'connect.php';
         if(empty($err)){
 
-            $addSp="INSERT INTO `product`(`id`, `ten_sp`, `mota`,`image`, `sale`, `gia_goc`, `gia_moi`,`tinh_trang`,`so_luong`,`id_dm`) 
-            VALUES (null,'$tenSP','$moTa','$image','$sale','$giaGoc','$giaMoi','$tinhTrang','$soLuong','$danhMuc')";
+            $addSp="INSERT INTO `product`(`id`, `ten_sp`, `mota`,`image`, `sale`, `gia_goc`, `so_luong`,`id_dm`,`id_ncc`) 
+            VALUES (null,'$tenSP','$moTa','$image','$sale','$giaGoc','$soLuong','$danhMuc','$nhaCC')";
     
             if(mysqli_query($conn,$addSp)){
                 echo "<h1>Thêm thành công</h1>";
@@ -181,30 +179,7 @@ if(isset($_POST['addP'])){
                                                 </span>
                                             </div>
                                           </div>
-                                          <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="giaMoi">Giá mới</label>
-                                                <input type="number" class="form-control" name="giaMoi">
-                                                <span class="message">
-                                                    <?php
-                                                        echo (isset($err['giaMoi'])?($err['giaMoi']):'');
-                                                    ?>
-                                                </span>
-                                            </div>
-                                          </div>
-                                          <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="tinhTrang">Tình trạng</label>
-                                                <select class="form-control" name="tinhTrang">
-                                                    
-                                                    <option>Còn hàng</option>
-                                                    <option>Hết hàng</option>
-                                                    
-                                                </select>
-                                            </div>
-                                          </div>
+                                          
                                           <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
 
@@ -222,8 +197,9 @@ if(isset($_POST['addP'])){
 
                                                 <label class="control-label">Danh mục</label>
                                                 <select name="danhMuc"class="form-control" id="exampleSelect2" required>
+                                                <option>--Chọn danh mục--</option> 
                                                 <?php
-
+                                                    
                                                     require_once 'connect.php';
 
                                                     $category="SELECT * FROM category";
@@ -235,6 +211,32 @@ if(isset($_POST['addP'])){
                                                     foreach ($row_c as $row_category) {
                                                         ?>
                                                             <option value="<?php echo $row_category['id']?>"><?php echo $row_category['ten_dm']?></option> 
+                                                            <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                          </div>
+
+                                          <div class="form-group l-6 c-6 m-6 col">
+                                            <div class="group">
+
+                                                <label class="control-label">Nhà cung cấp</label>
+                                                <select name="nCC"class="form-control" id="exampleSelect2" required>
+                                                <option>--Chọn nhà cung cấp--</option> 
+                                                <?php
+
+                                                    require_once 'connect.php';
+
+                                                    $supplier="SELECT * FROM `supplier`";
+
+                                                    $result=mysqli_query($conn,$supplier);
+
+                                                    $row_c= mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+                                                    foreach ($row_c as $row_supplier) {
+                                                        ?>
+                                                            <option value="<?php echo $row_supplier['id']?>"><?php echo $row_supplier['ten_ncc']?></option> 
                                                             <?php
                                                     }
                                                     ?>

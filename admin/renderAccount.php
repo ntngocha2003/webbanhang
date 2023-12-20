@@ -1,6 +1,6 @@
 <?php
-    session_start();
-    ob_start();
+   session_start();
+   ob_start();
     require_once 'connect.php';
         if(!empty($_GET['action']) && $_GET['action'] == 'search' && !empty($_POST)){
             $_SESSION['account_filter'] = $_POST;
@@ -27,7 +27,7 @@
                 }
                 extract($_SESSION['account_filter']);
             }
-            $item_per_page = (!empty($_GET['per_page'])) ? $_GET['per_page'] : 4;
+            $item_per_page = (!empty($_GET['per_page'])) ? $_GET['per_page'] : 5;
             $current_page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
             $offset = ($current_page - 1) * $item_per_page;
             if(!empty($where)){
@@ -46,7 +46,7 @@
             // var_dump($products);exit;
         }
         
-        mysqli_close($conn);
+        // mysqli_close($conn);
     ?>
 
 <html lang="en">
@@ -98,7 +98,16 @@
                                     <h2 class="container_heading">Danh sách tài khoản</h2>
                                 </div>
                                 <div class="control_link">
-                                   
+                                    <a class="control_link-item" href="addStaff.php">+ Thêm mới tài khoản
+                                        <!-- <?php
+                                            $totalClients = mysqli_query($conn, "SELECT * FROM `account`where quen='Khách hàng' and tinh_trang='Đang xử lý'");
+                                            
+                                            $totalClients = $totalClients->num_rows;
+                                            
+                                            ?>
+                                        <a class="control_link-item" href="loadClient.php">+ Tài khoản chờ xử lý
+                                        <p class="acc-client"><?php echo $totalClients?></p> -->
+                                    </a>
                                     <form class="control_link-item" style="margin-right: 0;"action="renderAccount.php?action=search" method="POST">
                                         <!-- <i class="ti-search"style="font-weight: 900;"></i> -->
                                         <input type="submit" name="btnSearch" value="Tìm kiếm" 
@@ -109,7 +118,7 @@
                                                 background-color: #fff;
                                                 cursor: pointer;">
                                             
-                                        <input type="text" class="control_link-item--input" name="ten_dn"value="<?=!empty($name)?$name:""?>">
+                                        <input type="text" class="control_link-item--input" name="ten_dn"value="<?=!empty($value)?$value:""?>">
                                     </form>
                                     <form class="control_link-item" style="margin-right: 0;"action="renderAccount.php?action=return" method="POST">
                                         <!-- <i class="ti-search"style="font-weight: 900;"></i> -->
@@ -172,7 +181,7 @@
                                                         </td>
                                                         <td class="table-borderless-td" style="display:flex;justify-content: space-around;">
                                                             <div class="reponsive">
-                                                                
+                                                                <a href="editStaff.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a>
                                                                 <a onclick="return confirm('bạn có muốn xóa tài khoản này không')"
                                                                     href="removeAccount.php?sid=<?php echo $r['id'];?>" class="btn-danger">Xóa
                                                                 </a>

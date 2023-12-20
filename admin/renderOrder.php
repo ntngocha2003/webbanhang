@@ -1,6 +1,6 @@
 <?php
-    session_start();
-    ob_start();
+   session_start();
+   ob_start();
     require_once 'connect.php';
         if(!empty($_GET['action']) && $_GET['action'] == 'search' && !empty($_POST)){
             $_SESSION['order_filter'] = $_POST;
@@ -53,10 +53,26 @@
             $orders = mysqli_query($conn, "SELECT account.ten_dn,account.image, client_order.*
             FROM account
             INNER JOIN client_order ON account.id = client_order.id_account ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
-            
+
+            $ordersDC = mysqli_query($conn, "SELECT account.ten_dn,account.image, client_order.*
+            FROM account
+            INNER JOIN client_order ON account.id = client_order.id_account where client_order.tinh_trang like '%Đang chờ hàng%' ");
+
+            $ordersDG = mysqli_query($conn, "SELECT account.ten_dn,account.image, client_order.*
+            FROM account
+            INNER JOIN client_order ON account.id = client_order.id_account where client_order.tinh_trang like '%Đang giao%' ");
+                   
+            $ordersDGG = mysqli_query($conn, "SELECT account.ten_dn,account.image, client_order.*
+            FROM account
+            INNER JOIN client_order ON account.id = client_order.id_account where client_order.tinh_trang like '%Đã giao%' ");
+             
+            $ordersDH = mysqli_query($conn, "SELECT account.ten_dn,account.image, client_order.*
+            FROM account
+            INNER JOIN client_order ON account.id = client_order.id_account where client_order.tinh_trang like '%Đã hủy%' ");
+                    
         }
         
-        mysqli_close($conn);
+        // mysqli_close($conn);
     ?>
 
 <!DOCTYPE html>
@@ -67,6 +83,7 @@
     <title>Quản lý đơn hàng</title>
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/bill.css">
     <link rel="stylesheet" href="./css/addStaff.css">
     <link rel="stylesheet" href="./css/renderStaff.css">
     <link rel="stylesheet" href="./css/reponsiver.css">
@@ -134,7 +151,50 @@
                                             
                                     </form>
                                 </div>
-                                    <table class="table table-borderless">
+                                <div class="row sm-gutter">
+                    
+
+                                    <div class="col l-12 m-12 c-12">
+
+                                        <div class="info-bill">
+                                            <div class="row sm-gutter tabs">
+                                                <div class="col l-2-4 m-2-4 c-2-4 tab-item active">
+                                                    <p class="info-heading">
+                                                        <span>Tất cả đơn hàng</span>
+                                                    </p>
+                                                </div>
+                                                <div class="col l-2-4 m-2-4 c-2-4 tab-item">
+                                                    <p  class="info-heading">
+                                                        <span>Đang chờ hàng</span>
+                                                    </p>
+                                                </div>
+
+                                                <div class="col l-2-4 m-2-4 c-2-4 tab-item">
+                                                    <p  class="info-heading">
+                                                        <span>Đang giao hàng</span>
+                                                    </p>
+                                                </div>
+
+                                                <div class="col l-2-4 m-2-4 c-2-4 tab-item">
+                                                    <p  class="info-heading">
+                                                        <span>Đã giao hàng</span>
+                                                    </p>
+                                                </div>
+
+                                                <div class="col l-2-4 m-2-4 c-2-4 tab-item">
+                                                    <p  class="info-heading">
+                                                        <span>Đã hủy</span>
+                                                    </p>
+                                                </div>
+
+                                                <div class="line" style="top: 45px;
+                                                                        background-color: var(--primary-color);"></div>
+
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                                    <table class="table table-borderless tab-pane active">
                                         <thead class="table-borderless-thead">
                                         <tr>
                                             <th class="table-borderless-th" >STT</th>
@@ -145,7 +205,7 @@
                                             <th class="table-borderless-th" >Ghi chú</th>
                                             <th class="table-borderless-th" >Tình trạng</th>
                                             <th class="table-borderless-th" >Ngày đặt</th>
-                                            <th class="table-borderless-th" >Chi tiết</th>
+                                            <th class="table-borderless-th" >In hóa đơn</th>
                                             <th class="table-borderless-th" >Thao tác</th>
                                         </tr>
                                         </thead>
@@ -208,7 +268,371 @@
                                                         <!-- target="_blank"  -->
                                                         <div class="reponsive">
                                                             <a target="_blank" href="order_detail.php?id=<?=$r['id']?>" 
-                                                            style="color:#bbb">Chi tiết</a>
+                                                            style="color:#bbb">In</a>
+                                                        </div>
+                                                    </td>
+                                                    <td class="table-borderless-td" style="display:flex;justify-content: space-around;">
+                                                        <a href="editOrder.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a>
+                                                        <a onclick="return confirm('bạn có muốn xóa đơn hàng này không')"
+                                                            href="removeOrder.php?sid=<?php echo $r['id'];?>" class="btn-danger">Xóa
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php    
+                                            }
+                                        ?>
+                    
+                                        </tbody>
+                                    </table> 
+
+                                    <table class="table table-borderless tab-pane">
+                                        <thead class="table-borderless-thead">
+                                        <tr>
+                                            <th class="table-borderless-th" >STT</th>
+                                           
+                                            <th class="table-borderless-th" >Tên người nhận</th>
+                                            <th class="table-borderless-th" >Ảnh</th>
+                                            <th class="table-borderless-th" >Tổng tiền</th>
+                                            <th class="table-borderless-th" >Ghi chú</th>
+                                            <th class="table-borderless-th" >Tình trạng</th>
+                                            <th class="table-borderless-th" >Ngày đặt</th>
+                                            <th class="table-borderless-th" >In hóa đơn</th>
+                                            <th class="table-borderless-th" >Thao tác</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                    
+                                        <?php
+                                            require_once 'connect.php';
+                                           
+                                            $sql = mysqli_fetch_all($ordersDC, MYSQLI_ASSOC);
+                                            $num=1;
+                                            foreach($sql as $r){
+                                               
+                                                ?>
+                                                
+                                                <tr class="table-borderless-tr">
+                                                    <td class="table-borderless-td">
+                                                        <?php echo $num++?>
+                                                    </td>
+                                                    
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?php echo $r['ten_dn'];?>
+                                                        </div>
+                                                    </td>
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <img class="table-borderless-td--img" src="./image/<?php echo $r['image']?>">
+                                                        </div>
+                                                        
+                                                    
+                                                    </td>
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?php echo $r['tong_tien'];?> đ
+                                                        </div>
+                                                        
+                                                    </td>
+
+                                                    <td class="table-borderless-td">
+                                                        <div class="detail">
+                                                            <?php echo $r['ghi_chu'];?>
+                                                        </div>
+                                                        
+                                                    </td>
+
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?php echo $r['tinh_trang'];?>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                   
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?=date('d/m/Y', $r['created_time'])?>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                    <td class="table-borderless-td">
+                                                        <!-- target="_blank"  -->
+                                                        <div class="reponsive">
+                                                            <a target="_blank" href="order_detail.php?id=<?=$r['id']?>" 
+                                                            style="color:#bbb">In</a>
+                                                        </div>
+                                                    </td>
+                                                    <td class="table-borderless-td" style="display:flex;justify-content: space-around;">
+                                                        <a href="editOrder.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a>
+                                                        <a onclick="return confirm('bạn có muốn xóa đơn hàng này không')"
+                                                            href="removeOrder.php?sid=<?php echo $r['id'];?>" class="btn-danger">Xóa
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php    
+                                            }
+                                        ?>
+                    
+                                        </tbody>
+                                    </table> 
+
+                                    <table class="table table-borderless tab-pane">
+                                        <thead class="table-borderless-thead">
+                                        <tr>
+                                            <th class="table-borderless-th" >STT</th>
+                                           
+                                            <th class="table-borderless-th" >Tên người nhận</th>
+                                            <th class="table-borderless-th" >Ảnh</th>
+                                            <th class="table-borderless-th" >Tổng tiền</th>
+                                            <th class="table-borderless-th" >Ghi chú</th>
+                                            <th class="table-borderless-th" >Tình trạng</th>
+                                            <th class="table-borderless-th" >Ngày đặt</th>
+                                            <th class="table-borderless-th" >In hóa đơn</th>
+                                            <th class="table-borderless-th" >Thao tác</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                    
+                                        <?php
+                                            require_once 'connect.php';
+                                           
+                                            $sql = mysqli_fetch_all($ordersDG, MYSQLI_ASSOC);
+                                            $num=1;
+                                            foreach($sql as $r){
+                                               
+                                                ?>
+                                                
+                                                <tr class="table-borderless-tr">
+                                                    <td class="table-borderless-td">
+                                                        <?php echo $num++?>
+                                                    </td>
+                                                    
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?php echo $r['ten_dn'];?>
+                                                        </div>
+                                                    </td>
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <img class="table-borderless-td--img" src="./image/<?php echo $r['image']?>">
+                                                        </div>
+                                                        
+                                                    
+                                                    </td>
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?php echo $r['tong_tien'];?> đ
+                                                        </div>
+                                                        
+                                                    </td>
+
+                                                    <td class="table-borderless-td">
+                                                        <div class="detail">
+                                                            <?php echo $r['ghi_chu'];?>
+                                                        </div>
+                                                        
+                                                    </td>
+
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?php echo $r['tinh_trang'];?>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                   
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?=date('d/m/Y', $r['created_time'])?>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                    <td class="table-borderless-td">
+                                                        <!-- target="_blank"  -->
+                                                        <div class="reponsive">
+                                                            <a target="_blank" href="order_detail.php?id=<?=$r['id']?>" 
+                                                            style="color:#bbb">In</a>
+                                                        </div>
+                                                    </td>
+                                                    <td class="table-borderless-td" style="display:flex;justify-content: space-around;">
+                                                        <a href="editOrder.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a>
+                                                        <a onclick="return confirm('bạn có muốn xóa đơn hàng này không')"
+                                                            href="removeOrder.php?sid=<?php echo $r['id'];?>" class="btn-danger">Xóa
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php    
+                                            }
+                                        ?>
+                    
+                                        </tbody>
+                                    </table> 
+
+                                    <table class="table table-borderless tab-pane">
+                                        <thead class="table-borderless-thead">
+                                        <tr>
+                                            <th class="table-borderless-th" >STT</th>
+                                           
+                                            <th class="table-borderless-th" >Tên người nhận</th>
+                                            <th class="table-borderless-th" >Ảnh</th>
+                                            <th class="table-borderless-th" >Tổng tiền</th>
+                                            <th class="table-borderless-th" >Ghi chú</th>
+                                            <th class="table-borderless-th" >Tình trạng</th>
+                                            <th class="table-borderless-th" >Ngày đặt</th>
+                                            <th class="table-borderless-th" >In hóa đơn</th>
+                                            <th class="table-borderless-th" >Thao tác</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                    
+                                        <?php
+                                            require_once 'connect.php';
+                                           
+                                            $sql = mysqli_fetch_all($ordersDGG, MYSQLI_ASSOC);
+                                            $num=1;
+                                            foreach($sql as $r){
+                                               
+                                                ?>
+                                                
+                                                <tr class="table-borderless-tr">
+                                                    <td class="table-borderless-td">
+                                                        <?php echo $num++?>
+                                                    </td>
+                                                    
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?php echo $r['ten_dn'];?>
+                                                        </div>
+                                                    </td>
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <img class="table-borderless-td--img" src="./image/<?php echo $r['image']?>">
+                                                        </div>
+                                                        
+                                                    
+                                                    </td>
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?php echo $r['tong_tien'];?> đ
+                                                        </div>
+                                                        
+                                                    </td>
+
+                                                    <td class="table-borderless-td">
+                                                        <div class="detail">
+                                                            <?php echo $r['ghi_chu'];?>
+                                                        </div>
+                                                        
+                                                    </td>
+
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?php echo $r['tinh_trang'];?>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                   
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?=date('d/m/Y', $r['created_time'])?>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                    <td class="table-borderless-td">
+                                                        <!-- target="_blank"  -->
+                                                        <div class="reponsive">
+                                                            <a target="_blank" href="order_detail.php?id=<?=$r['id']?>" 
+                                                            style="color:#bbb">In</a>
+                                                        </div>
+                                                    </td>
+                                                    <td class="table-borderless-td" style="display:flex;justify-content: space-around;">
+                                                        <a href="editOrder.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a>
+                                                        <a onclick="return confirm('bạn có muốn xóa đơn hàng này không')"
+                                                            href="removeOrder.php?sid=<?php echo $r['id'];?>" class="btn-danger">Xóa
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php    
+                                            }
+                                        ?>
+                    
+                                        </tbody>
+                                    </table> 
+
+                                    <table class="table table-borderless tab-pane">
+                                        <thead class="table-borderless-thead">
+                                        <tr>
+                                            <th class="table-borderless-th" >STT</th>
+                                           
+                                            <th class="table-borderless-th" >Tên người nhận</th>
+                                            <th class="table-borderless-th" >Ảnh</th>
+                                            <th class="table-borderless-th" >Tổng tiền</th>
+                                            <th class="table-borderless-th" >Ghi chú</th>
+                                            <th class="table-borderless-th" >Tình trạng</th>
+                                            <th class="table-borderless-th" >Ngày đặt</th>
+                                            <th class="table-borderless-th" >In hóa đơn</th>
+                                            <th class="table-borderless-th" >Thao tác</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                    
+                                        <?php
+                                            require_once 'connect.php';
+                                           
+                                            $sql = mysqli_fetch_all($ordersDH, MYSQLI_ASSOC);
+                                            $num=1;
+                                            foreach($sql as $r){
+                                               
+                                                ?>
+                                                
+                                                <tr class="table-borderless-tr">
+                                                    <td class="table-borderless-td">
+                                                        <?php echo $num++?>
+                                                    </td>
+                                                    
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?php echo $r['ten_dn'];?>
+                                                        </div>
+                                                    </td>
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <img class="table-borderless-td--img" src="./image/<?php echo $r['image']?>">
+                                                        </div>
+                                                        
+                                                    
+                                                    </td>
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?php echo $r['tong_tien'];?> đ
+                                                        </div>
+                                                        
+                                                    </td>
+
+                                                    <td class="table-borderless-td">
+                                                        <div class="detail">
+                                                            <?php echo $r['ghi_chu'];?>
+                                                        </div>
+                                                        
+                                                    </td>
+
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?php echo $r['tinh_trang'];?>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                   
+                                                    <td class="table-borderless-td">
+                                                        <div class="reponsive">
+                                                            <?=date('d/m/Y', $r['created_time'])?>
+                                                        </div>
+                                                        
+                                                    </td>
+                                                    <td class="table-borderless-td">
+                                                        <!-- target="_blank"  -->
+                                                        <div class="reponsive">
+                                                            <a target="_blank" href="order_detail.php?id=<?=$r['id']?>" 
+                                                            style="color:#bbb">In</a>
                                                         </div>
                                                     </td>
                                                     <td class="table-borderless-td" style="display:flex;justify-content: space-around;">
@@ -263,5 +687,36 @@
 
     </div>
     <script src="./js/main.js"></script>
+    <script>
+    const $ = document.querySelector.bind(document);
+    const $$ = document.querySelectorAll.bind(document);
+
+    const tabs = $$(".tab-item");
+    const panes = $$(".tab-pane");
+
+    const tabActive = $(".tab-item.active");
+    const line = $(".tabs .line");
+
+
+    requestIdleCallback(function () {
+    line.style.left = tabActive.offsetLeft + "px";
+    line.style.width = tabActive.offsetWidth + "px";
+    });
+
+    tabs.forEach((tab, index) => {
+    const pane = panes[index];
+
+    tab.onclick = function () {
+        $(".tab-item.active").classList.remove("active");
+        $(".tab-pane.active").classList.remove("active");
+
+        line.style.left = this.offsetLeft + "px";
+        line.style.width = this.offsetWidth + "px";
+
+        this.classList.add("active");
+        pane.classList.add("active");
+    };
+    });
+    </script>
 </body>
 </html>

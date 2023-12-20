@@ -4,6 +4,7 @@
         $_SESSION["cart"] = array();
     }
     ?>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,11 +38,12 @@
             require_once './admin/connect.php';
             
             
-                if (isset($_GET['action'])) {
+            if (isset($_GET['action'])) {
+                 
                     function update_cart($add = false) {
                         
                         foreach ($_POST['get'] as $id => $get) {
-                            // var_dump($_POST['get']);exit;
+                            
                             if ($get == 0) {
                                 unset($_SESSION["cart"][$id]);
                             } else {
@@ -54,8 +56,9 @@
                             }
                         }
                     }
-                    
+                   
                     switch ($_GET['action']) {
+                        
                         case "add":
                                 update_cart(true);
                                 header('Location: ./cart.php');
@@ -73,8 +76,8 @@
                             header('Location: ./cart.php');
                         }
                         else if(isset($_POST['order_click'])) { 
+                            
                             if (!empty($_POST['get'])) { //Xử lý lưu giỏ hàng vào db
-                                
                                 $products = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` IN (" . implode(",", array_keys($_POST['get'])) . ")");
                                 
                                 $total = 0;
@@ -114,6 +117,7 @@
             if (!empty($_SESSION["cart"])) {
                 $products = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` IN (".implode(",", array_keys($_SESSION["cart"])).")");
                 //  var_dump($_SESSION["cart"]);exit;
+                
             }
         ?>
 
@@ -169,10 +173,10 @@
                                                         </div>
                                                     </td>
                                                     <td class="subtotal">
-                                                        <?=number_format($row['gia_moi'], 0, ",", ".")?>đ
+                                                        <?=number_format($row['gia_goc']-($row['gia_goc']*$row['sale']/100), 0, ",", ".")?>đ
                                                     </td>
                                                     <td class="total">
-                                                        <?=number_format($row['gia_moi'] * $_SESSION["cart"][$row['id']], 0, ",", ".")?>đ
+                                                        <?=number_format(($row['gia_goc']-($row['gia_goc']*$row['sale']/100)) * $_SESSION["cart"][$row['id']], 0, ",", ".")?>đ
                                                     </td>
                                                     <td class="clear-cart">
                                                         <a onclick="return confirm('bạn có muốn xóa sản phẩm này không')" href="cart.php?action=delete&id=<?= $row['id'] ?>" class="btn-remove">
@@ -182,7 +186,7 @@
                                                     </td>
                                                 </tr>
                                                 <?php
-                                                    $total += $row['gia_moi'] * $_SESSION["cart"][$row['id']];
+                                                    $total += ($row['gia_goc']-($row['gia_goc']*$row['sale']/100)) * $_SESSION["cart"][$row['id']];
                                                 }
                                             }
                                         ?>
@@ -240,13 +244,23 @@
                                         <textarea class="text-inner" name="note" cols="50" rows="7" ></textarea>
                                     </div>
                                     <div class="contact-footer">
-                                        <a href="account.php?id=<?php echo $r['id'];?>" style="color: #6fcef7;
+                                        <a href="account.php?id=<?php echo $r['id'];?>" style="color: #6fcef7;margin-top: 10px;
                                                                     font-size: 1.4rem;
                                                                    ">Thay đổi</a>
-                                        <input class="btn-confirm" type="submit" name="order_click"value="Đặt hàng" />
+                                        <?php
+                                        
+                                            if (!empty($products)){
+                                                echo'<a href="pay.php" class="btn-add--order">Mua hàng</a>'
+                                            ?>
+                                            <?php
+                                                }
+                                                
+                                                ?>
+                                            
+                                        
                                     </div>
                                 
-                            </form>                                       
+                            </form>  
                        
                 </div>
                 

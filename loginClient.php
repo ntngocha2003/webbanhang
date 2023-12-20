@@ -13,7 +13,7 @@
             $test= mysqli_query($conn,$login);
             if(mysqli_num_rows($test)>0){
                 $_SESSION['name']=$name;
-                $_SESSION['pass']=$pass;
+                // $_SESSION['pass']=$pass;
                 header("location: home.php");
             }else{
                 echo '<center class="alert alert-danger">Đăng nhập thất bại</center>';

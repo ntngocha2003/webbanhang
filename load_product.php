@@ -73,7 +73,7 @@
                                             <h4 class="home-product-item__name"> <?php echo $r['mota'];?></h4>
                                             <div class="home-product-item__price">
                                                 
-                                                <span class="home-product-item__price-current">Gía bán: <?php echo $r['gia_moi'];?>đ</span>
+                                                <span class="home-product-item__price-current">Gía bán: <?php echo $r['gia_goc']-($r['gia_goc']*$r['sale']/100)?>đ</span>
                                             </div>
                                             <div class="home-product-item__action">
                                                 <?php

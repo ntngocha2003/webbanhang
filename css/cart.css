@@ -288,12 +288,14 @@ td:nth-child(n+2) {
     display: flex;
     justify-content: flex-end;
     color: #77b3e9;
+    background-color: #fff;
 }
 .btn-action{
     display: flex;
     justify-content: space-between;
     font-size: 1.4rem;
     padding-bottom: 20px;
+    margin-top: 20px;
 }
 .btn-back{
     color: #77b3e9;
@@ -308,7 +310,19 @@ td:nth-child(n+2) {
     padding: 8px 20px;
     cursor: pointer;
 }
-
+.btn-add--order{
+    color: #fff;
+    background-color: var(--primary-color);
+    padding: 10px 15px;
+    font-size: 1.4rem;
+    border: 0;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.btn-add--order:hover{
+    opacity: 0.8;
+    
+}
 /* modal */
 .modal__container--information{
     width: 650px;

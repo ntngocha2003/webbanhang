@@ -76,3 +76,7 @@
         min-width: 100px;
     }
 }
+.list-acc--item{
+    display: none;
+}
+

@@ -11,7 +11,7 @@
     align-items: center;
     background-color: #fff;
     border-radius: 2px;
-    padding: 10px 0;
+    padding: 8px 0;
     min-width: 400px;
     max-width: 450px;
     border-left: 4px solid;
@@ -73,12 +73,12 @@
   }
   
   .toast__icon {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   
   .toast__icon,
   .toast__close {
-    padding: 0 16px;
+    padding: 0 14px;
   }
   
   .toast__body {

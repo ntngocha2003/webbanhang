@@ -1,6 +1,6 @@
 <?php
-    session_start();
-    ob_start();
+   session_start();
+   ob_start();
     require_once 'connect.php';
         if(!empty($_GET['action']) && $_GET['action'] == 'search' && !empty($_POST)){
             $_SESSION['product_filter'] = $_POST;
@@ -28,7 +28,7 @@
                 }
                 extract($_SESSION['product_filter']);
             }
-            $item_per_page = (!empty($_GET['per_page'])) ? $_GET['per_page'] : 4;
+            $item_per_page = (!empty($_GET['per_page'])) ? $_GET['per_page'] : 5;
             $current_page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
             // var_dump($current_page);
             $offset = ($current_page - 1) * $item_per_page;
@@ -53,7 +53,7 @@
             // var_dump($products);exit;
         }
         
-        mysqli_close($conn);
+        // mysqli_close($conn);
     ?>
 
 <!DOCTYPE html>
@@ -147,8 +147,8 @@
                                             <th class="table-borderless-th" >Sale</th>
                                             <th class="table-borderless-th" >Giá gốc</th>
                                             <th class="table-borderless-th" >Giá mới</th>
-                                            <th class="table-borderless-th" >Tình trạng</th>
                                             <th class="table-borderless-th" >Số lượng</th>
+                                            <th class="table-borderless-th" >Tình trạng</th>
                                             <th class="table-borderless-th" >Tên danh mục</th>
                                             <th class="table-borderless-th" >Thao tác</th>
                                         </tr>
@@ -188,13 +188,20 @@
                                                         <?php echo $r['gia_goc'];?>
                                                     </td>
                                                     <td class="table-borderless-td">
-                                                        <?php echo $r['gia_moi'];?>
-                                                    </td>
-                                                    <td class="table-borderless-td">
-                                                        <?php echo $r['tinh_trang'];?>
+                                                        <?php echo $r['gia_goc']-($r['gia_goc']*$r['sale']/100);?>
                                                     </td>
                                                     <td class="table-borderless-td">
                                                         <?php echo $r['so_luong'];?>
+                                                    </td>
+                                                    <td class="table-borderless-td">
+                                                        <?php 
+                                                            if($r['so_luong']>0){
+                                                                echo 'Còn hàng';
+                                                            }
+                                                            else if($r['so_luong']<=0){
+                                                                echo 'Hết hàng';
+                                                            }
+                                                        ?>
                                                     </td>
                                                     <td class="table-borderless-td">
                                                         <?php echo $r['ten_dm'];?>
