@@ -99,14 +99,7 @@
                                 </div>
                                 <div class="control_link">
                                     <a class="control_link-item" href="addStaff.php">+ Thêm mới tài khoản
-                                        <!-- <?php
-                                            $totalClients = mysqli_query($conn, "SELECT * FROM `account`where quen='Khách hàng' and tinh_trang='Đang xử lý'");
-                                            
-                                            $totalClients = $totalClients->num_rows;
-                                            
-                                            ?>
-                                        <a class="control_link-item" href="loadClient.php">+ Tài khoản chờ xử lý
-                                        <p class="acc-client"><?php echo $totalClients?></p> -->
+                                       
                                     </a>
                                     <form class="control_link-item" style="margin-right: 0;"action="renderAccount.php?action=search" method="POST">
                                         <!-- <i class="ti-search"style="font-weight: 900;"></i> -->

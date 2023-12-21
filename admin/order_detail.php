@@ -55,14 +55,16 @@
                                 $order="SELECT account.ten_dn,account.image,account.dia_chi,account.sdt, client_order.*
                                     FROM account
                                     INNER JOIN client_order ON account.id = client_order.id_account
+                                    
                                     where client_order.id =". $_GET['id'];                            
                                     $result=mysqli_query($conn,$order); 
                                     $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                 
-                                $bill_detail="SELECT  client_order.*, orders.*, product.mota,product.image, product.ten_sp
+                                $bill_detail="SELECT  client_order.*, orders.*, product.mota,product.image, product.ten_sp,payment.trang_thai
                                 FROM client_order
                                 INNER JOIN orders ON client_order.id = orders.id_client
                                 INNER JOIN product ON product.id = orders.id_product
+                                INNER JOIN payment ON client_order.id = payment.id_client
                                 WHERE client_order.id =". $_GET['id'];
                                 $result=mysqli_query($conn,$bill_detail);
                         
@@ -112,8 +114,8 @@
                                         <label class="detail_user-item">Tổng tiền:</label> 
                                         <span class="item-name"><?= number_format($totalMoney, 0, ",", ".") ?> đ</span>
                                         <br/>
-                                        <label class="detail_user-item">Ghi chú: </label>
-                                        <span class="item-name"><?= $sql_detail[0]['ghi_chu'] ?></span>
+                                        <label class="detail_user-item">Trạng thái thanh toán: </label>
+                                        <span class="item-name"><?= $row['trang_thai'] ?></span>
                                         
                                     </div>
                                 </div>

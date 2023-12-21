@@ -48,11 +48,12 @@
                          if (!empty($_POST['get'])) { //Xử lý lưu giỏ hàng vào db
                            
                             $products = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` IN (" . implode(",", array_keys($_POST['get'])) . ")");
-                            
+                           
                             $total = 0;
                             $quantity;
                             $orderProducts = array();
                             while ($rowp = mysqli_fetch_array($products)) {
+                                
                                 $orderProducts[] = $rowp;
                                 $total += ($rowp['gia_goc']-($rowp['gia_goc']*$rowp['sale']/100)) * $_POST['get'][$rowp['id']];
                                
@@ -61,6 +62,8 @@
                                 VALUES (NULL,'". $r['id'] ."', '" . $_POST['note'] . "', '" . $total . "','Đang chờ hàng', '" . time() . "', '" . time() . "');");
                            
                             $clientID = $conn->insert_id;
+                            $insertOrder = mysqli_query($conn, "INSERT INTO `payment` (`id`, `id_account`, `id_client`, `phuong_thuc`,`trang_thai`,`tong_tien`, `created_time`) 
+                                VALUES (NULL,'". $r['id'] ."', '" . $clientID .  "','Thanh toán bằng tiền mặt' ,'Chưa thanh toán','" . $total . "', '" . time() . "');");
                             $insertString = "";
                             foreach ($orderProducts as $key => $product) {
                                 $insertString .= "(NULL, '" . $clientID . "', '" . $product['id'] . "','".($product['gia_goc']-($product['gia_goc']*$product['sale']/100))."', '" . $_POST['get'][$product['id']] . "', '" . time() . "', '" . time() . "')";
@@ -77,7 +80,7 @@
                             unset($_SESSION['cart']);
                             
                          }
-                        header('Location: ./bill.php');
+                         header('Location: ./paySuccess.php');
                      } 
                     // break;   
             // }

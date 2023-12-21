@@ -246,3 +246,25 @@
     border-radius: 3px;
     display: none;
 }
+.success-notifi{
+    color: #aaa;margin-bottom: 8px;font-size: 1.4rem;
+}
+.from-email{
+    margin-bottom: 20px;color:#aaa;width: 100%;
+}
+#smsCard{
+    margin-bottom: 5px;color:#aaa;width: 100%;text-align: center;display:none
+}
+.messageTime{
+    margin-bottom: 10px;display:none
+}
+.textNote{
+    color: var(--primary-color);margin-bottom: 12px;font-size: 1.2rem;line-height: 1.5;display:none
+}
+.btn-sendEmail{
+    background-color: #adb5bd;font-size: 1.4rem;display: flex;color: #fff;position: relative;bottom: 209px;left: 745px;
+}
+.btnSend{
+    display: none;
+    background-color: #adb5bd;font-size: 1.4rem;color: #fff;position: relative;bottom: 209px;left: 745px;
+}

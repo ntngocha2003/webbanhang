@@ -18,10 +18,10 @@ accBar.addEventListener('click',showFormAcc)
 accClose.addEventListener('click',hideFormAcc)
 
 
-    // const listAccount=document.querySelector('.list-acc');
-    // const iconRight=document.querySelector('.icon-right')
-    // const listAccountItem=document.querySelector('.list_acc-items');
-    // const iconOpen=document.querySelector('.icon-open')
+    const listAccount=document.querySelector('.list-acc');
+    const iconRight=document.querySelector('.icon-right')
+    const listAccountItem=document.querySelector('.list_acc-items');
+    const iconOpen=document.querySelector('.icon-open')
     const listControlItem1=document.querySelector('.list_contol-item1')
     const listControlItem2=document.querySelector('.list_contol-item2')
     const listControlItem3=document.querySelector('.list_contol-item3')
@@ -42,15 +42,15 @@ accClose.addEventListener('click',hideFormAcc)
         iconRight.style.display="flex"
         iconOpen.style.display="none"
     }  
-    // function activeList1(){
-    //     listControlItem1.style.color="#fff"
-    //     listControlItem1.style.backgroundColor=" #bbb";
-    //     listControlItem1.style.borderRadius="6px";
-    // }                     
+    function activeList1(){
+        listControlItem1.style.color="#fff"
+        listControlItem1.style.backgroundColor=" #bbb";
+        listControlItem1.style.borderRadius="6px";
+    }                     
                         
-    // iconRight.addEventListener('click',showListAcc)
-    // iconOpen.addEventListener('click',hideListAcc)
-    // listControlItem1.addEventListener('click',activeList1)     
+    iconRight.addEventListener('click',showListAcc)
+    iconOpen.addEventListener('click',hideListAcc)
+    listControlItem1.addEventListener('click',activeList1)     
     
     
     

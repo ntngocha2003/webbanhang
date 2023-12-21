@@ -1,4 +1,11 @@
-
+<?php 
+  session_start();
+  ob_start();
+  require_once './admin/connect.php';
+    if (!isset($_SESSION["cart"])) {
+        $_SESSION["cart"] = array();
+    }
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,10 +30,79 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400, 500, 700display=swapsubset=vietnamese" rel="stylesheet">
 </head>
 <body>
-<div id="toast"></div>
+<?php
+        if(isset($_SESSION['name'])){
+            $row=$_SESSION['name'];
+            $render_sql= "SELECT * FROM `account`where ten_dn='$row'";
+            $result=mysqli_query($conn,$render_sql);
+            $r=mysqli_fetch_assoc($result);
+        }
+    ?>
+<?php
+            require_once './admin/connect.php';
+           
+            if (!empty($_GET['action']) && $_GET['action'] == 'submit' && !empty($_POST)) {
+                    $sms=$_POST['sms'];
+                    $err=[];
+                    if(empty($sms)){
+                        $err['sms']='Bạn chưa nhập mã xác thực!';
+                    }
+                    if(empty($err)){
+
+                        // if(isset($_POST['order_click'])) { 
+                             if (!empty($_POST['get'])) { //Xử lý lưu giỏ hàng vào db
+                               
+                                $products = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` IN (" . implode(",", array_keys($_POST['get'])) . ")");
+                                
+                                $total = 0;
+                                $quantity;
+                                $orderProducts = array();
+                                while ($rowp = mysqli_fetch_array($products)) {
+                                    $orderProducts[] = $rowp;
+                                    $total += ($rowp['gia_goc']-($rowp['gia_goc']*$rowp['sale']/100)) * $_POST['get'][$rowp['id']];
+                                   
+                                }
+                                    $insertOrder = mysqli_query($conn, "INSERT INTO `client_order` (`id`, `id_account`, `ghi_chu`, `tong_tien`,`tinh_trang`, `created_time`, `last_updated`) 
+                                    VALUES (NULL,'". $r['id'] ."', '" . $_POST['note'] . "', '" . $total . "','Đang chờ hàng', '" . time() . "', '" . time() . "');");
+                               
+                                $clientID = $conn->insert_id;
+                                $insertOrder = mysqli_query($conn, "INSERT INTO `payment` (`id`, `id_account`, `id_client`, `phuong_thuc`,`trang_thai`,`tong_tien`, `created_time`) 
+                                    VALUES (NULL,'". $r['id'] ."', '" . $clientID .  "','Thanh toán bằng thẻ tín dụng' ,'Thanh toán thành công','" . $total . "', '" . time() . "');");
+                                $insertString = "";
+                                foreach ($orderProducts as $key => $product) {
+                                    $insertString .= "(NULL, '" . $clientID . "', '" . $product['id'] . "','".($product['gia_goc']-($product['gia_goc']*$product['sale']/100))."', '" . $_POST['get'][$product['id']] . "', '" . time() . "', '" . time() . "')";
+                                    $quantity=$product['so_luong']-$_POST['get'][$product['id']];
+                                    $whereProduct=$product['id'];
+                                    $updateProduct= mysqli_query($conn, "UPDATE `product` set `so_luong`='$quantity' where id=$whereProduct");
+                                    if ($key != count($orderProducts) - 1) {
+                                        $insertString .= ",";
+                                        $whereProduct .=",";
+                                    }
+                                }
+    
+                                $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_client`, `id_product`, `gia_tien`, `so_luong`,`created_time`, `last_updated`) VALUES " . $insertString . ";");
+       
+                                unset($_SESSION['cart']);
+                                
+                             }
+                            header('Location: ./paySuccess.php');
+                    }
+                     } 
+                    // break;   
+            // }
+            // }
+            if (!empty($_SESSION["cart"])) {
+                $products = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` IN (".implode(",", array_keys($_SESSION["cart"])).")");
+                
+            }
+        ?>
+       
+
+        <div id="toast"></div>
+            <form class="contact-content" action="accuracyPay.php?action=submit" method="POST">
                 <div class="form-pay--order auth-form__container" style="margin: 90px 300px;
-                                                        background-color: #eee;
-                                                        width: 500px;
+                                                        background-color: #eeeeee8c;
+                                                        width: 600px;
                                                         padding: 30px;">
                       <div class="auth-form__header">
                           <h3 class="auth-form__heading"style="margin-bottom: 24px;">Xác minh việc thanh toán</h3>
@@ -38,6 +114,20 @@
                       <img src="./image/MBBank-2.png" style="width: 10%;height: 10%;margin-top: 8px;" alt="icon">
                       <img src="./image/visa_pay.png" style="width: 10%;height: 10%;" alt="icon">
                       </div>
+
+                      <?php
+                        if (!empty($products)){
+                            $total = 0;
+                            while ($row = mysqli_fetch_array($products)) {
+                                $total += ($row['gia_goc']-($row['gia_goc']*$row['sale']/100)) * $_SESSION["cart"][$row['id']];
+                                ?>
+                                <input class="select-quantity-screen" type="hidden" min="0" max="<?=$row['so_luong']?>" value="<?= $_SESSION["cart"][$row['id']] ?>"
+                                                                                                                name="get[<?= $row['id'] ?>]" />
+                                <?php
+                            }
+                            
+                            }
+        ?>
 
                       <div class="row sm-gutter" style="font-size: 1.4rem;
                                                         margin-bottom: 20px;
@@ -51,93 +141,133 @@
                                 <p class="title">Ngày giao dịch: </p>
                                 <p class="title">Số thẻ: </p>
                             </div>
+                            
                             <div class="col l-6 c-6 m-6">
                                 <p>NgocHa_Shop</p>
-                                <p>1000000</p>
+                                <p><?=$total?> đ</p>
                                 <?php
                                     $n=date('d/m/Y', time());
                                     $ngaygiao = DateTime::createFromFormat('d/m/yy', $n);
                                     echo $ngaygiao->format('d/m/Y'); 
                                     ?>
-                                    <p>.....................</p>
+                                    <p>**** **** **** ****</p>
                             </div>
                         </div>
-                            <label class="control-label"style="color: var(--primary-color);margin-bottom: 8px;">Phương thức xác thức: </label>
-                                <select class="form-control"style="margin-bottom: 20px;color:aaa;width: 100%;" id="exampleSelect2" required>
-                                    <option>Email</option>
+                            <label class="control-label success-notifi">Phương thức xác thực: </label>
+                                <select class="from-email form-control" id="exampleSelect2" required>
+                                    <option>SMS</option>
                                 </select>
-      
+
+                            <input type="text" id="smsCard" class="form-control"  name="sms" placeholder="SMS">
+                            <span class="message messageNotifi" style="display: block;margin-top: -10px;margin-bottom: 10px;">
+                                                    <?php
+                                                        echo (isset($err['sms'])?($err['sms']):'');
+                                                    ?>
+                                                </span>
+                            <span class="message messageTime" >Mã có hiệu lực trong vòng: <p class="time"style="display: contents;"></p><p style="display: contents;"> s</p></span>
+                            <p class="textNote">Quý khách lưu ý nhập đúng các ký tự viết hoa viết thường của mã bảo mật khi nhận được. Vui lòng liên hệ tổng đài MB247 1900545426 để được hỗ trợ.</p>
                         <div class="auth-form__controls">
                           <a href="pay.php" class="btn auth-form__controls-back btn--normal" 
                             style="background-color: #aaa;font-size:1.4rem;
                             display: flex;">Trở lại</a>
-                          <a href="accuracyPay.php"class="btn auth-form__controls-back btn--normal" style="background-color: #adb5bd;
-                                                                                                            font-size: 1.4rem;
-                                                                                                            display: flex;
-                                                                                                            color: #fff;">Gửi mã</a>
+                          
                         </div>
 
                         <div style="margin-top: 20px;">
-                         <button class="btn btn--primary btn-sendAccurracy"style=" width: 100%;">Gửi giao dịch</button>
+                        <input class="btn-confirm btn-order"style="width:100%" type="submit" name="order_click"value="Gửi giao dịch" />
+                         <!-- <button class="btn btn--primary btn-sendAccurracy" type="submit" name="order_click" style=" width: 100%;">Gửi giao dịch</button> -->
                         </div>
       
                 </div>
-                
-                <script src="./js/toast.js"></script>
-
-                <div class="form-success" style="margin: 90px 300px;
-                                                    background-color: #eeeeeea8;
-                                                    width: 500px;
-                                                    padding: 30px;
-                                                    display:none
-                                                ">
-                      <div class="auth-form__header" style="text-align: center;
-                                                            font-size: 4.4rem;
-                                                            color: #008000b8;">
-                          <i class="fas fa-check-circle"></i>
-                      </div>
-                      <div class="auth-form__header"style="text-align: center;">
-                          <h3 class="auth-form__heading"style="margin-bottom: 24px;">Đặt hàng thành công</h3>
-                      </div>
-                      <p style="margin-top: -5px;
-                                font-weight: 600;
-                                margin-bottom: 25px;
-                                color: #aaa;
-                                font-size: 1.1rem;">Chúng tôi sẽ liên hệ với quý khách để xác nhận đơn hàng trong thời gian sớm nhất</p>
-                    
-                        <div class="auth-form__controls">
-                          <a href="home.php" class="btn btn--primary" 
-                            style="font-size:1.4rem;
-                            display: flex;">Quay lại trang chủ</a>
-                          <a href=""class="btn auth-form__controls-back btn--normal" style="margin-left: 136px;background-color: #fff;
-                                                                                            font-size: 1.4rem;
-                                                                                            display: flex;
-                                                                                            color: var(--primary-color);">Xem chi tiết đơn hàng</a>`
-                        </div>
- 
+        </form>   
+                <div class="">
+                    <button class="btn btn-sendEmail">Gửi mã</button>
+                    <button class="btn btnSend">Gửi mã</button>
                 </div>
+               
 </body>
 <script>
+    const btnSendEmail=document.querySelector('.btn-sendEmail')
+    const btnSend=document.querySelector('.btnSend')
+    const btnOrder=document.querySelector('.btn-order')
+    const formMail=document.querySelector('#exampleSelect2')
+    const smsCard=document.querySelector('#smsCard')
+    const messageTime=document.querySelector('.messageTime')
+    const messageNotifi=document.querySelector('.messageNotifi')
+    const textNote=document.querySelector('.textNote')
     const formPayOrder=document.querySelector('.form-pay--order')
     const formSuccess=document.querySelector('.form-success')
-    function showFormSuccess(){
-        formSuccess.style.display="block"
+    const successNotifi=document.querySelector('.success-notifi')
+    const time=document.querySelector('.time')
+
+    var num=16
+    function timeCode(){
+        num--;
+        if(num!=0){
+            time.innerHTML=num
+            setTimeout("timeCode()",1000)
+        }
+        else{
+            successNotifi.innerHTML="Đã hết thời gian vui lòng yêu cầu gửi lại!"
+            successNotifi.style.color='#F44336'
+            formMail.style.display="flex"
+            smsCard.style.display="none"
+            messageTime.style.display="none"
+            textNote.style.display="none"
+            btnSendEmail.style.display="none"
+            btnSend.style.display="flex"
+           
+        }
+    }
+    var num2=16
+    function timeCode2(){
+        num2--;
+        if(num2!=0){
+            time.innerHTML=num2
+            setTimeout("timeCode2()",1000)
+        }
+        else{
+            successNotifi.innerHTML="Đơn hàng của quý khách tạm thời chưa thể thanh toán, vui lòng quay lại sau!"
+            successNotifi.style.color='#F44336'
+            formMail.style.display="flex"
+            smsCard.style.display="none"
+            messageTime.style.display="none"
+            textNote.style.display="none"
+            btnSendEmail.style.display="none"
+            btnSend.style.display="none"
+            btnOrder.style.display="none"
+           
+        }
     }
 
-    function hideFormPayOrder(){
-        formPayOrder.style.display="none"
-    }
-    const btnSendAccurracy=document.querySelector('.btn-sendAccurracy')
-        
-        btnSendAccurracy.addEventListener('click',()=>{
-            
-            
-                btnSendAccurracy.innerHTML="Đang xử lý..."
-                setTimeout(()=>{
-                    showFormSuccess();
-                    hideFormPayOrder();
-                    btnSendAccurracy.innerHTML="Gửi giao dịch"
-                },3000)
-        })
+    btnSendEmail.addEventListener('click',()=>{
+        btnSendEmail.innerHTML="Đang gửi mã..."
+        setTimeout(()=>{
+                successNotifi.innerHTML="Mật khẩu đã được gửi đến số điện thoại quý khách đăng ký mới MB. Vui lòng nhập mật khẩu"
+                formMail.style.display="none"
+                smsCard.style.display="flex"
+                messageTime.style.display="block"
+                textNote.style.display="flex"
+                btnSendEmail.innerHTML="Gửi mã"
+                successNotifi.style.color='#aaa'
+                messageNotifi.style.display="none"
+                timeCode();
+            },3000)
+    })
+
+    btnSend.addEventListener('click',()=>{
+        btnSend.innerHTML="Đang gửi mã..."
+        setTimeout(()=>{
+                successNotifi.innerHTML="Mật khẩu đã được gửi đến số điện thoại quý khách đăng ký mới MB. Vui lòng nhập mật khẩu"
+                formMail.style.display="none"
+                smsCard.style.display="flex"
+                messageTime.style.display="block"
+                textNote.style.display="flex"
+                btnSend.innerHTML="Gửi mã"
+                successNotifi.style.color='#aaa'
+                messageNotifi.style.display="none"
+                timeCode2();
+            },3000)
+    })
 </script>
 </html>

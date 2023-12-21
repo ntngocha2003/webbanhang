@@ -202,7 +202,7 @@
                                             <th class="table-borderless-th" >Tên người nhận</th>
                                             <th class="table-borderless-th" >Ảnh</th>
                                             <th class="table-borderless-th" >Tổng tiền</th>
-                                            <th class="table-borderless-th" >Ghi chú</th>
+                                           
                                             <th class="table-borderless-th" >Tình trạng</th>
                                             <th class="table-borderless-th" >Ngày đặt</th>
                                             <th class="table-borderless-th" >In hóa đơn</th>
@@ -244,13 +244,7 @@
                                                         
                                                     </td>
 
-                                                    <td class="table-borderless-td">
-                                                        <div class="detail">
-                                                            <?php echo $r['ghi_chu'];?>
-                                                        </div>
-                                                        
-                                                    </td>
-
+                                                   
                                                     <td class="table-borderless-td">
                                                         <div class="reponsive">
                                                             <?php echo $r['tinh_trang'];?>
@@ -293,7 +287,7 @@
                                             <th class="table-borderless-th" >Tên người nhận</th>
                                             <th class="table-borderless-th" >Ảnh</th>
                                             <th class="table-borderless-th" >Tổng tiền</th>
-                                            <th class="table-borderless-th" >Ghi chú</th>
+                                           
                                             <th class="table-borderless-th" >Tình trạng</th>
                                             <th class="table-borderless-th" >Ngày đặt</th>
                                             <th class="table-borderless-th" >In hóa đơn</th>
@@ -335,13 +329,7 @@
                                                         
                                                     </td>
 
-                                                    <td class="table-borderless-td">
-                                                        <div class="detail">
-                                                            <?php echo $r['ghi_chu'];?>
-                                                        </div>
-                                                        
-                                                    </td>
-
+                                                   
                                                     <td class="table-borderless-td">
                                                         <div class="reponsive">
                                                             <?php echo $r['tinh_trang'];?>
@@ -384,7 +372,7 @@
                                             <th class="table-borderless-th" >Tên người nhận</th>
                                             <th class="table-borderless-th" >Ảnh</th>
                                             <th class="table-borderless-th" >Tổng tiền</th>
-                                            <th class="table-borderless-th" >Ghi chú</th>
+                                           
                                             <th class="table-borderless-th" >Tình trạng</th>
                                             <th class="table-borderless-th" >Ngày đặt</th>
                                             <th class="table-borderless-th" >In hóa đơn</th>
@@ -426,12 +414,7 @@
                                                         
                                                     </td>
 
-                                                    <td class="table-borderless-td">
-                                                        <div class="detail">
-                                                            <?php echo $r['ghi_chu'];?>
-                                                        </div>
-                                                        
-                                                    </td>
+                                                   
 
                                                     <td class="table-borderless-td">
                                                         <div class="reponsive">
@@ -475,7 +458,7 @@
                                             <th class="table-borderless-th" >Tên người nhận</th>
                                             <th class="table-borderless-th" >Ảnh</th>
                                             <th class="table-borderless-th" >Tổng tiền</th>
-                                            <th class="table-borderless-th" >Ghi chú</th>
+                                           
                                             <th class="table-borderless-th" >Tình trạng</th>
                                             <th class="table-borderless-th" >Ngày đặt</th>
                                             <th class="table-borderless-th" >In hóa đơn</th>
@@ -517,12 +500,7 @@
                                                         
                                                     </td>
 
-                                                    <td class="table-borderless-td">
-                                                        <div class="detail">
-                                                            <?php echo $r['ghi_chu'];?>
-                                                        </div>
-                                                        
-                                                    </td>
+                                                   
 
                                                     <td class="table-borderless-td">
                                                         <div class="reponsive">
@@ -566,7 +544,7 @@
                                             <th class="table-borderless-th" >Tên người nhận</th>
                                             <th class="table-borderless-th" >Ảnh</th>
                                             <th class="table-borderless-th" >Tổng tiền</th>
-                                            <th class="table-borderless-th" >Ghi chú</th>
+                                            
                                             <th class="table-borderless-th" >Tình trạng</th>
                                             <th class="table-borderless-th" >Ngày đặt</th>
                                             <th class="table-borderless-th" >In hóa đơn</th>
@@ -608,12 +586,7 @@
                                                         
                                                     </td>
 
-                                                    <td class="table-borderless-td">
-                                                        <div class="detail">
-                                                            <?php echo $r['ghi_chu'];?>
-                                                        </div>
-                                                        
-                                                    </td>
+                                                    
 
                                                     <td class="table-borderless-td">
                                                         <div class="reponsive">

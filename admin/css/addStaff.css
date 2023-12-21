@@ -76,7 +76,7 @@
     padding: 0 15px;
 }
 .icon-open{
-    display: flex;
+    display: none;
     padding: 0 15px;
 }
 .list_contol-item--link{

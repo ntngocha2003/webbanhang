@@ -33,7 +33,7 @@
                                 </div>
                            
                             <div class="line"></div>
-                            <div class="row sm-gutter admin_control">
+                            <div class="row sm-gutter admin_control"style="margin-left: 15px;">
                                 <div class="list_contol">
                                 <?php
                              
@@ -47,6 +47,14 @@
                                                     
                                                     <div class="icon-open">
                                                         <i class="fas fa-sort-down"style="margin-top: 5px;
+                                                                                            margin-right: 5px;
+                                                                                            font-size: 2.4rem;"></i>
+                                                        <p>Quản lý tài khoản</p>
+                                                    </div>
+
+                                                    <div class="icon-right">
+                                                   
+                                                        <i class="fas fa-caret-right"style="margin-top: 5px;
                                                                                             margin-right: 5px;
                                                                                             font-size: 2.4rem;"></i>
                                                         <p>Quản lý tài khoản</p>

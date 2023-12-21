@@ -51,10 +51,11 @@
                         require_once './admin/connect.php';
                         
                         
-                        $bill_detail="SELECT  client_order.*, orders.*, product.mota,product.image, product.ten_sp
+                        $bill_detail="SELECT  client_order.*, orders.*, product.mota,product.image, product.ten_sp,payment.phuong_thuc
                         FROM client_order
                         INNER JOIN orders ON client_order.id = orders.id_client
                         INNER JOIN product ON product.id = orders.id_product
+                        INNER JOIN payment ON client_order.id = payment.id_client
                         WHERE client_order.id =". $_GET['id'];
                         $result=mysqli_query($conn,$bill_detail);
 
@@ -103,17 +104,23 @@
                                                         echo $ngaygiao->format('d/m/Y'); 
                                                     }
                                                                             
-                                                                        ?>
-                                                    </p>
-                                                    <p>Phí vận chuyển: 0đ</p>
+                                                    ?>
+                                                    </p><p>Phí vận chuyển: 0đ</p>
                                                 </div>
                                             </div>
 
                                             <div class="col l-4 m-4 c-4">
                                                 <h3 class="info-heading">Hình thức thanh toán</h3>
                                                 <div class="address-user">
+                                                <?php
+                                                    foreach ($sql_detail as $row) {?>
+
+                                                        <p><?php echo $row['phuong_thuc']?></p>
+                                                      <?php  
+                                                    }
+                                                                            
+                                                    ?>
                                                     
-                                                    <p>Thanh toán tiền mặt khi nhận hàng</p>
                                                     
                                                 </div>
                                             </div>

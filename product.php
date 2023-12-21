@@ -62,10 +62,10 @@
                                         </div>
                                         <div class="product-item-size">
                                             <p class="size">Size:</p>
-                                            <button class="product-variation" aria-label="M">M</button>
-                                            <button class="product-variation" aria-label="L">L</button>
+                                            <button class="product-variation" aria-label="M">FREESIZE</button>
+                                            <!-- <button class="product-variation" aria-label="L">L</button>
                                             <button class="product-variation" aria-label="XL">XL</button>
-                                            <button class="product-variation" aria-label="xxL">XXL</button>
+                                            <button class="product-variation" aria-label="xxL">XXL</button> -->
                                         </div>
 
                                         <div class="product-transport">
@@ -81,7 +81,8 @@
                                                     
                                                     echo'
                                                     <input type="submit" class="btn btn-add btn-add--cart" value="Thêm vào giỏ hàng" name="buyCart">
-                                                    <button class="btn btn-buys btn-buy">Mua ngay</button>';
+                                                    <a href="pay.php" class="btn btn-buys btn-buy">Mua ngay</a>';
+                                                   
                                                    
                                                 }
                                                 else{
