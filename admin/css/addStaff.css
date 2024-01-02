@@ -71,12 +71,9 @@
 .list_acc-item{
     margin: 20px 0;
 }
+
 .icon-right{
     display: flex;
-    padding: 0 15px;
-}
-.icon-open{
-    display: none;
     padding: 0 15px;
 }
 .list_contol-item--link{

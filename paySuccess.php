@@ -31,7 +31,8 @@
     <?php
         if(isset($_SESSION['name'])){
             $row=$_SESSION['name'];
-            $render_sql= "SELECT * FROM `account`where ten_dn='$row'";
+            $render_sql= "SELECT account.ten_dn, account.mat_khau, customers.* FROM customers join account on customers.id_acc=account.id 
+            where ten_dn='$row'";
             $result=mysqli_query($conn,$render_sql);
             $r=mysqli_fetch_assoc($result);
         }
@@ -41,10 +42,11 @@
         require_once './admin/connect.php';
         $id_acc=$r['id'];
         $num = 1;
-        $bill="SELECT account.ten_dn, client_order.*
+        $bill="SELECT account.ten_dn, orders.*
         FROM account
-        INNER JOIN client_order ON account.id = client_order.id_account
-        WHERE account.id ='$id_acc' and client_order.id in (select max(id) from client_order)";
+        inner join customers on customers.id_acc= account.id
+        INNER JOIN orders ON customers.id = orders.id_client
+        WHERE customers.id ='$id_acc' and orders.id in (select max(id) from orders)";
         $result=mysqli_query($conn,$bill); 
         $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
         
@@ -56,7 +58,7 @@
                                     background-color: #eeeeeea8;
                                     width: 500px;
                                     padding: 30px;
-                                    /* display:none */
+                                    display:none
                                 ">
         <div class="auth-form__header" style="text-align: center;
                                                 font-size: 4.4rem;
@@ -90,5 +92,42 @@
         </div>
     
     </div>
+
+    <div class="form-handle" style="margin: 90px 300px;
+                                    background-color: #eeeeeea8;
+                                    width: 500px;
+                                    padding: 30px;
+                                    /* display:none */
+                                ">
+        <div class="auth-form__header" style="text-align: center;
+                                                font-size: 4.4rem;
+                                                color: #bbb;">
+            <i class="fas fa-spinner"></i>
+        </div>
+        <div class="auth-form__header"style="text-align: center;">
+            <h3 class="auth-form__heading"style="margin-bottom: 24px;">Đơn hàng đang được xử lý</h3>
+        </div>
+        <p style="margin-top: -5px;
+                font-weight: 600;
+                margin-bottom: 25px;
+                color: #aaa;
+                text-align: center;
+                font-size: 1.1rem;">Qúy khách vui lòng đợi trong giây lát!</p>
+    
+        
+    </div>
 </body>
+<script>
+    const formSuccess=document.querySelector('.form-success')
+    const formHandle=document.querySelector('.form-handle')
+    function handle(){
+        setTimeout(()=>{
+            formSuccess.style.display='block'
+            formHandle.style.display='none'
+            },3000)
+    }
+
+    handle();
+
+</script>
 <html>                   

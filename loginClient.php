@@ -3,27 +3,57 @@
     ob_start();
     require_once './admin/connect.php';
 
-    if(isset($_POST['name'])){
+    $err=[];
+    if(isset($_POST['login'])){
         $name=$_POST['name'];
         $pass=$_POST['pass'];
-        if(isset($name) && isset($pass)){
-
+        if(empty($name) && empty($pass)){
+            echo '<center class="alert alert-danger">Vui lòng nhập tên tài khoản và mật khẩu!</center>';
+        }
+       
+        else if(empty($name)){
+            $err['name']='Vui lòng nhập tên tài khoản!';
+            $_SESSION['pass']=$pass;
+        }
+        else if(empty($pass)){
+           
+            $err['pass']='Vui lòng nhập mật khẩu!';
+            $_SESSION['name']=$name;
+        }
+        else if(isset($name) && isset($pass)){
             $login="select *from account where ten_dn='$name' and mat_khau='$pass' and quen='Khách hàng' ";
-        
+    
             $test= mysqli_query($conn,$login);
+            
             if(mysqli_num_rows($test)>0){
+                unset($_SESSION['pass']);
                 $_SESSION['name']=$name;
-                // $_SESSION['pass']=$pass;
+                
                 header("location: home.php");
-            }else{
-                echo '<center class="alert alert-danger">Đăng nhập thất bại</center>';
+            }
+            else{
+                $login2="select *from account where ten_dn='$name'and quen='Khách hàng' ";
+        
+                $test2= mysqli_query($conn,$login2);
+                $login3="select *from account where mat_khau='$pass'and quen='Khách hàng' ";
+        
+                $test3= mysqli_query($conn,$login3);
+
+                if(mysqli_num_rows($test2)==0){
+                  
+                    $err['name']='Bạn nhập sai tên đăng nhập, vui lòng nhập lại tên đăng nhập!';
+                    unset($_SESSION['name']);
+                  
+                }               
+                else if(mysqli_num_rows($test3)==0){
+                    $err['pass']='Bạn nhập sai mật khẩu, vui lòng nhập lại mật khẩu!';
+                    unset($_SESSION['pass']);
+                   
+                }
             }
         }
+       
     }
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,15 +102,23 @@
       
                       <div class="auth-form__form auth-form__form1"style="margin-bottom: 24px;">
                           <div class="auth-form__group">
-                              <input type="text" class="auth-form__input" id="nameLogin" placeholder="Name"name="name">
+                              <input type="text" class="auth-form__input" id="nameLogin" placeholder="Name"name="name"value="<?=!empty($name)?$name:""?>">
                           </div>
-                          <span class="message messageNameLogin"></span>
+                          <span class="message messageNumber">
+                            <?php
+                                echo (isset($err['name'])?($err['name']):'');
+                            ?>
+                        </span>
                       </div>
                       <div class="auth-form__form auth-form__form1"style="margin-bottom: 24px;">
                           <div class="auth-form__group">
-                              <input type="password" class="auth-form__input" id="passwordLogin" placeholder="Mật khẩu"name="pass">
+                              <input type="password" class="auth-form__input" id="passwordLogin" placeholder="Mật khẩu"name="pass"value="<?=!empty($pass)?$pass:""?>">
                           </div>
-                          <span class="message messagePassLogin"></span>
+                          <span class="message messageNumber">
+                            <?php
+                                echo (isset($err['pass'])?($err['pass']):'');
+                            ?>
+                        </span>
                       </div>
       
                       <div class="auth-form__aside">

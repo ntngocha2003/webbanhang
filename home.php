@@ -30,6 +30,7 @@
         $param = "";
        
             require_once 'header.php';
+            var_dump($_SESSION['pass']);
         ?>
         
 
@@ -95,7 +96,7 @@
                
                 
                     //Tìm kiếm
-                    $search = isset($_GET['search']) ? $_GET['search'] : "";
+                    $search = isset($_POST['search']) ? $_POST['search'] : "";
                     if ($search) {
                         $where = "WHERE `ten_sp` LIKE '%" . $search . "%'";
                         $param .= "search=".$search."&";                  
@@ -224,12 +225,56 @@
         
         
     </div>
+
+    <?php
+         if(!(isset($_SESSION['name'])) && !(isset($_GET['search']))){
+            echo'
+            <div class="modalHome js-modalHome">
+                    <div class="modal-containerHome js-modal-containerHome">
+                        <div class="modalHome-close">
+                            <i class="ti-close iHome-close"></i>
+                        </div>
+                        
+                        
+                        <div class="modal-bodyHome">
+                            <img src="./image/sale.png" style="width: 60px;position: absolute;height: 60px;border-radius: 3px">
+                            <img src="./image/sale2.jpg" style="width: 74px;position: absolute;height: 60px;top: 80%;right: 2%;border-radius: 3px;">
+                            <div class="form-handle" style="padding: 96px;position: absolute;">
+                               
+                                <div>
+                                    <i class="ti-bell"style="font-size: 2.4rem;color: #F44336;font-weight: 900;position: absolute;top: 38%;left: 24%;"></i>
+                                    <i class="ti-bell"style="font-size: 2.4rem;color: #F44336;font-weight: 900;position: absolute;top: 38%;right: 24%;"></i>
+                                </div>
+                                <div class="auth-form__header"style="text-align: center;">
+                                    <h3 class="auth-form__heading"style="margin-bottom: 24px;
+                                                                        padding: 5px;
+                                                                        background-color: aliceblue;
+                                                                        color: cornflowerblue;">Mừng xuân 2024</h3>
+                                </div>
+                                <p style="color: #F44336;
+                                        font-size: 1.1rem;
+                                        background-color: #fff;
+                                        margin: 0 -82px;
+                                        padding: 2px 4px;">NgocHa_Shop thực hiện chiến dịch khuyến mại cho các sản phẩm mới hiện đang bày bán. Nhanh tay mua sắm cùng NgocHa_Shop thôi nào</p>
+                            
+                                
+                            </div>
+                            <img src="./image/hoadao.jpg" style="width:400px">
+                        </div>
+                    </div>
+            </div>
+
+            ';
+         }
+    ?>
+
    
         <!-- toast message -->
-        <div id="toast"></div>
+    <div id="toast"></div>
 
-        <script src="./js/toast.js"></script>
-        <script src="./js/section.js"></script>
+    <script src="./js/toast.js"></script>
+    <script src="./js/section.js"></script>
+    <script src="./js/home.js"></script>
 
 </body>
 

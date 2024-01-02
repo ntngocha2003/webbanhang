@@ -55,15 +55,6 @@
                             <?php
                                 $id=$_GET['sid'];
                                 require_once 'connect.php';
-
-                                $edit_sql="SELECT account.ten_dn,account.image, client_order.*
-                                FROM account
-                                INNER JOIN client_order ON account.id = client_order.id_account
-                                where client_order.id =". $_GET['sid'];
-
-                                $result=mysqli_query($conn,$edit_sql);
-
-                                $row= mysqli_fetch_assoc($result);
                             ?>
                             <div class="add-content">
                                 <form action="./updateOrder.php" method="post">
@@ -71,7 +62,7 @@
                                     <input type="hidden" id="" name="sid" value="<?php echo $id?>">
                                         
                                         
-                                        <div class="form-group l-12 c-12 m-12 col">
+                                        <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
                                                 <label class="control-label">Trạng thái</label>
                                                
@@ -80,6 +71,31 @@
                                                     <option>Đang chờ hàng</option>
                                                     <option>Đang giao hàng</option>
                                                     <option>Đã giao hàng</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group l-6 c-6 m-6 col">
+                                            <div class="group">
+                                                <label class="control-label">Chọn nhân viên giao</label>
+                                               
+                                                <select name="idNV"class="form-control" id="exampleSelect2" required>
+                                                    <option>--Chọn nhân viên--</option> 
+                                                    <?php
+                                                        
+                                                        require_once 'connect.php';
+                                                        $render_sql= "SELECT account.ten_dn,account.quen,staffs.* FROM `account` join `staffs` on account.id=staffs.id_acc where quen='Nhân viên giao hàng'";
+                                                        $result=mysqli_query($conn,$render_sql);
+                                                        $row= mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+                                                        var_dump($row['ten_dn']);
+                                                        foreach ($row as $r) {
+                                                            ?>
+                                                                <option value="<?php echo $r['id']?>"><?php echo $r['ten_dn']?></option> 
+                                                            <?php
+                                                        }
+                                                        
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>

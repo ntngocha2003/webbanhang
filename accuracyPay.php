@@ -33,7 +33,8 @@
 <?php
         if(isset($_SESSION['name'])){
             $row=$_SESSION['name'];
-            $render_sql= "SELECT * FROM `account`where ten_dn='$row'";
+            $render_sql= "SELECT account.ten_dn, account.mat_khau, customers.* FROM customers join account on customers.id_acc=account.id 
+            where ten_dn='$row'";
             $result=mysqli_query($conn,$render_sql);
             $r=mysqli_fetch_assoc($result);
         }
@@ -49,7 +50,7 @@
                     }
                     if(empty($err)){
 
-                        // if(isset($_POST['order_click'])) { 
+                        
                              if (!empty($_POST['get'])) { //Xử lý lưu giỏ hàng vào db
                                
                                 $products = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` IN (" . implode(",", array_keys($_POST['get'])) . ")");
@@ -62,11 +63,11 @@
                                     $total += ($rowp['gia_goc']-($rowp['gia_goc']*$rowp['sale']/100)) * $_POST['get'][$rowp['id']];
                                    
                                 }
-                                    $insertOrder = mysqli_query($conn, "INSERT INTO `client_order` (`id`, `id_account`, `ghi_chu`, `tong_tien`,`tinh_trang`, `created_time`, `last_updated`) 
+                                    $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_client`, `ghi_chu`, `tong_tien`,`tinh_trang`, `created_time`, `last_updated`) 
                                     VALUES (NULL,'". $r['id'] ."', '" . $_POST['note'] . "', '" . $total . "','Đang chờ hàng', '" . time() . "', '" . time() . "');");
                                
                                 $clientID = $conn->insert_id;
-                                $insertOrder = mysqli_query($conn, "INSERT INTO `payment` (`id`, `id_account`, `id_client`, `phuong_thuc`,`trang_thai`,`tong_tien`, `created_time`) 
+                                $insertOrder = mysqli_query($conn, "INSERT INTO `payment` (`id`, `id_client`, `id_order`, `phuong_thuc`,`trang_thai`,`tong_tien`, `created_time`) 
                                     VALUES (NULL,'". $r['id'] ."', '" . $clientID .  "','Thanh toán bằng thẻ tín dụng' ,'Thanh toán thành công','" . $total . "', '" . time() . "');");
                                 $insertString = "";
                                 foreach ($orderProducts as $key => $product) {
@@ -80,7 +81,7 @@
                                     }
                                 }
     
-                                $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_client`, `id_product`, `gia_tien`, `so_luong`,`created_time`, `last_updated`) VALUES " . $insertString . ";");
+                                $insertOrder = mysqli_query($conn, "INSERT INTO `order_detail` (`id`, `id_order`, `id_product`, `gia_tien`, `so_luong`,`created_time`, `last_updated`) VALUES " . $insertString . ";");
        
                                 unset($_SESSION['cart']);
                                 
@@ -88,9 +89,7 @@
                             header('Location: ./paySuccess.php');
                     }
                      } 
-                    // break;   
-            // }
-            // }
+                   
             if (!empty($_SESSION["cart"])) {
                 $products = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` IN (".implode(",", array_keys($_SESSION["cart"])).")");
                 
@@ -175,7 +174,6 @@
 
                         <div style="margin-top: 20px;">
                         <input class="btn-confirm btn-order"style="width:100%" type="submit" name="order_click"value="Gửi giao dịch" />
-                         <!-- <button class="btn btn--primary btn-sendAccurracy" type="submit" name="order_click" style=" width: 100%;">Gửi giao dịch</button> -->
                         </div>
       
                 </div>
@@ -200,7 +198,7 @@
     const successNotifi=document.querySelector('.success-notifi')
     const time=document.querySelector('.time')
 
-    var num=16
+    var num=60
     function timeCode(){
         num--;
         if(num!=0){
@@ -219,7 +217,7 @@
            
         }
     }
-    var num2=16
+    var num2=60
     function timeCode2(){
         num2--;
         if(num2!=0){

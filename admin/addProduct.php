@@ -11,7 +11,7 @@ if(isset($_POST['addP'])){
     $giaGoc=$_POST['giaGoc'];
     $soLuong=$_POST['soLuong'];
     $danhMuc=$_POST['danhMuc'];
-    $nhaCC=$_POST['nCC'];
+    $idNV=$_POST['idNV'];
 
     $uploadDir_img_logo = "./image/";
 
@@ -25,6 +25,18 @@ if(isset($_POST['addP'])){
     $image=$dmyhis.$file_name; 
 
     $err=[];
+    $products="select *from `product`";
+    $result=mysqli_query($conn,$products); 
+    $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
+   
+    ?>
+    <?php
+
+    foreach ($sql as $row) {
+        if(!empty($tenSP) && $tenSP==$row['ten_sp']){
+            $err['tenSPcheck']='Tên sản phẩm này đã tồn tại,bạn vui lòng chọn tên sản phẩm khác';
+        }
+    }
 
     if(!empty($file_name)){
         copy ( $file_tmp, $uploadDir_img_logo.$image);
@@ -51,8 +63,8 @@ if(isset($_POST['addP'])){
         require_once 'connect.php';
         if(empty($err)){
 
-            $addSp="INSERT INTO `product`(`id`, `ten_sp`, `mota`,`image`, `sale`, `gia_goc`, `so_luong`,`id_dm`,`id_ncc`) 
-            VALUES (null,'$tenSP','$moTa','$image','$sale','$giaGoc','$soLuong','$danhMuc','$nhaCC')";
+            $addSp="INSERT INTO `product`(`id`, `id_staff`,`ten_sp`, `mota`,`image`, `sale`, `gia_goc`, `so_luong`,`id_dm`) 
+            VALUES (null,'$idNV','$tenSP','$moTa','$image','$sale','$giaGoc','$soLuong','$danhMuc')";
     
             if(mysqli_query($conn,$addSp)){
                 echo "<h1>Thêm thành công</h1>";
@@ -101,7 +113,7 @@ if(isset($_POST['addP'])){
                 <div class="row">
                     
                     <?php
-                    require 'admin_category.php';
+                        require 'admin_category.php';
                     ?> 
                 
                     <div class="col l-9 m-12 c-12">
@@ -121,6 +133,11 @@ if(isset($_POST['addP'])){
                                                 <span class="message">
                                                     <?php
                                                         echo (isset($err['tenSP'])?($err['tenSP']):'');
+                                                    ?>
+                                                </span>
+                                                <span class="message">
+                                                    <?php
+                                                        echo (isset($err['tenSPcheck'])?($err['tenSPcheck']):'');
                                                     ?>
                                                 </span>
                                             </div>
@@ -220,27 +237,18 @@ if(isset($_POST['addP'])){
 
                                           <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
-
-                                                <label class="control-label">Nhà cung cấp</label>
-                                                <select name="nCC"class="form-control" id="exampleSelect2" required>
-                                                <option>--Chọn nhà cung cấp--</option> 
-                                                <?php
-
+                                            <?php
+                                                if(isset($_SESSION['nameAdmin'])){
                                                     require_once 'connect.php';
-
-                                                    $supplier="SELECT * FROM `supplier`";
-
-                                                    $result=mysqli_query($conn,$supplier);
-
-                                                    $row_c= mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-                                                    foreach ($row_c as $row_supplier) {
-                                                        ?>
-                                                            <option value="<?php echo $row_supplier['id']?>"><?php echo $row_supplier['ten_ncc']?></option> 
-                                                            <?php
-                                                    }
-                                                    ?>
-                                                </select>
+                                                    $row=$_SESSION['nameAdmin'];
+                                                    $render_sql= "SELECT account.* FROM `account`where ten_dn='$row'";
+                                                    $result=mysqli_query($conn,$render_sql);
+                                                    $r=mysqli_fetch_assoc($result);
+                                                }
+                                            ?>
+                                                <label class="control-label">Người thực hiện</label>
+                                                <input type="hidden" name="idNV" value="<?php echo $r['id']?>"/>
+                                                <p class="form-control" name="idNV"><?php echo $r['ten_dn']?></p>
                                             </div>
                                           </div>
                                           

@@ -28,11 +28,12 @@
         ?>
         <!-- phần nội dung -->
         <?php
-            require_once './admin/connect.php';
-            $result = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` = ".$_GET['id']);
-            $product = mysqli_fetch_assoc($result);
             
-                
+                require_once './admin/connect.php';
+                 $result = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` = ".$_GET['id']);
+                 $product = mysqli_fetch_assoc($result);
+
+              
         ?>
 
         <div class="app__container"style="margin-top: 160px;">
@@ -63,9 +64,7 @@
                                         <div class="product-item-size">
                                             <p class="size">Size:</p>
                                             <button class="product-variation" aria-label="M">FREESIZE</button>
-                                            <!-- <button class="product-variation" aria-label="L">L</button>
-                                            <button class="product-variation" aria-label="XL">XL</button>
-                                            <button class="product-variation" aria-label="xxL">XXL</button> -->
+                                            
                                         </div>
 
                                         <div class="product-transport">
@@ -79,10 +78,9 @@
                                             if(isset($_SESSION['name'])){
                                                 if($product['so_luong']>0){
                                                     
-                                                    echo'
-                                                    <input type="submit" class="btn btn-add btn-add--cart" value="Thêm vào giỏ hàng" name="buyCart">
-                                                    <a href="pay.php" class="btn btn-buys btn-buy">Mua ngay</a>';
-                                                   
+                                                   ?>
+                                                    <input onclick="return confirm('Sản phẩm đã thêm thành công vào giỏ hàng')" type="submit" class="btn btn-add btn-add--cart" value="Thêm vào giỏ hàng" name="buyCart">
+                                                  <?php
                                                    
                                                 }
                                                 else{
@@ -126,6 +124,7 @@
                                 </a>
                                 
                             </div>
+                            
 
                             <h2 class="product-description--heading">Chi tiết sản phẩm</h2>
                             <div class="row sm-gutter product-description">
@@ -142,6 +141,84 @@
                                     <p>Sản phẩm được sản xuất và kiểm duyệt vô cùng nghiêm ngặt, khiến bạn yên tâm khi sử dụng</p>
                                 </div>
 
+                            </div>
+
+                            <div class="gird wide">
+                                <div class="app_heading">
+                                    <h2>Sản phẩm liên quan</h2>
+                                </div>
+                                <div class="row sm-gutter app__content">
+
+                                    <div class="col l-12 m-12 c-12">
+
+                                        <div class="home-product">
+                                            <div class="row sm-gutter product-item">
+                                                <?php
+                                                    $like=$product['ten_sp'];
+                                                    var_dump($like);
+                                                    $id=$product['id'];
+                                                    $result1 = mysqli_query($conn, "SELECT product.*,category.ten_dm
+                                                                FROM `product`
+                                                                INNER JOIN category ON category.id = product.id_dm
+                                                                WHERE ten_sp like '%$like%' and product.id !='$id'");
+                                                    
+                                                    while ($row = mysqli_fetch_array($result1)) { 
+                                                       
+                                                        ?>
+                                                        <div class="col l-2 m-4 c-6">
+                                                            <a class="home-product-item" href="product.php?id=<?= $row['id'] ?>">
+                                                                <div>
+                                                                    <img src="./admin/image/<?php echo $row['image']?>" class="home-product-item__img">
+                                                                </div>
+                                                                <h4 class="home-product-item__name"> <?php echo $row['mota'];?></h4>
+                                                                <div class="home-product-item__price">
+                                                                    <span class="home-product-item__price-old"> <?php echo $row['gia_goc'];?>đ</span>
+                                                                    <span class="home-product-item__price-current"> <?php echo $row['gia_goc']-($row['gia_goc']*$row['sale']/100)?>đ</span>
+                                                                </div>
+                                                                <div class="home-product-item__action">
+                                                                                                
+                                                                <?php
+                                                                    if($row['so_luong']>0){
+                                                                        ?>
+                                                                            <span class="home-product-item__sold">Còn hàng</span>
+                                                                            <div class="home-product-item--add">
+                                                                                <i class="home-product-item--icon fas fa-cart-plus" id=""></i>
+                                                                            </div>
+                                                                        <?php
+                                                                    }
+                                                                    else{
+                                                                        ?>
+                                                                            <span class="home-product-item__sold"style="color:red;">Hết hàng</span>
+                                                                        <?php
+                                                                    }
+                                                                ?> 
+                                                                </div>
+                                                                <?php
+                                                                    if($row['ten_dm']=="Yêu thích"){
+                                                                        ?>
+                                                                        <div class="div home-product-item__favourite">
+                                                                            <i class="fas fa-check"></i>
+                                                                            <span>Yêu thích</span>
+                                                                        </div>
+                                                                        <div class="home-product-item__sale-off">
+                                                                            <span class="home-product-item__sale-off-percent"> <?php echo $row['sale'];?>%</span>
+                                                                            <span class="home-product-item__sale-off-label">GIẢM</span>
+                                                                        </div>
+                                                                        <?php
+                                                                    }
+                                                                ?>
+                                                                
+
+                                                            </a>
+                                                        </div>
+                                                        
+                                                        <?php    
+                                                    }
+                                                    ?>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>  

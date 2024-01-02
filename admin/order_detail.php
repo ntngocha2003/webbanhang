@@ -52,20 +52,20 @@
                                 <?php
         
                                 require_once 'connect.php';
-                                $order="SELECT account.ten_dn,account.image,account.dia_chi,account.sdt, client_order.*
-                                    FROM account
-                                    INNER JOIN client_order ON account.id = client_order.id_account
-                                    
-                                    where client_order.id =". $_GET['id'];                            
-                                    $result=mysqli_query($conn,$order); 
-                                    $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
-                                
-                                $bill_detail="SELECT  client_order.*, orders.*, product.mota,product.image, product.ten_sp,payment.trang_thai
-                                FROM client_order
-                                INNER JOIN orders ON client_order.id = orders.id_client
-                                INNER JOIN product ON product.id = orders.id_product
-                                INNER JOIN payment ON client_order.id = payment.id_client
-                                WHERE client_order.id =". $_GET['id'];
+                                $order="SELECT account.ten_dn,customers.image,customers.dia_chi,customers.sdt, orders.*
+                                FROM customers
+                                inner join account on account.id=customers.id_acc
+                                INNER JOIN orders ON customers.id = orders.id_client   
+                                where orders.id =". $_GET['id'];                            
+                                $result=mysqli_query($conn,$order); 
+                                $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+                                $bill_detail="SELECT  orders.*, order_detail.*, product.mota,product.image, product.ten_sp,payment.trang_thai
+                                FROM orders
+                                INNER JOIN order_detail ON orders.id = order_detail.id_order
+                                INNER JOIN product ON product.id = order_detail.id_product
+                                INNER JOIN payment ON orders.id = payment.id_order
+                                WHERE orders.id =". $_GET['id'];
                                 $result=mysqli_query($conn,$bill_detail);
                         
                                 $sql_detail = mysqli_fetch_all($result, MYSQLI_ASSOC);

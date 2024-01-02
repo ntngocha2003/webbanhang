@@ -31,10 +31,10 @@ if(isset($_POST['addP'])){
     if(!empty($file_name)){
         copy ( $file_tmp, $uploadDir_img_logo.$image);
     }
-    else if(empty($file_name)){
-        $err['image']='Bạn chưa chọn ảnh';
+    // else if(empty($file_name)){
+    //     $err['image']='Bạn chưa chọn ảnh';
         
-    }
+    // }
 
     if(empty($tenNV)){
         $err['tenNV']='Bạn chưa nhập tên nhân viên';
@@ -59,8 +59,13 @@ if(isset($_POST['addP'])){
         require_once 'connect.php';
         if(empty($err)){
 
-            $addTK="INSERT INTO `account`(`id`, `email`, `sdt`,`ten_dn`,`mat_khau`,`image`,`ngay_sinh`,`gioi_tinh`,`dia_chi`,`quen`)
-            VALUES (null,'$email',$sdt,'$tenNV','$MK','$image','$ngaySinh','$gioiTinh','$diaChi','$chucVu')" ;
+            $insertAccount = mysqli_query($conn, "INSERT INTO `account` (`id`, `ten_dn`, `mat_khau`,`quen`) 
+                                    VALUES (NULL,'$tenNV','$MK','$chucVu')");
+                               
+            $accountID = $conn->insert_id;
+
+            $addTK="INSERT INTO `staffs`(`id`, `id_acc`,`email`,`sdt`,`image`,`ngay_sinh`,`gioi_tinh`,`dia_chi`)
+            VALUES (null,'" . $accountID . "','$email','$sdt','$image','$ngaySinh','$gioiTinh','$diaChi')" ;
 
             if(mysqli_query($conn,$addTK)){
                 echo "<h1>Thêm thành công</h1>";
@@ -234,7 +239,7 @@ if(isset($_POST['addP'])){
                                                     <option>--Chọn chức vụ--</option>
                                                     <option>Nhân viên chăm sóc khách hàng</option>
                                                     <option>Nhân viên quản lý kho</option>
-                                                    <option>Nhân viên quản lý đơn hàng</option>
+                                                    <option>Nhân viên giao hàng</option>
                                                 </select>
                                             </div>
                                           </div>

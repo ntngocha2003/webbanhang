@@ -30,18 +30,18 @@
             $current_page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
             $offset = ($current_page - 1) * $item_per_page;
             if(!empty($where)){
-                $totalRecords = mysqli_query($conn, "SELECT * FROM `account` where (".$where.") and quen='Khách hàng'");
+                $totalRecords = mysqli_query($conn, "SELECT account.*,customers.sdt,customers.email,customers.image,customers.ngay_sinh,customers.gioi_tinh,customers.dia_chi FROM customers join account on account.id=customers.id_acc where (".$where."");
                 // var_dump($where);exit;
         }else{
-            $totalRecords = mysqli_query($conn, "SELECT * FROM `account`where quen='Khách hàng'");
+            $totalRecords = mysqli_query($conn, "SELECT account.*,customers.sdt,customers.email,customers.image,customers.ngay_sinh,customers.gioi_tinh,customers.dia_chi FROM customers join account on account.id=customers.id_acc");
         }
         $totalRecords = $totalRecords->num_rows;
         $totalPages = ceil($totalRecords / $item_per_page);
         if(!empty($where)){
-            $clients = mysqli_query($conn, "SELECT * FROM `account` where (".$where.") and quen='Khách hàng'ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
+            $clients = mysqli_query($conn, "SELECT account.*,customers.sdt,customers.email,customers.image,customers.ngay_sinh,customers.gioi_tinh,customers.dia_chi FROM customers join account on account.id=customers.id_acc where (".$where."ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
         }else{
             
-            $clients = mysqli_query($conn, "SELECT * FROM `account` where quen='Khách hàng' ORDER BY `id` DESC LIMIT  " . $item_per_page . " OFFSET " . $offset);
+            $clients = mysqli_query($conn, "SELECT account.*,customers.sdt,customers.email,customers.image,customers.ngay_sinh,customers.gioi_tinh,customers.dia_chi FROM customers join account on account.id=customers.id_acc  ORDER BY `id` DESC LIMIT  " . $item_per_page . " OFFSET " . $offset);
             // var_dump($clients);exit;
         }
         
@@ -158,8 +158,22 @@
                                                     </td>
 
                                                     <td class="table-borderless-td">
-                                                        
-                                                            <img class="table-borderless-td--img" src="./image/<?php echo $r['image']?>">
+                                                    <div class="reponsive">
+                                                            <?php
+                                                                if(strlen($r['image'])==14){
+                                                                    
+                                                                    ?>
+                                                                        <img src="./image/avatar.png" alt="" class="table-borderless-td--img">
+                                                                    <?php
+                                                                }
+                                                                else{
+                                                                   
+                                                                    ?>
+                                                                        <img class="table-borderless-td--img" src="./image/<?php echo $r['image']?>">
+                                                                    <?php
+                                                                }
+                                                            ?>
+                                                        </div>
                                                         
                                                     </td>
                                                     

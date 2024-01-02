@@ -55,36 +55,61 @@
                         
                         $totalStaffs = $totalStaffs->num_rows;
 
-                        $totalOrders = mysqli_query($conn, "SELECT account.ten_dn,account.image, client_order.*
-                                        FROM account
-                                        INNER JOIN client_order ON account.id = client_order.id_account");
+                        $totalProduct = mysqli_query($conn, "SELECT  *
+                        FROM product");
+                        
+                        $sql = mysqli_fetch_all($totalProduct, MYSQLI_ASSOC);
+                        $totalp=0;
+                        foreach ($sql as $row) {
+                            $totalp+=$row['so_luong'];
+                            
+                        }
+
+                        $totalProduct1 = mysqli_query($conn, "SELECT  order_detail.*
+                        FROM product
+                        INNER JOIN order_detail ON product.id = order_detail.id_product
+                        INNER JOIN orders ON orders.id = order_detail.id_order
+                        where orders.tinh_trang like '%Đã giao%'
+                        ");
+                        
+                        $sql = mysqli_fetch_all($totalProduct1, MYSQLI_ASSOC);
+                        $totalBuy=0;
+                        foreach ($sql as $row) {
+                            $totalBuy+=$row['so_luong'];
+                            
+                        }
+
+                        $totalOrders = mysqli_query($conn, "SELECT account.ten_dn,customers.image, orders.*
+                                        FROM customers
+                                        inner join account on account.id=customers.id_acc
+                                        INNER JOIN orders ON customers.id = orders.id_client");
                         $totalOrders = $totalOrders->num_rows;
 
-                        $totalOrders1 = mysqli_query($conn, "SELECT account.ten_dn,account.image, client_order.*
-                                        FROM account
-                                        INNER JOIN client_order ON account.id = client_order.id_account
-                                        where client_order.tinh_trang !='Đã giao hàng'");
+                        $totalOrders1 = mysqli_query($conn, "SELECT account.ten_dn,customers.image, orders.*
+                                        FROM customers
+                                        inner join account on account.id=customers.id_acc
+                                        INNER JOIN orders ON customers.id = orders.id_client
+                                        where orders.tinh_trang !='Đã giao hàng'");
                        
                         $totalOrders1 = $totalOrders1->num_rows;
 
-                        $totalOrders2 = mysqli_query($conn, "SELECT account.ten_dn,account.image, client_order.*
-                                        FROM account
-                                        INNER JOIN client_order ON account.id = client_order.id_account
-                                        where client_order.tinh_trang='Đã giao hàng'");
+                        $totalOrders2 = mysqli_query($conn, "SELECT account.ten_dn,customers.image, orders.*
+                                        FROM customers
+                                        inner join account on account.id=customers.id_acc
+                                        INNER JOIN orders ON customers.id = orders.id_client
+                                        where orders.tinh_trang='Đã giao hàng'");
                         $totalOrders2 = $totalOrders2->num_rows;
 
-                        $totalOrders3 = mysqli_query($conn, "SELECT account.ten_dn,account.image, client_order.*
-                                        FROM account
-                                        INNER JOIN client_order ON account.id = client_order.id_account
-                                        where client_order.tinh_trang='Đã giao hàng'");
-                                        // $totalOrders3 = $totalOrders3->num_rows;
-
+                        $totalOrders3 = mysqli_query($conn, "SELECT account.ten_dn,customers.image, orders.*
+                                        FROM customers
+                                        inner join account on account.id=customers.id_acc
+                                        INNER JOIN orders ON customers.id = orders.id_client
+                                        where orders.tinh_trang='Đã giao hàng'");
+                                       
                                         $total=0;
                                         $sql = mysqli_fetch_all($totalOrders3, MYSQLI_ASSOC);
-                                        foreach ($sql as $row){
-                                            
+                                        foreach ($sql as $row){                  
                                             $total = $total+ $row['tong_tien'];
-                                            $total =$total+ $row['tong_tien'];
                                         }
                         
                         ?>
@@ -113,6 +138,29 @@
                                                 <h3 class="statistics-heading">Tổng số nhân viên</h3>
                                                 <div class="total_revenue">
                                                     <p>Có: <?php echo $totalStaffs?> nhân viên</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+    
+                                    </div>
+
+                                    <div class="row sm-gutter "style="margin: 10px 0;">
+                                        <div class="col l-6 m-6 c-6 ">
+                                            <div class="statistics_section">
+
+                                                <h3 class="statistics-heading">Tổng số lượng sản phẩm còn</h3>
+                                                <div class="total_revenue">
+                                                    <p>Có: <?php echo $totalp?> sản phẩm</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col l-6 m-6 c-6 ">
+                                            <div class="statistics_section">
+
+                                                <h3 class="statistics-heading">Tổng số lượng sản phẩm đã bán</h3>
+                                                <div class="total_revenue">
+                                                    <p>Có: <?php echo $totalBuy?> sản phẩm</p>
                                                 </div>
                                             </div>
                                         </div>

@@ -1,6 +1,7 @@
 <?php
     require_once './admin/connect.php';
-    
+    session_start();
+    ob_start();
     $err=[];
     if(isset($_POST['register'])){
         
@@ -20,36 +21,87 @@
 
         $dmyhis=date("Y").date("m").date("d").date("H").date("i").date("s");
         
-        $image=$dmyhis.$file_name; 
-        // copy ( $file_tmp, $uploadDir_img_logo.$image);
+        $image=$dmyhis.$file_name;
+        
+        $accounts="select customers.email, customers.sdt,account.* 
+                    from customers join account on customers.id_acc=account.id";
+        $result=mysqli_query($conn,$accounts); 
+        $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    
+        ?>
+        <?php
+
+       
         if(!empty($file_name)){
             copy ( $file_tmp, $uploadDir_img_logo.$image);
         }
-        else if(empty($file_name)){
-            $err['image']='Bạn chưa chọn ảnh';
-        }
-
+       
         if(empty($email)){
             $err['email']='Bạn chưa nhập email';
+            $_SESSION['sdt']=$sdt;
+           
+            $_SESSION['name']=$tenDN;
+            $_SESSION['pass']=$MK;
+           
         }
-        if(empty($email)){
+        else if(empty($sdt)){
             $err['sdt']='Bạn chưa nhập số điện thoại';
+            $_SESSION['email']=$sdt;
+           
+            $_SESSION['name']=$tenDN;
+            $_SESSION['pass']=$MK;
+            
         }
-        if(empty($tenDN)){
+        else if(empty($tenDN)){
             $err['name']='Bạn chưa nhập tên';
+            $_SESSION['sdt']=$sdt;
+           
+            $_SESSION['email']=$tenDN;
+            $_SESSION['pass']=$MK;
+           
         }
-        if(empty($MK)){
+        else if(empty($MK)){
             $err['pass']='Bạn chưa nhập mật khẩu';
+            $_SESSION['sdt']=$sdt;
+           
+            $_SESSION['name']=$tenDN;
+            $_SESSION['email']=$MK;
+          
         }
-        if($rMK!=$MK){
+        else if($rMK!=$MK){
             $err['rPass']='Mật khẩu không trùng với mật khẩu cũ';
+           
         }
+            foreach ($sql as $row) {
+                if(!empty($email)&& $email==$row['email']){
+                    $err['emailcheck']='Email này đã được sử dụng, bạn vui lòng chọn email khác';
+                    $email="";
+                }
+                else if(!empty($sdt) && $sdt==$row['sdt']){
+                    $err['sdtcheck']='SĐT này đã được sử dụng, bạn vui lòng chọn SĐT khác';
+                    $sdt="";
+                }
+                else if(!empty($tenDN) && $tenDN==$row['ten_dn']){
+                    $err['namecheck']='Tên đăng nhập này đã được sử dụng, bạn vui lòng chọn tên đăng nhập khác khác';
+                    $tenDN="";
+                }
+            }
+        
         if(empty($err)){
-            $addTK="INSERT INTO `account`(`id`, `email`,`sdt`, `ten_dn`,`mat_khau`,`image`,`quen`)
-            VALUES (null,'$email','$sdt','$tenDN','$MK','$image','Khách hàng')" ;
+            $insertAccount = mysqli_query($conn, "INSERT INTO `account` (`id`, `ten_dn`, `mat_khau`,`quen`) 
+                                    VALUES (NULL,'$tenDN','$MK','Khách hàng')");
+                               
+            $accountID = $conn->insert_id;
+
+            $addTK="INSERT INTO `customers`(`id`, `id_acc`,`email`,`sdt`,`image`)
+            VALUES (null,'" . $accountID . "','$email','$sdt','$image')" ;
 
             if(mysqli_query($conn,$addTK)){
-                
+                unset($_SESSION['email']);
+                unset($_SESSION['sdt']);
+                unset($_SESSION['name']);
+                unset($_SESSION['MK']);
+               
                 header("location: home.php");
             }
             else{
@@ -112,37 +164,52 @@
                     
                     <div class="auth-form__form">
                         <div class="auth-form__group">
-                            <input type="email" class="auth-form__input" id="emailRegister" placeholder="Email"name="email">
+                            <input type="email" class="auth-form__input" id="emailRegister" placeholder="Email"name="email"value="<?=!empty($email)?$email:""?>"/>
                         </div>
                         <span class="message messageNumber">
                             <?php
                                 echo (isset($err['email'])?($err['email']):'');
                             ?>
                         </span>
+                        <span class="message messageNumber">
+                            <?php
+                                echo (isset($err['emailcheck'])?($err['emailcheck']):'');
+                            ?>
+                        </span>
                     </div>
                     <div class="auth-form__form">
                         <div class="auth-form__group">
-                            <input type="phone" class="auth-form__input" id="phoneRegister" placeholder="Sdt"name="sdt">
+                            <input type="phone" class="auth-form__input" id="phoneRegister" placeholder="Sdt"name="sdt"value="<?=!empty($sdt)?$sdt:""?>"/>
                         </div>
                         <span class="message messageNumber">
                             <?php
                                 echo (isset($err['sdt'])?($err['sdt']):'');
                             ?>
                         </span>
+                        <span class="message messageNumber">
+                            <?php
+                                echo (isset($err['sdtcheck'])?($err['sdtcheck']):'');
+                            ?>
+                        </span>
                     </div>
                     <div class="auth-form__form">
                         <div class="auth-form__group">
-                            <input type="text" class="auth-form__input" id="nameRegister" placeholder="Name" name="name">
+                            <input type="text" class="auth-form__input" id="nameRegister" placeholder="Name" name="name"value="<?=!empty($tenDN)?$tenDN:""?>"/>
                         </div>
                         <span class="message messageName">
                             <?php
                                 echo (isset($err['name'])?($err['name']):'');
                             ?>
                         </span>
+                        <span class="message messageName">
+                            <?php
+                                echo (isset($err['namecheck'])?($err['namecheck']):'');
+                            ?>
+                        </span>
                     </div>
                     <div class="auth-form__form">
                         <div class="auth-form__group">
-                            <input type="password" class="auth-form__input" id="passwordRegister" placeholder="Mật khẩu"name="pass">
+                            <input type="password" class="auth-form__input" id="passwordRegister" placeholder="Mật khẩu"name="pass"value="<?=!empty($MK)?$MK:""?>"/>
                         </div>
                         <span class="message messagePass">
                             <?php
@@ -152,7 +219,7 @@
                     </div>
                     <div class="auth-form__form">
                         <div class="auth-form__group">
-                            <input type="password" class="auth-form__input" id="passwordRegisterAgain" placeholder="Nhập lại mật khẩu"name="rPass">
+                            <input type="password" class="auth-form__input" id="passwordRegisterAgain" placeholder="Nhập lại mật khẩu"name="rPass"value="<?=!empty($rMK)?$rMK:""?>"/>
                         </div>
                         <span class="message messagePassAgain">
                             <?php

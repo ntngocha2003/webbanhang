@@ -40,3 +40,9 @@
     width: 100px;
     font-size: 1.4rem;
 }
+.avatar{
+    margin-left: 4px;
+    margin-top: 6px;
+    padding: 4px !important;
+    width: 55% !important;
+}

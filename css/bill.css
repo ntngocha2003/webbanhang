@@ -96,7 +96,7 @@
     transition: all 0.2s ease;
   }
   .tab-item {
-   
+    cursor: pointer;;
     color: var(--primary-color);
     background-color: #fff;
    
@@ -105,8 +105,18 @@
     cursor: pointer;
     transition: all 0.5s ease;
   }
- 
-  .tab-item:hover {
+  .tab-item2 {
+   
+    color: var(--primary-color);
+    cursor: pointer;;
+    border-bottom: 5px solid transparent;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    background-color: #eee;
+    border-color: var(--primary-color);
+  }
+.tab-item:hover {
     opacity: 1;
     background-color: #eee;
     border-color: #89c0f180;
@@ -120,7 +130,7 @@
     display: none;
   }
   .tab-pane.active {
-    display: inline-table;
+    display:inline-table;
     background-color: #fff;
   }
   .btn-payvisa{
@@ -209,6 +219,17 @@
     }
 }
 
+@keyframes modalFadeInBill {
+    from {
+        transform: translateX(-200px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 .group-card{
     width: 300px;
     font-size: 1.4rem;
@@ -267,4 +288,86 @@
 .btnSend{
     display: none;
     background-color: #adb5bd;font-size: 1.4rem;color: #fff;position: relative;bottom: 209px;left: 745px;
+}
+.search-bill{
+    padding: 12px 47px 12px 40px;
+    border: none;
+    background-color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    
+}
+.search-bill2{
+    padding: 12px 47px 12px 40px;
+    border: none;
+    background-color: #fff;
+    font-size: 1.4rem;
+    color: #257bc8f5;
+    background-color: #eee;
+    cursor: pointer;
+    font-weight: 600;
+}
+.search-bill:hover{
+    background-color: #eee;
+}
+.bill-wrap{
+    background-color: #fff;
+    padding: 20px 10px;
+    margin-bottom: 20px;
+}
+.img-bill{
+    width: 80px;
+    height: 80px;
+    margin: 0;
+    border-radius: 3px;
+}
+.dresc-bill{
+    font-size: 1.4rem;
+    height: 0;
+    color: #bbb;
+}
+.quantity-bill{
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 70%;
+    left: -15%;
+    background-color: #bbb;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 30px;
+    text-align: center;
+}
+.total-bill{
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+.bill-detail{
+    display: block;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 8px;
+    width: 125px;
+    text-align: center;
+    height: 30px;
+    margin-top: 34px;
+    border-radius: 5px;
+    font-size: 1.4rem;
+}
+.status-bill{
+    display: flex;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #aaa;
+}
+.status{
+    margin-top: 0;
+    margin-left: 10px;
+}
+.time-bill{
+    font-size: 1.3rem;
+    color: #bbb;
 }

@@ -80,7 +80,28 @@
                                                                                     <input type="hidden" id="" name="id" value="<?php echo $r['id']?>"/>
                                                                                     <div class="block row">
                                                                                         <div class="user_account-img col l-3 c-3 m-3">
-                                                                                            <img class="img-admin" src="../admin/image/<?php echo $r['image'] ?>"style="width: 80px;height: 80px;border-radius: 50%;">
+                                                                                        <?php
+                                                                                            if(strlen($r['image'])==14){
+                                                                                                ?>
+                                                                                                <img class="img-admin" src="../admin/image/avatar.png"style="
+                                                                                                    width: 80px;
+                                                                                                    height: 80px;
+                                                                                                    border-radius: 50%;
+                                                                                                    ">
+                                                                                                    <input type="file" class=" auth-form__input"style="width:90%;margin-left: 4px;margin-top: 6px;" name="image"value="<?php echo $r['image']?>">
+                                                                                                <?php
+                                                                                            }
+                                                                                            else{          
+                                                                                                ?>
+                                                                                                <img class="img-admin" src="../admin/image/<?php echo $r['image'] ?>"style="
+                                                                                                width: 80px;
+                                                                                                height: 80px;
+                                                                                                border-radius: 50%;
+                                                                                                ">
+                                                                                                <input type="file" class=" auth-form__input"style="width:90%;margin-left: 4px;margin-top: 6px;" name="image"value="<?php echo $r['image']?>">
+                                                                                            <?php
+                                                                                            }
+                                                                                            ?>
                                                                                         
                                                                                         </div>
                                                                                         <div class="fullname col l-9 c-9 m-9" style="display: flex;align-items: center;">

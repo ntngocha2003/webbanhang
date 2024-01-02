@@ -953,3 +953,60 @@ i.home-product-item__like-icon-fill {
     background-color: #F5F5F5;
     margin-top: 0;
   }
+/*  */
+  .modalHome {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(0 0 0 / 17%);
+    align-items: center;
+    justify-content: center;
+    display: none;
+    z-index: 2;
+    /* display: flex; */
+}
+
+.modal-containerHome {
+    position: relative;
+    background-color: #fff;
+    width: 420px;
+    min-height: 300px;
+    max-width: calc(100% - 32px);
+    margin-bottom: 20px;
+    animation: modalFadeInHome .4s;
+    border-radius: 5px;
+    top: 8%;
+}
+
+.modalHome-close {
+    position: absolute;
+    top: -8px;
+    right: -19px;
+}
+.iHome-close {
+    font-size: 1.8rem;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+}
+.modal-bodyHome {
+    border: 10px solid #fff;
+    border-radius: 5px;
+}
+.openAdvertisement{
+    display: flex;
+}
+
+
+@keyframes modalFadeInHome {
+    from {
+        transform: scale(var(--growth-from));
+    }
+    to {
+        transform: scale(var(--growth-to));
+    }
+}

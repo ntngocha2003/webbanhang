@@ -9,6 +9,18 @@
         require_once 'connect.php';
 
         $err=[];
+        $categorys="select *from `category`";
+        $result=mysqli_query($conn,$categorys); 
+        $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    
+        ?>
+        <?php
+
+        foreach ($sql as $row) {
+            if(!empty($tenDM) && $tenDM==$row['ten_dm']){
+                $err['tenDMcheck']='Tên danh mục này đã tồn tại, bạn vui lòng chọn tên danh mục khác';
+            }
+        }
         if(empty($tenDM)){
             $err['tenDM']='Bạn chưa nhập tên danh mục';
         }
@@ -83,6 +95,11 @@
                                                 <span class="message">
                                                     <?php
                                                         echo (isset($err['tenDM'])?($err['tenDM']):'');
+                                                    ?>
+                                                </span>
+                                                <span class="message">
+                                                    <?php
+                                                        echo (isset($err['tenDMcheck'])?($err['tenDMcheck']):'');
                                                     ?>
                                                 </span>
                                             </div>

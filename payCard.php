@@ -54,7 +54,7 @@
                                 $total += ($rowp['gia_goc']-($rowp['gia_goc']*$rowp['sale']/100)) * $_POST['get'][$rowp['id']];
                                
                             }
-                                $insertOrder = mysqli_query($conn, "INSERT INTO `client_order` (`id`, `id_account`, `ghi_chu`, `tong_tien`,`tinh_trang`, `created_time`, `last_updated`) 
+                                $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_client`, `ghi_chu`, `tong_tien`,`tinh_trang`, `created_time`, `last_updated`) 
                                 VALUES (NULL,'". $r['id'] ."', '" . $_POST['note'] . "', '" . $total . "','Đang chờ hàng', '" . time() . "', '" . time() . "');");
                            
                             $clientID = $conn->insert_id;
@@ -69,7 +69,7 @@
                                     $whereProduct .=",";
                                 }
                             }
-                            $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_client`, `id_product`, `gia_tien`, `so_luong`,`created_time`, `last_updated`) VALUES " . $insertString . ";");
+                            $insertOrder = mysqli_query($conn, "INSERT INTO `order_detail` (`id`, `id_order`, `id_product`, `gia_tien`, `so_luong`,`created_time`, `last_updated`) VALUES " . $insertString . ";");
    
                             unset($_SESSION['cart']);
                             

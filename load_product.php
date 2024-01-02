@@ -109,9 +109,6 @@
     
             </div> 
         </div> 
-        <!-- <?php
-                include 'pagination.php';
-                ?> -->
     <!-- phần cuối -->
         
         <?php
@@ -123,8 +120,7 @@
         <!-- toast message -->
         <div id="toast"></div>
 
-        <!-- <script src="./js/login_register.js"></script>
-        <script src="./js/toast.js"></script> -->
+       
         <script src="./js/section.js"></script>
 
 </body>

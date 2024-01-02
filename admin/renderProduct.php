@@ -28,13 +28,12 @@
                 }
                 extract($_SESSION['product_filter']);
             }
-            $item_per_page = (!empty($_GET['per_page'])) ? $_GET['per_page'] : 5;
+            $item_per_page = (!empty($_GET['per_page'])) ? $_GET['per_page'] : 4;
             $current_page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
-            // var_dump($current_page);
             $offset = ($current_page - 1) * $item_per_page;
-            if(!empty($where)){
+
+        if(!empty($where)){
                 $totalRecords = mysqli_query($conn, "SELECT * FROM `product` where (".$where.")");
-                // var_dump($where);exit;
         }else{
             $totalRecords = mysqli_query($conn, "SELECT * FROM `product`");
         }
@@ -145,8 +144,8 @@
                                             <th class="table-borderless-th" >Mô tả</th>
                                             <th class="table-borderless-th" >Ảnh</th>
                                             <th class="table-borderless-th" >Sale</th>
-                                            <th class="table-borderless-th" >Giá gốc</th>
-                                            <th class="table-borderless-th" >Giá mới</th>
+                                            <th class="table-borderless-th" >Giá tiền</th>
+                                            <th class="table-borderless-th" >Giá bán</th>
                                             <th class="table-borderless-th" >Số lượng</th>
                                             <th class="table-borderless-th" >Tình trạng</th>
                                             <th class="table-borderless-th" >Tên danh mục</th>

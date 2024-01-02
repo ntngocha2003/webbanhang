@@ -37,7 +37,7 @@
                         <div class="home-product">
                                     <h1 class="info-user">Thông tin tài khoản</h1>
                                         
-                                    <form method="POST" action="updateAccountClient.php" class="contact-content" enctype="multipart/form-data">
+                                    <form method="POST" action="./updateAccountClient.php" class="contact-content" enctype="multipart/form-data">
                                         
                                             <div class="row sm-gutter product-item product-block">
                                                 <div class="col l-5 m-5 c-5" style="border-right: 1px solid var(--primary-color);
@@ -47,12 +47,28 @@
                                                             <input type="hidden" id="" name="id" value="<?php echo $r['id']?>">
                                                             <div class="block row">
                                                                 <div class="user_account-img col l-3 c-3 m-3">
-                                                                    <img class="img-admin" src="./admin/image/<?php echo $r['image'] ?>"style="
-                                                                    width: 80px;
-                                                                    height: 80px;
-                                                                    border-radius: 50%;
-                                                                    ">
-                                                                   
+                                                                    <?php
+                                                                        if(strlen($r['image'])==14){
+                                                                            ?>
+                                                                            <img class="img-admin" src="./admin/image/avatar.png"style="
+                                                                                width: 80px;
+                                                                                height: 80px;
+                                                                                border-radius: 50%;
+                                                                                ">
+                                                                                <input type="file" class="avatar auth-form__input" name="image"value="<?php echo $r['image']?>">
+                                                                            <?php
+                                                                        }
+                                                                        else{          
+                                                                            ?>
+                                                                            <img class="img-admin" src="./admin/image/<?php echo $r['image'] ?>"style="
+                                                                            width: 80px;
+                                                                            height: 80px;
+                                                                            border-radius: 50%;
+                                                                            ">
+                                                                             <input type="file" class="avatar auth-form__input" name="image"value="<?php echo $r['image']?>">
+                                                                        <?php
+                                                                        }
+                                                                        ?>
                                                                 </div>
                                                                 <div class="fullname col l-9 c-9 m-9" style="
                                                                                                         display: flex;
@@ -69,8 +85,7 @@
                                             
                                                             <div class="form-check-inline">
                                                                 <label class="form-check-label"> Ngày sinh: 
-                                                                <input type="date" class="form-check-input" name="date" value="<?php echo $r['ngay_sinh'] ?>"
-                                                                >
+                                                                <input type="date" class="form-check-input" name="date" value="<?php echo $r['ngay_sinh'] ?>"/>
                                                                 
                                                                 </label>
                                                             </div>
@@ -123,9 +138,7 @@
                                                         <div class="">
                                                             <label for="content"class="text-inner">Địa chỉ: </label><br>
                                                             <textarea id="content" name="address" rows="5" cols="28" 
-                                                                style="font-size: 1.4rem; color:#bbb">
-                                                                <?php echo $r['dia_chi']?>
-                                                            </textarea><br>
+                                                                style="font-size: 1.4rem; color:#bbb"><?php echo $r['dia_chi']?></textarea><br>
                                                                 
                                                         </div>
                                                         <div class="ad-user" style="margin-bottom: 10px;">
@@ -156,8 +169,5 @@
             require_once 'footer.php';
         ?>
     </div>
-
-    <script src="./js/cart.js"></script>
-
 </body>
 </html>

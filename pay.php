@@ -44,7 +44,6 @@
            
             if (!empty($_GET['action']) && $_GET['action'] == 'submit' && !empty($_POST)) {
            
-                    // if(isset($_POST['order_click'])) { 
                          if (!empty($_POST['get'])) { //Xử lý lưu giỏ hàng vào db
                            
                             $products = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` IN (" . implode(",", array_keys($_POST['get'])) . ")");
@@ -58,11 +57,11 @@
                                 $total += ($rowp['gia_goc']-($rowp['gia_goc']*$rowp['sale']/100)) * $_POST['get'][$rowp['id']];
                                
                             }
-                                $insertOrder = mysqli_query($conn, "INSERT INTO `client_order` (`id`, `id_account`, `ghi_chu`, `tong_tien`,`tinh_trang`, `created_time`, `last_updated`) 
-                                VALUES (NULL,'". $r['id'] ."', '" . $_POST['note'] . "', '" . $total . "','Đang chờ hàng', '" . time() . "', '" . time() . "');");
+                                $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_staff`,`id_client`, `ghi_chu`, `tong_tien`,`tinh_trang`, `created_time`, `last_updated`) 
+                                VALUES (NULL,Null,'". $r['id'] ."' ,'', '" . $total . "','Đang chờ hàng', '" . time() . "', '" . time() . "');");
                            
                             $clientID = $conn->insert_id;
-                            $insertOrder = mysqli_query($conn, "INSERT INTO `payment` (`id`, `id_account`, `id_client`, `phuong_thuc`,`trang_thai`,`tong_tien`, `created_time`) 
+                            $insertOrder = mysqli_query($conn, "INSERT INTO `payment` (`id`, `id_client`, `id_order`, `phuong_thuc`,`trang_thai`,`tong_tien`, `created_time`) 
                                 VALUES (NULL,'". $r['id'] ."', '" . $clientID .  "','Thanh toán bằng tiền mặt' ,'Chưa thanh toán','" . $total . "', '" . time() . "');");
                             $insertString = "";
                             foreach ($orderProducts as $key => $product) {
@@ -75,16 +74,14 @@
                                     $whereProduct .=",";
                                 }
                             }
-                            $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_client`, `id_product`, `gia_tien`, `so_luong`,`created_time`, `last_updated`) VALUES " . $insertString . ";");
+                            $insertOrder = mysqli_query($conn, "INSERT INTO `order_detail` (`id`, `id_order`, `id_product`, `gia_tien`, `so_luong`,`created_time`, `last_updated`) VALUES " . $insertString . ";");
    
                             unset($_SESSION['cart']);
                             
                          }
                          header('Location: ./paySuccess.php');
                      } 
-                    // break;   
-            // }
-            // }
+                   
             if (!empty($_SESSION["cart"])) {
                 $products = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` IN (".implode(",", array_keys($_SESSION["cart"])).")");
                 
@@ -211,10 +208,15 @@
                                                         <h2 class="title-user">Chọn hình thức thanh toán</h2>
                                                         <div class="ad-user" style="margin-bottom: 10px;">
                                                             <div>
-                                                                <input type="radio" class="form-check-input" name="radio_pay">
+                                                                <input type="radio" id="pay"class="form-check-input" name="radio_pay">
                                                                 <img src="./image/pay_cart.png" style="width: 10%;
                                                                                                         height: 10%;" alt="icon">
                                                                 <label class="form-check-label"> Thanh toán bằng tiền mặt sau khi nhận hàng
+                                                                <input type="button" class="form-check-input jsCheckRadio"style="background-color: var(--primary-color);
+                                                                                                                                    border: 1px solid var(--primary-color);
+                                                                                                                                    border-radius: 3px;
+                                                                                                                                    color: #fff;
+                                                                                                                                    cursor: pointer;" value='Chọn'>
                                                             </div>
                                                             
                                                         </div>
@@ -222,15 +224,45 @@
 
                                                         <div class="ad-user" style="margin-bottom: 10px;">
                                                             <div>
-                                                                <input type="radio" class="form-check-input" name="radio_payvisa">
+                                                                <input type="radio"id="pay2" class="form-check-input" name="radio_pay">
                                                                 <img src="./image/visa.png" style="width: 10%;
                                                                                                         height: 10%;" alt="icon">
                                                                 <label class="form-check-label"> Thanh toán thẻ tín dụng/ghi nợ
-                                                                <div class="show-card">
-                                                                    <img src="./image/visa_pay.png" style="width: 10%;height: 10%;margin-right: 10px;" alt="icon">
-                                                                    <p>MILYTARY COMMERCIAL JSB...</p>
-                                                                </div>
-                                                                <button type='button' class="btn-payvisa">+ Thêm thẻ mới</button>
+                                                                <input type="button" class="form-check-input jsCheckRadio2"style="background-color: var(--primary-color);
+                                                                                                                                    border: 1px solid var(--primary-color);
+                                                                                                                                    border-radius: 3px;
+                                                                                                                                    color: #fff;
+                                                                                                                                    cursor: pointer;" value='Chọn'>
+                                                                <?php
+                                                                    $payments="select distinct *from payment where payment.id_client='".$r['id']."' and payment.phuong_thuc ='Thanh toán bằng thẻ tín dụng'";
+                                                                    $result=mysqli_query($conn,$payments); 
+                                                                    $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                                                
+                                                                    ?>
+                                                                    <div class="show-card">
+                                                                        <img src="./image/visa_pay.png" style="width: 10%;height: 10%;margin-right: 10px;" alt="icon">
+                                                                        <p>MILYTARY COMMERCIAL JSB...</p>
+                                                                    </div>
+                                                                    <?php
+                                                                  
+                                                                    foreach ($sql as $row) {
+                                                                       
+                                                                       
+                                                                    }
+                                                                    if( (isset($row['id_client']))&& ($row['phuong_thuc']=='Thanh toán bằng thẻ tín dụng')){
+                                                                        echo'
+                                                                            <div class="show-card"style="display:flex">
+                                                                                <img src="./image/visa_pay.png" style="width: 10%;height: 10%;margin-right: 10px;" alt="icon">
+                                                                                <p>MILYTARY COMMERCIAL JSB...</p>
+                                                                            </div>
+                                                                        
+                                                                        ';
+                                                                    }
+                                                                    else{
+                                                                        echo'
+                                                                        <button type="button" class="btn-payvisa">+ Thêm thẻ mới</button>';
+                                                                    }
+                                                                ?>
                                                             </div>
                                                         </div>
 
@@ -301,9 +333,9 @@
                                                                                             width:100%">
                                                             
                                                             
-                                                            <input class="btn-confirm btn-order"style="width:100%" type="submit" name="order_click"value="Đặt hàng" />
-                                                            <a href="payCard.php" class="btn btn--primary btn-payCard--order" 
-                                                                                        style="font-size:1.4rem;width:100%;
+                                                            <input class="btn btn-add--order btn-order"style="font-size:1.4rem;width:100%" type="submit" name="order_click"value="Đặt hàng" />
+                                                            <a href="payCard.php" class="btn btn-add--order btn-payCard--order" 
+                                                                                        style="font-size:1.4rem;width:100%;text-align: center;
                                                                                         display: none;
                                                                                         ">Đặt hàng</a>
                                                         </div>
@@ -393,27 +425,28 @@
                                     </div>
                                     <div class="col l-6 m-6 c-6">
                                                             
-                                    <div class="background-card">
+                                        <div class="background-card">
 
-                                        <div>
-                                            <img src="./image/qr_card2.jpg" style="width: 15%;height: 15%;margin-top: 20px;margin-left: 20px;border-radius: 3px;" alt="icon">
-                                        </div>
-                                        <div style="display: flex;margin: 15px 0 25px 0;">
-                                            <span class="number-card">....</span>
-                                            <span class="number-card">....</span>
-                                            <span class="number-card">....</span>
-                                            <span class="number-card">....</span>
-
-                                        </div>
-
-                                        <div class="date-card">
-                                            <p>TÊN CHỦ THẺ</p>
                                             <div>
-                                                <p>Hiệu lực đến: ../..</p>
+                                                <img src="./image/qr_card2.jpg" style="width: 15%;height: 15%;margin-top: 20px;margin-left: 20px;border-radius: 3px;" alt="icon">
+                                            </div>
+                                            <div style="display: flex;margin: 15px 0 25px 0;">
+                                                <span class="number-card">.... .... .... ....</span>
+                                                <!-- <span class="number-card">....</span>
+                                                <span class="number-card">....</span>
+                                                <span class="number-card">....</span> -->
+
+                                            </div>
+
+                                            <div class="date-card">
+                                                <p class="myCard">TÊN CHỦ THẺ</p>
+                                                <div style="display:flex">
+                                                    <p>Hiệu lực đến:</p>
+                                                    <p class="myCardDate">../..</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
                                 </div>
                             </div>  
                         </div>
@@ -433,114 +466,29 @@
     
 
     <script src="./js/toast.js"></script>
+    <script src="./js/bill.js"></script>
     <script>
-        const btnPayCardOrder=document.querySelector('.btn-payCard--order')
-        const btnOrder=document.querySelector('.btn-order')
-        const showCard=document.querySelector('.show-card')
-        const addCard = document.querySelector('.btn-payvisa')
-        const modal = document.querySelector('.js-modal')
-        const modalContainer = document.querySelector('.js-modal-container')
-        const modalClose = document.querySelector('.btn-payclose')
-        const payCard = document.querySelector('.btn-paycard')
+        var checkbox = document.querySelector('.jsCheckRadio');
+        var radio = document.getElementById("pay");
+        function checkRadio(){
 
-        const numberCard=document.querySelector('#numberCard')
-        const nameCard=document.querySelector('#nameCard')
-        const dateCard=document.querySelector('#dateCard')
-        const codeCard=document.querySelector('#codeCard')
-        const messageNumber=document.querySelector('.messageNumber')
-        const messageName=document.querySelector('.messageName')
-        const messageDate=document.querySelector('.messageDate')
-        const messageCode=document.querySelector('.messageCode')
-        
-        function showPayCard () {
-            modal.style.display="flex"
-        }
-        
-       
-        function hidePayCard () {
-            modal.style.display="none"
+            radio.checked = true
+            btnOrder.style.display='block'
+            btnPayCardOrder.style.display='none'
         }
 
-        
-        payCard.addEventListener('click',(e)=>{
-            
-            const number=numberCard.value;
-            const name=nameCard.value;
-            const date=dateCard.value;
-            const pass=codeCard.value;
-           
-            e.preventDefault();
-            if(number.trim()===''){
-                messageNumber.textContent = "bạn chưa nhập số tài khỏan"
-                return false
-            }
-            else if(number<19){
-                messageNumber.textContent = "bạn cần nhập đủ 16 số"
-                return false
-            }
+        checkbox.addEventListener('click',checkRadio)
+// 
+        var checkbox2 = document.querySelector('.jsCheckRadio2');
+        var radio2 = document.getElementById("pay2");
+        function checkRadio2(){
 
-            else{
-                messageNumber.textContent = ""
-            }
+            radio2.checked = true
+            btnOrder.style.display='none'
+            btnPayCardOrder.style.display='block'
+        }
 
-            if(name.trim()===''){
-                messageName.textContent = "bạn chưa nhập tên chủ thẻ"
-                return false
-            }
-            
-            else{
-                messageName.textContent = ""
-            }
-
-            
-
-            if(date.trim()===''){
-                messageDate.textContent = "bạn cần nhập ngày hết hạn của thẻ"
-                return false
-            }
-            else{
-                messageDate.textContent = ""
-            }
-            if(pass.trim()===''){
-                messageCode.textContent = "bạn chưa nhập mã cvv"
-                return false
-            }
-            else if(pass<3){
-                messageCode.textContent = "bạn cần nhập đủ 3 ký tự"
-                return false
-            }
-            else{
-                messageCode.textContent = ""
-            }
-
-            if(true){
-                payCard.innerHTML="Đang xác thực..."
-                setTimeout(()=>{
-                    showSuccessToastPayCard();
-                    hidePayCard()
-                    payCard.innerHTML="Xác nhận"
-                    showCard.style.display="flex"
-                    btnOrder.style.display='none'
-                    btnPayCardOrder.style.display='flex'
-                    numberCard.value=''
-                    nameCard.value=''
-                    dateCard.value=''
-                    codeCard.value=''
-                },3000)
-            }
-
-        })
-        addCard.addEventListener('click', showPayCard)
-      
-        modalClose.addEventListener('click', hidePayCard)
-
-        modal.addEventListener('click', hidePayCard)
-
-        modalContainer.addEventListener('click', function(event) {
-            event.stopPropagation()
-        })
-                                 
+        checkbox2.addEventListener('click',checkRadio2)
     </script>
-
 </body>
 </html>

@@ -3,13 +3,12 @@
     ob_start();
     require_once 'connect.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sửa nhà cung cấp</title>
+    <title>Sửa đơn hàng</title>
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="./css/addStaff.css">
@@ -44,69 +43,40 @@
                     
                 <?php
                         require 'admin_category.php';
-                   ?> 
+                   ?>  
                 
                     <div class="col l-9 m-12 c-12">
                         <div class="add_staff">
 
                             <div class="add-header">
-                                <h3>Sửa thông tin nhà cung cấp</h3>
+                                <h3>Cập nhật trạng thái đơn hàng</h3>
                             </div>
                             <?php
                                 $id=$_GET['sid'];
-
                                 require_once 'connect.php';
-
-                                $edit_sql="SELECT * FROM supplier where id=$id";
-
-                                $result=mysqli_query($conn,$edit_sql);
-
-                                $row= mysqli_fetch_assoc($result);
-
                             ?>
-
                             <div class="add-content">
-                                <form action="./updateSupplier.php" method="post" enctype="multipart/form-data">
+                                <form action="./updateOrderStaff.php" method="post">
                                     <div class="block row">
-                                        <input type="hidden" id="" name="sid" value="<?php echo $id?>">
+                                    <input type="hidden" id="" name="sid" value="<?php echo $id?>">
                                         
-                                        <div class="form-group l-6 c-6 m-6 col">
+                                        
+                                        <div class="form-group l-12 c-12 m-12 col">
                                             <div class="group">
-                                                <label for="tenNCC">Tên nhà cung cấp</label>
-                                                <input type="text" class="form-control" name="tenNCC"
-                                                    value="<?php echo $row['ten_ncc']?>">
-                                            </div>
-                                        </div>
-                                        <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="Email">Email</label>
-                                                <input type="text" class="form-control" name="Email"
-                                                value="<?php echo $row['email']?>">
-                                            </div>
-                                          </div>
-                                        <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="SDT">Số điện thoại</label>
-                                                <input type="number" class="form-control" name="SDT"
-                                                value="0<?php echo $row['sdt']?>">
+                                                <label class="control-label">Trạng thái</label>
+                                               
+                                                <select name="tinhTrang"class="form-control" id="exampleSelect2" required>
+                                                   
+                                                    <option>Đang giao hàng</option>
+                                                    <option>Đã giao hàng</option>
+                                                </select>
                                             </div>
                                         </div>
 
-                                          <div class="form-group l-6 c-6 m-6 col">
-                                            <div class="group">
-
-                                                <label for="diaChi">Địa chỉ</label>
-                                                <input type="text" class="form-control" name="diaChi"
-                                                value="<?php echo $row['dia_chi']?>">
-                                            </div>
-                                          </div>
-                                         
                                     </div>
                                     <div class="block">
                                         <button type="submit" class="btn btn-primary btn-save">Lưu thông tin</button>
-                                        <a onclick="return confirm('bạn có muốn hủy bỏ thao tác này không')" class="btn btn-cancel" href="./renderProduct.php">Hủy bỏ</a>
+                                        <a onclick="return confirm('bạn có muốn hủy bỏ thao tác này không')" class="btn btn-cancel" href="./renderOrderStaff.php">Hủy bỏ</a>
                                     </div>
                                   </form>
                             </div>

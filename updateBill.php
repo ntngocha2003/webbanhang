@@ -2,21 +2,16 @@
     
     $id=$_POST['id'];
          require_once './admin/connect.php';
-          $updateBill=" UPDATE `client_order` SET `tinh_trang`='Đã hủy' WHERE id='$id' ";
+         $time=time();
+          $updateBill=" UPDATE `orders` SET `tinh_trang`='Đã hủy',`last_updated`=$time WHERE id='$id' ";
 
-       
-   
-
-        $order="SELECT orders.*,client_order.*
-        FROM orders
-        INNER JOIN client_order ON client_order.id = orders.id_client
-        INNER JOIN product ON product.id = orders.id_product
-        WHERE client_order.id ='$id' ";
+        $order="SELECT order_detail.*,orders.*
+        FROM order_detail
+        INNER JOIN orders ON orders.id = order_detail.id_order
+        INNER JOIN product ON product.id = order_detail.id_product
+        WHERE orders.id ='$id' ";
         $result=mysqli_query($conn,$order); 
         $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-        
-
 
         foreach ($sql as $key => $row) {
             $quantity ;

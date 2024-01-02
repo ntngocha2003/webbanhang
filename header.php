@@ -45,21 +45,33 @@
                              
                              if(isset($_SESSION['name'])){
                                  $row=$_SESSION['name'];
-                                 $render_sql= "SELECT * FROM `account`where ten_dn='$row'";
+                                 $render_sql= "SELECT account.ten_dn, account.mat_khau, customers.* FROM customers join account on customers.id_acc=account.id 
+                                  where ten_dn='$row'";
                                  $result=mysqli_query($conn,$render_sql);
                                  $r=mysqli_fetch_assoc($result);
                                 
-                                echo '
+                                ?>
                                 <div class="header__navbar-item header__navbar-user" id="header__navbar-user">
-                                    <img src="./admin/image/'.$r['image'].'" alt="" class="header__navbar-user-img">
-                                    <span class="header__navbar-user-name">'.$_SESSION['name'].' </span>
+                                    <?php
+                                        if(strlen($r['image'])==14){
+                                            ?>
+                                                <img src="./admin/image/avatar.png" alt="" class="header__navbar-user-img">
+                                            <?php
+                                        }
+                                        else{
+                                            ?>
+                                                <img src="./admin/image/<?php echo $r['image']?>" alt="" class="header__navbar-user-img">
+                                            <?php
+                                        }
+                                    ?>
+                                    <span class="header__navbar-user-name"><?php echo $_SESSION['name'] ?> </span>
          
                                     <div class="header__navbar-user-menu">
                                         <div class="header__navbar-user-item">
-                                            <a href="./account.php?id= '.$r['id'].'">Tài khoản của tôi</a>
+                                            <a href="./account.php?id=<?php echo $r['id']?>">Tài khoản của tôi</a>
                                         </div>
                                         <div class="header__navbar-user-item">
-                                            <a href="./bill.php?id='.$r['id'].'">Đơn mua</a>
+                                            <a href="./bill.php?id=<?php echo $r['id']?>">Đơn mua</a>
                                         </div>
             
                                         <div class=" header__navbar-user-item header__navbar-user-item--separate">
@@ -67,8 +79,8 @@
                                         </div>
                                         
                                     </div>
-                                </div>';
-                            
+                                </div>;
+                            <?php
                             }
                             else{
                              ?>
@@ -95,9 +107,9 @@
                     </div>
                     <input type="checkbox" hidden id="mobile-search-checkbox" class="header__search-checkbox">
                     <div class="header__search">
-                        <form action="home.php" method="GET" class="header__search-input-wrap">
+                        <form action="home.php" method="POST" class="header__search-input-wrap">
                             
-                            <input type="text" value="<?=isset($_GET['search']) ? $_GET['search'] : ""?>"name="search" class="header__search-input" placeholder="Tìm kiếm sản phẩm">
+                            <input type="text" value="<?=isset($_POST['search']) ? $_POST['search'] : ""?>"name="search" class="header__search-input" placeholder="Tìm kiếm sản phẩm">
                             <button type="submit" name="btnSearch" class="header__search-btn">
                                 <i class="header__search-btn-icon fas fa-search"></i>
                             </button>
@@ -105,12 +117,7 @@
                         </form>
                         
                     </div>
-                    <!-- <select id="sort-box" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-                        <option value="">Sắp xếp giá</option>
-                        <option <?php if(isset($_GET['sort']) && $_GET['sort'] == "desc") { ?> selected <?php } ?> value="?<?=$sortParam?>field=gia_moi&sort=desc">Cao đến thấp</option>
-                        <option <?php if(isset($_GET['sort']) && $_GET['sort'] == "asc") { ?> selected <?php } ?> value="?<?=$sortParam?>field=gia_moi&sort=asc">Thấp đến cao</option>
-                    </select> -->
-
+                   
                     <!-- Cart layout -->
                     <div class="header__cart">
                         <div class="header__cart-wrap">
@@ -125,9 +132,7 @@
                                     <?php
                                     }
                                 ?>
-                            
-
-                            <!-- No cart: header__cart-list--no-cart -->
+                           
                             <div class="header__cart-list">
                                 <?php
                                             if(!empty($_SESSION["cart"]) && isset($_SESSION['name'])){
@@ -139,7 +144,7 @@
                                                 ?>
                                                 <img src="./image/no-cart.webp" alt="" class="header__cart-no-cart-img">
                                                 <span class="header__cart-list-no-cart-msg">
-                                                    Chưa có sản phẩm
+                                                   
                                                 </span>
                                             <?php
                                             }

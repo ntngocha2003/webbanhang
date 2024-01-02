@@ -51,15 +51,14 @@
                         require_once './admin/connect.php';
                         
                         
-                        $bill_detail="SELECT  client_order.*, orders.*, product.mota,product.image, product.ten_sp,payment.phuong_thuc
-                        FROM client_order
-                        INNER JOIN orders ON client_order.id = orders.id_client
-                        INNER JOIN product ON product.id = orders.id_product
-                        INNER JOIN payment ON client_order.id = payment.id_client
-                        WHERE client_order.id =". $_GET['id'];
+                        $bill_detail="SELECT  orders.*, order_detail.*, product.mota,product.image, product.ten_sp,payment.phuong_thuc
+                        FROM orders
+                        INNER JOIN order_detail ON orders.id = order_detail.id_order
+                        INNER JOIN product ON product.id = order_detail.id_product
+                        INNER JOIN payment ON orders.id = payment.id_order
+                        WHERE orders.id =". $_GET['id'];
                         $result=mysqli_query($conn,$bill_detail);
 
-                        // $sql= mysqli_fetch_assoc($result);  
                         $sql_detail = mysqli_fetch_all($result, MYSQLI_ASSOC);
                         
                         ?>
@@ -97,12 +96,12 @@
                                                     <?php
                                                     foreach ($sql_detail as $row) {
 
-                                                        $n=date('d/m/Y', $row['created_time']);
-                                                        $ngaygiao = DateTime::createFromFormat('d/m/yy', $n);
-                                                        $ngaygiao->add(new DateInterval('P3D'));
-
-                                                        echo $ngaygiao->format('d/m/Y'); 
                                                     }
+                                                    $n=date('d/m/Y', $row['created_time']);
+                                                    $ngaygiao = DateTime::createFromFormat('d/m/yy', $n);
+                                                    $ngaygiao->add(new DateInterval('P3D'));
+
+                                                    echo $ngaygiao->format('d/m/Y'); 
                                                                             
                                                     ?>
                                                     </p><p>Phí vận chuyển: 0đ</p>
@@ -114,12 +113,11 @@
                                                 <div class="address-user">
                                                 <?php
                                                     foreach ($sql_detail as $row) {?>
-
-                                                        <p><?php echo $row['phuong_thuc']?></p>
-                                                      <?php  
+                                                    <?php  
                                                     }
-                                                                            
+                                                    
                                                     ?>
+                                                    <p><?php echo $row['phuong_thuc']?></p>
                                                     
                                                     
                                                 </div>

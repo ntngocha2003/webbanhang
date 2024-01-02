@@ -11,5 +11,4 @@
         header("location: renderClient.php");
     }
 
-    
 ?>

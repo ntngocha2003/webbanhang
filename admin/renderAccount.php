@@ -4,7 +4,6 @@
     require_once 'connect.php';
         if(!empty($_GET['action']) && $_GET['action'] == 'search' && !empty($_POST)){
             $_SESSION['account_filter'] = $_POST;
-            // var_dump($_SESSION['account_filter']);exit;
             header('Location: renderAccount.php');
         }
         if(!empty($_GET['action']) && $_GET['action'] == 'return' && !empty($_POST)){
@@ -32,7 +31,6 @@
             $offset = ($current_page - 1) * $item_per_page;
             if(!empty($where)){
                 $totalRecords = mysqli_query($conn, "SELECT * FROM `account` where `quen`!='admin' and (".$where.")");
-                // var_dump($where);exit;
         }else{
             $totalRecords = mysqli_query($conn, "SELECT * FROM `account`where `quen`!='admin'");
         }
@@ -43,10 +41,8 @@
         }else{
             
             $account = mysqli_query($conn, "SELECT * FROM `account`where `quen`!='admin' ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
-            // var_dump($products);exit;
         }
         
-        // mysqli_close($conn);
     ?>
 
 <html lang="en">
@@ -130,7 +126,6 @@
                                         <thead class="table-borderless-thead">
                                             <tr>
                                                 <th class="table-borderless-th" >STT</th>
-                                                <th class="table-borderless-th" >Email</th>
                                                 <th class="table-borderless-th" >Tên đăng nhập</th>
                                                 <th class="table-borderless-th" >Mật khẩu</th>
                                                 <th class="table-borderless-th" >Quyền</th>
@@ -148,11 +143,6 @@
                                                     <tr class="table-borderless-tr">
                                                         <td class="table-borderless-td">
                                                             <?php echo $num++;?>
-                                                        </td>
-                                                        <td class="table-borderless-td">
-                                                            <div class="reponsive">
-                                                                <?php echo $r['email'];?>
-                                                            </div>
                                                         </td>
                                                         <td class="table-borderless-td">
                                                             <div class="reponsive">
@@ -174,12 +164,22 @@
                                                         </td>
                                                         <td class="table-borderless-td" style="display:flex;justify-content: space-around;">
                                                             <div class="reponsive">
-                                                                <a href="editStaff.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a>
+                                                                <?php
+                                                                if($r['quen']=='Khách hàng'){
+                                                                    ?>
+                                                                    <a class="btn-info" style="background-color:#ccc">Sửa</a>
+                                                                <?php
+                                                                }
+                                                                else{
+                                                                    ?>
+                                                                    <a href="editStaff.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a>
+                                                                <?php
+                                                                }
+                                                                ?>
                                                                 <a onclick="return confirm('bạn có muốn xóa tài khoản này không')"
                                                                     href="removeAccount.php?sid=<?php echo $r['id'];?>" class="btn-danger">Xóa
                                                                 </a>
                                                             </div>
-                                                            <!-- <a href="editAccount.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a> -->
                                                         </td>
                                                     </tr>
                                                 <?php    

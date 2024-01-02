@@ -32,22 +32,18 @@
             $current_page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
             $offset = ($current_page - 1) * $item_per_page;
             if(!empty($where)){
-                $totalRecords = mysqli_query($conn, "SELECT * FROM `account` where quen LIKE '%Nhân viên%' and (".$where.") ");
-                // var_dump($where);exit;
+                $totalRecords = mysqli_query($conn, "SELECT account.*, staffs.sdt,staffs.email,staffs.image,staffs.ngay_sinh,staffs.gioi_tinh,staffs.dia_chi FROM staffs join account on staffs.id_acc=account.id where `quen`!='admin' and(".$where.") ");
         }else{
-            $totalRecords = mysqli_query($conn, "SELECT * FROM `account`where quen LIKE '%Nhân viên%'");
+            $totalRecords = mysqli_query($conn, "SELECT account.*, staffs.sdt,staffs.email,staffs.image,staffs.ngay_sinh,staffs.gioi_tinh,staffs.dia_chi FROM staffs join account on staffs.id_acc=account.id where `quen`!='admin'");
         }
         $totalRecords = $totalRecords->num_rows;
         $totalPages = ceil($totalRecords / $item_per_page);
         if(!empty($where)){
-            $staffs = mysqli_query($conn, "SELECT * FROM `account` where quen LIKE '%Nhân viên%' and (".$where.") ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
+            $staffs = mysqli_query($conn, "SELECT account.*, staffs.sdt,staffs.email,staffs.image,staffs.ngay_sinh,staffs.gioi_tinh,staffs.dia_chi FROM staffs join account on staffs.id_acc=account.id where `quen`!='admin'and (".$where.") ORDER BY `id` DESC LIMIT " . $item_per_page . " OFFSET " . $offset);
         }else{
             
-            $staffs = mysqli_query($conn, "SELECT * FROM `account` where quen LIKE '%Nhân viên%' ORDER BY `id` DESC LIMIT  " . $item_per_page . " OFFSET " . $offset);
-            // var_dump( $totalRecords);exit;
+            $staffs = mysqli_query($conn, "SELECT account.*, staffs.sdt,staffs.email,staffs.image,staffs.ngay_sinh,staffs.gioi_tinh,staffs.dia_chi FROM staffs join account on staffs.id_acc=account.id where `quen`!='admin'  ORDER BY `id` DESC LIMIT  " . $item_per_page . " OFFSET " . $offset);
         }
-        
-        // mysqli_close($conn);
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -129,6 +125,7 @@
                                         <tr>
                                             <th class="table-borderless-th" >STT</th>
                                             <th class="table-borderless-th" >Tên nhân viên</th>
+                                            <th class="table-borderless-th" >Ảnh</th>
                                             <th class="table-borderless-th" >Email</th>
                                             <th class="table-borderless-th" >Số điện thoại</th>
                                             <th class="table-borderless-th" >Địa chỉ</th>
@@ -158,7 +155,25 @@
                                                             <?php echo $r['ten_dn'];?>
                                                         </div>
                                                     </td>
-
+                                                    <td class="table-borderless-td">
+                                                    <div class="reponsive">
+                                                            <?php
+                                                                if(strlen($r['image'])==14){
+                                                                    
+                                                                    ?>
+                                                                        <img src="./image/avatar.png" alt="" class="table-borderless-td--img">
+                                                                    <?php
+                                                                }
+                                                                else{
+                                                                   
+                                                                    ?>
+                                                                        <img class="table-borderless-td--img" src="./image/<?php echo $r['image']?>">
+                                                                    <?php
+                                                                }
+                                                            ?>
+                                                        </div>
+                                                        
+                                                    </td>
                                                     <td class="table-borderless-td">
                                                         <div class="reponsive">
                                                             <?php echo $r['email'];?>
@@ -191,7 +206,7 @@
 
                                                     <td class="table-borderless-td">
                                                         <div class="reponsive">
-                                                            
+                                                            <a href="editStaff.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a>
                                                             <a onclick="return confirm('bạn có muốn xóa nhân viên này không')"
                                                                 href="removeStaff.php?sid=<?php echo $r['id'];?>" class="btn-danger">Xóa
                                                             </a>

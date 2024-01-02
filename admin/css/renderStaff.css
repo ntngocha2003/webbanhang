@@ -24,11 +24,19 @@
     border-radius: 6px;
 }
 .control_link-item--input{
-    width: 140px;
+    width: 118px;
     padding: 2px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    color: rgb(131, 131, 131);
+    color: rgb(131, 131, 131);cursor: pointer;
+}
+.control_link-item--input2{
+    width: 118px;
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+        color: #fff;
 }
 .table-borderless{
     margin-top: 10px;

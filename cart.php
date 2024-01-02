@@ -87,9 +87,8 @@
                                     $orderProducts[] = $rowp;
                                     $total += $rowp['gia_moi'] * $_POST['get'][$rowp['id']];
                                     
-                                    // var_dump($quantity);exit;
                                 }
-                                    $insertOrder = mysqli_query($conn, "INSERT INTO `client_order` (`id`, `id_account`, `ghi_chu`, `tong_tien`,`tinh_trang`, `created_time`, `last_updated`) 
+                                    $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_client`, `ghi_chu`, `tong_tien`,`tinh_trang`, `created_time`, `last_updated`) 
                                     VALUES (NULL,'". $r['id'] ."', '" . $_POST['note'] . "', '" . $total . "','Đang chờ hàng', '" . time() . "', '" . time() . "');");
                                
                                 $clientID = $conn->insert_id;
@@ -104,7 +103,7 @@
                                         $whereProduct .=",";
                                     }
                                 }
-                                $insertOrder = mysqli_query($conn, "INSERT INTO `orders` (`id`, `id_client`, `id_product`, `gia_tien`, `so_luong`,`created_time`, `last_updated`) VALUES " . $insertString . ";");
+                                $insertOrder = mysqli_query($conn, "INSERT INTO `order_detail` (`id`, `id_order`, `id_product`, `gia_tien`, `so_luong`,`created_time`, `last_updated`) VALUES " . $insertString . ";");
 
                                
                                 unset($_SESSION['cart']);
@@ -116,7 +115,6 @@
             }
             if (!empty($_SESSION["cart"])) {
                 $products = mysqli_query($conn, "SELECT * FROM `product` WHERE `id` IN (".implode(",", array_keys($_SESSION["cart"])).")");
-                //  var_dump($_SESSION["cart"]);exit;
                 
             }
         ?>
@@ -236,26 +234,30 @@
                                             
                                             <div class="">
                                                 <p class="text-inner">Địa chỉ chi tiết: <?php echo $r['dia_chi']?></p>
+                                                
                                             </div>
                                           
                                     </div>
-                                    <div>
-                                        <label class="text-inner">Ghi chú: </label>
-                                        <textarea class="text-inner" name="note" cols="50" rows="7" ></textarea>
-                                    </div>
+                                    
                                     <div class="contact-footer">
+                                        
                                         <a href="account.php?id=<?php echo $r['id'];?>" style="color: #6fcef7;margin-top: 10px;
                                                                     font-size: 1.4rem;
                                                                    ">Thay đổi</a>
                                         <?php
-                                        
-                                            if (!empty($products)){
-                                                echo'<a href="pay.php" class="btn-add--order">Mua hàng</a>'
-                                            ?>
-                                            <?php
-                                                }
+                                      var_dump( strlen($r['dia_chi']));
+                                            if (!empty($products) && strlen($r['dia_chi'])<3){
                                                 
                                                 ?>
+                                                <a onclick="return confirm('Ồ, có vẻ bạn chưa cung cấp địa chỉ cho chúng tôi thì phải!')" href="account.php" class="btn-add--order">Mua hàng</a>
+                                                <?php
+                                            }
+                                            else if(!empty($products)){
+                                                ?>
+                                                    <a href="pay.php" class="btn-add--order">Mua hàng</a>
+                                                <?php
+                                                }
+                                            ?>
                                             
                                         
                                     </div>

@@ -15,8 +15,6 @@
     <link rel="stylesheet" href="./css/addStaff.css">
     <link rel="stylesheet" href="./css/addProduct.css">
     <link rel="stylesheet" href="./css/reponsiver.css">
-    <!-- Latest compiled and minified CSS -->
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"> -->
 
     <!-- jQuery library -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
@@ -57,12 +55,6 @@
 
                                 require_once 'connect.php';
 
-                                $edit_sql="SELECT * FROM account where id=$id";
-
-                                $result=mysqli_query($conn,$edit_sql);
-
-                                $row= mysqli_fetch_assoc($result);
-
                             ?>
 
                             <div class="add-content">
@@ -76,9 +68,9 @@
                                                 <label class="control-label">Chức vụ</label>
                                                 <select name="chucVu"class="form-control" id="exampleSelect2" required>
                                                     <option>--Chọn chức vụ--</option>
-                                                    <option>Nhân viên chăm sóc khách hàng</option>
-                                                    <option>Nhân viên quản lý kho</option>
-                                                    <option>Nhân viên quản lý đơn hàng</option>
+                                                    <option>Nhân viên chăm sóc</option>
+                                                    <option>Nhân viên kho</option>
+                                                    <option>Nhân viên giao hàng</option>
                                                 </select>
                                                 </div>
                                             </div>
