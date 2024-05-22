@@ -150,7 +150,7 @@
                                                                             <div class="ad-user">
                                                                                 <div>
                                                                                     <i class="ti-unlock"></i> 
-                                                                                    <a>Đổi mật khẩu</a>
+                                                                                    <a href="change-passAdmin.php">Đổi mật khẩu</a>
                                                                                 </div>
                                                                                 
                                                                             </div>

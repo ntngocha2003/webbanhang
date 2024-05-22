@@ -275,15 +275,14 @@
                                     <table class="table table-borderless tab-pane active">
                                         <thead class="table-borderless-thead">
                                         <tr>
-                                            <th class="table-borderless-th" >STT</th>
-                                           
+                                            <th class="table-borderless-th" >STT</th>                                          
                                             <th class="table-borderless-th" >Tên người nhận</th>
                                             <th class="table-borderless-th" >Ảnh</th>
-                                            <th class="table-borderless-th" >Tổng tiền</th>
-                                           
+                                            <th class="table-borderless-th" >Tổng tiền</th>             
                                             <th class="table-borderless-th" >Tình trạng</th>
                                             <th class="table-borderless-th" >Ngày đặt</th>
                                             <th class="table-borderless-th" >In hóa đơn</th>
+                                            <th class="table-borderless-th" >Nhân viên giao</th>
                                             <th class="table-borderless-th" >Thao tác</th>
                                         </tr>
                                         </thead>
@@ -354,6 +353,41 @@
                                                             style="color:#bbb">In</a>
                                                         </div>
                                                     </td>
+
+                                                    <td class="table-borderless-td">
+                                                        <?php
+                                                            if($r['tinh_trang']=='Đang chờ hàng'){
+                                                                ?>
+                                                                    <div class="reponsive">?</div>
+                                                                <?php
+                                                            }
+                                                            else if($r['tinh_trang']=='Đã hủy'){
+                                                                ?>
+                                                                    <div class="reponsive">---</div>
+                                                                <?php
+                                                            }
+                                                            else{
+                                                                ?>
+                                                                    <div class="reponsive">
+                                                                    <?php
+                                                                        
+                                                                            require_once 'connect.php';
+                                                                            $render_sql= "SELECT account.ten_dn, orders.id FROM `account` 
+                                                                            join `staffs` on account.id=staffs.id_acc
+                                                                            join `orders` on orders.id_staff=staffs.id
+                                                                            where orders.id='".$r['id']."'";
+                                                                            $result=mysqli_query($conn,$render_sql);
+                                                                            $row= mysqli_fetch_all($result, MYSQLI_ASSOC);
+            
+                                                                            echo $row[0]['ten_dn'];
+                                                                            
+                                                                        ?>
+                                                                    </div>
+                                                                <?php
+                                                            }
+                                                        ?>
+                                                    </td>
+
                                                     <td class="table-borderless-td" style="display:flex;justify-content: space-around;">
                                                         <?php
                                                             if(!($r['tinh_trang']=='Đã hủy')&& !($r['tinh_trang']=='Đã giao hàng')){

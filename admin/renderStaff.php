@@ -126,13 +126,20 @@
                                             <th class="table-borderless-th" >STT</th>
                                             <th class="table-borderless-th" >Tên nhân viên</th>
                                             <th class="table-borderless-th" >Ảnh</th>
-                                            <th class="table-borderless-th" >Email</th>
+                                            <!-- <th class="table-borderless-th" >Email</th> -->
                                             <th class="table-borderless-th" >Số điện thoại</th>
                                             <th class="table-borderless-th" >Địa chỉ</th>
-                                            
                                             <th class="table-borderless-th" >Giới tính</th>
                                             <th class="table-borderless-th" >Chức vụ</th>
-                                            <th class="table-borderless-th" >Thao tác</th>
+                                            <th class="table-borderless-th" >Hoạt động</th>
+                                            <?php
+                                                if($r['quen']=='admin'){
+                                                ?>
+                                                    <th class="table-borderless-th" >Thao tác</th>
+                                                <?php
+                                                }
+                                            ?>
+                                                   
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -141,7 +148,7 @@
                                             require_once 'connect.php';
                                             
                                             $num=1;
-                                            while ($r = mysqli_fetch_array($staffs)){
+                                            while ($row = mysqli_fetch_array($staffs)){
                                                
                                                 ?>
                                                 <tr class="table-borderless-tr">
@@ -152,13 +159,13 @@
                                                     <td class="table-borderless-td">
                                                         <div class="reponsive">
 
-                                                            <?php echo $r['ten_dn'];?>
+                                                            <?php echo $row['ten_dn'];?>
                                                         </div>
                                                     </td>
                                                     <td class="table-borderless-td">
                                                     <div class="reponsive">
                                                             <?php
-                                                                if(strlen($r['image'])==14){
+                                                                if(strlen($row['image'])==14){
                                                                     
                                                                     ?>
                                                                         <img src="./image/avatar.png" alt="" class="table-borderless-td--img">
@@ -167,51 +174,82 @@
                                                                 else{
                                                                    
                                                                     ?>
-                                                                        <img class="table-borderless-td--img" src="./image/<?php echo $r['image']?>">
+                                                                        <img class="table-borderless-td--img" src="./image/<?php echo $row['image']?>">
                                                                     <?php
                                                                 }
                                                             ?>
                                                         </div>
                                                         
                                                     </td>
-                                                    <td class="table-borderless-td">
+                                                    <!-- <td class="table-borderless-td">
                                                         <div class="reponsive">
-                                                            <?php echo $r['email'];?>
+                                                            <?php echo $row['email'];?>
                                                         </div>
-                                                    </td>
+                                                    </td> -->
                                                     <td class="table-borderless-td">
-                                                        <div class="reponsive">0<?php echo $r['sdt'];?>
+                                                        <div class="reponsive">0<?php echo $row['sdt'];?>
                                                         </div>
                                                     </td>
                                                     <td class="table-borderless-td">
                                                         <div class="detail">
 
-                                                            <?php echo $r['dia_chi'];?>
+                                                            <?php echo $row['dia_chi'];?>
                                                         </div>
                                                     </td>
                                                     
                                                     <td class="table-borderless-td">
                                                         <div class="reponsive">
                                                            
-                                                            <?php echo $r['gioi_tinh'];?>
+                                                            <?php echo $row['gioi_tinh'];?>
                                                         </div>
                                                     </td>
 
                                                     <td class="table-borderless-td">
                                                         <div class="reponsive">
-                                                           
-                                                            <?php echo $r['quen'];?>
+                                                            <?php echo $row['quen'];?>
                                                         </div>
                                                     </td>
 
                                                     <td class="table-borderless-td">
-                                                        <div class="reponsive">
-                                                            <a href="editStaff.php?sid=<?php echo $r['id'];?>" class="btn-info">Sửa</a>
-                                                            <a onclick="return confirm('bạn có muốn xóa nhân viên này không')"
-                                                                href="removeStaff.php?sid=<?php echo $r['id'];?>" class="btn-danger">Xóa
-                                                            </a>
+                                                        <div class="reponsive"style="color:#000">
+                                                            <?php
+                                                                require_once 'connect.php';
+                                                                 $totalOrders = mysqli_query($conn, "SELECT *
+                                                                 FROM orders
+                                                                 inner join staffs on staffs.id=orders.id_staff
+                                                                 inner join account on account.id=staffs.id_acc
+                                                                 where id_acc='".$row['id']."'");
+                                                               
+                                                                 $totalOrders = $totalOrders->num_rows;
+                                                                
+                                                                if($row['quen']=='Nhân viên giao hàng'){
+
+                                                                    ?>
+                                                                        Giao <?php echo $totalOrders;?> đơn hàng
+                                                                    <?php
+                                                                }
+                                                                else{
+                                                                    ?>
+                                                                        ---
+                                                                    <?php
+                                                                }
+                                                            ?>
                                                         </div>
                                                     </td>
+                                                    <?php
+                                                        if($r['quen']=='admin'){
+                                                            ?>
+                                                                <td class="table-borderless-td">
+                                                                    <div class="reponsive">
+                                                                        <a href="editStaff.php?sid=<?php echo $row['id'];?>" class="btn-info">Sửa</a>
+                                                                        <a onclick="return confirm('bạn có muốn xóa nhân viên này không')"
+                                                                            href="removeStaff.php?sid=<?php echo $row['id'];?>" class="btn-danger">Xóa
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            <?php
+                                                        }
+                                                    ?>
                                                 </tr>
                                             <?php    
                                             }

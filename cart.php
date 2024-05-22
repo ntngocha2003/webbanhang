@@ -245,7 +245,7 @@
                                                                     font-size: 1.4rem;
                                                                    ">Thay đổi</a>
                                         <?php
-                                      var_dump( strlen($r['dia_chi']));
+                                     
                                             if (!empty($products) && strlen($r['dia_chi'])<3){
                                                 
                                                 ?>

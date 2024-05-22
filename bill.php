@@ -155,7 +155,6 @@
                 <div class="app_heading">
                     <h2>Đơn hàng của tôi</h2>
                 </div>
-
                 <div class="row sm-gutter">
                     
 
@@ -384,7 +383,7 @@
                                                                         }
                                                                         else if($row['tinh_trang']=='Đã giao hàng'){
                                                                             ?>
-                                                                            <div class="status-bill">
+                                                                            <div class="status-bill"style="color:rgb(89, 162, 56);">
                                                                                 <i class="fas fa-caravan"></i>
                                                                                 <p class="status">Giao hàng thành công</p>
                                                                             </div>
@@ -394,7 +393,7 @@
                                                                         }
                                                                         else if($row['tinh_trang']=='Đã hủy'){
                                                                             ?>
-                                                                            <div class="status-bill">
+                                                                            <div class="status-bill"style="color:red">
                                                                                 <i class="fas fa-ban"></i>
                                                                                 <p class="status">Đã hủy</p>
                                                                             </div>

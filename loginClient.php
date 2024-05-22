@@ -43,11 +43,13 @@
                   
                     $err['name']='Bạn nhập sai tên đăng nhập, vui lòng nhập lại tên đăng nhập!';
                     unset($_SESSION['name']);
+                    $name="";
                   
                 }               
                 else if(mysqli_num_rows($test3)==0){
                     $err['pass']='Bạn nhập sai mật khẩu, vui lòng nhập lại mật khẩu!';
                     unset($_SESSION['pass']);
+                    $pass="";
                    
                 }
             }

@@ -60,19 +60,50 @@
                                 $result=mysqli_query($conn,$order); 
                                 $sql = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-                                $bill_detail="SELECT  orders.*, order_detail.*, product.mota,product.image, product.ten_sp,payment.trang_thai
+                                $order1="SELECT account.ten_dn
+                                FROM staffs
+                                inner join account on account.id=staffs.id_acc
+                                INNER JOIN orders ON staffs.id = orders.id_staff  
+                                where orders.id =". $_GET['id'];                            
+                                $result1=mysqli_query($conn,$order1); 
+                                $sql1 = mysqli_fetch_all($result1, MYSQLI_ASSOC);
+
+                                $bill_detail="SELECT  orders.*, order_detail.*, product.mota,product.image, product.ten_sp,payment.phuong_thuc
                                 FROM orders
                                 INNER JOIN order_detail ON orders.id = order_detail.id_order
                                 INNER JOIN product ON product.id = order_detail.id_product
                                 INNER JOIN payment ON orders.id = payment.id_order
                                 WHERE orders.id =". $_GET['id'];
-                                $result=mysqli_query($conn,$bill_detail);
+                                $result2=mysqli_query($conn,$bill_detail);
                         
-                                $sql_detail = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                                $sql_detail = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                                 
                                 ?>
                                 <div id="order-detail-wrapper" style=" width: 500px; margin-top: 80px;">
                                     <div id="order-detail">
+                                        <label class="detail_user-item"style="color:#000">Mã đơn hàng: </label>
+                                        <span class="item-name"style="color:#000">#NH<?= $sql_detail[0]['id_order'] ?> : </span>
+                                        <?php
+                                            if($sql_detail[0]['tinh_trang']!='Đang chờ hàng' and $sql_detail[0]['tinh_trang']!='Đã hủy'){
+                                                ?>
+                                                <label class="detail_user-item"style="color:#000">Người giao: </label>
+                                                <span class="item-name"style="color:#000"> <?= $sql1[0]['ten_dn'] ?></span>
+                                                <br/>
+                                            <?php
+                                            }
+                                            if($sql_detail[0]['tinh_trang']=='Đã hủy'){
+                                                ?>
+                                                <label class="detail_user-item"style="color:red">Đơn hàng đã bị hủy </label>
+                                                <br/>
+                                            <?php
+                                            }
+                                            if($sql_detail[0]['tinh_trang']=='Đang chờ hàng'){
+                                                ?>
+                                                    <label class="detail_user-item"style="color:#000">Đơn hàng vẫn đang chờ </label>
+                                                    <br/>
+                                                <?php
+                                            }
+                                        ?>
                                         <h1 class="detail_user">Chi tiết đơn hàng</h1>
                                         <label class="detail_user-item">Người nhận: </label>
                                         <span class="item-name"> <?= $sql[0]['ten_dn'] ?></span>
@@ -95,11 +126,14 @@
                                                     <label class="detail_user-item">Tên sản phẩm: </label>
                                                     <span class="item-name"><?= $row['ten_sp'] ?></span>
                                                     <br/>
-                                                    <label class="detail_user-item">Mô tả: </label>
-                                                    <span class="item-name"><?= $row['mota'] ?></span>
+                                                    <label class="detail_user-item">Giá tiền: </label>
+                                                    <span class="item-name"><?= $row['gia_tien'] ?></span>
                                                     <br/>
                                                     <label class="detail_user-item">Số lượng: </label>
                                                     <span class="item-name"><?= $row['so_luong'] ?> sản phẩm</span>
+                                                    <br/>
+                                                    <label class="detail_user-item">Mô tả: </label>
+                                                    <span class="item-name"><?= $row['mota'] ?></span>
                                                 </li>
                                                 <?php
                                                 $totalMoney += ($row['gia_tien'] * $row['so_luong']);
@@ -114,8 +148,8 @@
                                         <label class="detail_user-item">Tổng tiền:</label> 
                                         <span class="item-name"><?= number_format($totalMoney, 0, ",", ".") ?> đ</span>
                                         <br/>
-                                        <label class="detail_user-item">Trạng thái thanh toán: </label>
-                                        <span class="item-name"><?= $row['trang_thai'] ?></span>
+                                        <label class="detail_user-item">Phương thức thanh toán: </label>
+                                        <span class="item-name"><?= $row['phuong_thuc'] ?></span>
                                         
                                     </div>
                                 </div>

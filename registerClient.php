@@ -35,38 +35,21 @@
         if(!empty($file_name)){
             copy ( $file_tmp, $uploadDir_img_logo.$image);
         }
-       
+        
         if(empty($email)){
             $err['email']='Bạn chưa nhập email';
-            $_SESSION['sdt']=$sdt;
-           
-            $_SESSION['name']=$tenDN;
-            $_SESSION['pass']=$MK;
            
         }
         else if(empty($sdt)){
             $err['sdt']='Bạn chưa nhập số điện thoại';
-            $_SESSION['email']=$sdt;
-           
-            $_SESSION['name']=$tenDN;
-            $_SESSION['pass']=$MK;
             
         }
         else if(empty($tenDN)){
             $err['name']='Bạn chưa nhập tên';
-            $_SESSION['sdt']=$sdt;
-           
-            $_SESSION['email']=$tenDN;
-            $_SESSION['pass']=$MK;
-           
         }
         else if(empty($MK)){
             $err['pass']='Bạn chưa nhập mật khẩu';
-            $_SESSION['sdt']=$sdt;
            
-            $_SESSION['name']=$tenDN;
-            $_SESSION['email']=$MK;
-          
         }
         else if($rMK!=$MK){
             $err['rPass']='Mật khẩu không trùng với mật khẩu cũ';
@@ -97,10 +80,6 @@
             VALUES (null,'" . $accountID . "','$email','$sdt','$image')" ;
 
             if(mysqli_query($conn,$addTK)){
-                unset($_SESSION['email']);
-                unset($_SESSION['sdt']);
-                unset($_SESSION['name']);
-                unset($_SESSION['MK']);
                
                 header("location: home.php");
             }
@@ -148,10 +127,10 @@
     <form action="./registerClient.php" method="post" class="vh-100"enctype="multipart/form-data">
         <div class="container py-5 h-100">
           <div class="row d-flex align-items-center justify-content-center h-100">
-            <div class="col-md-8 col-lg-7 col-xl-6">
+            <!-- <div class="col-md-8 col-lg-7 col-xl-6">
               <img src="./image/anhcho.jpg"
                 class="img-fluid" alt="Phone image">
-            </div>
+            </div> -->
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
               
                 <div class="auth-form__container">

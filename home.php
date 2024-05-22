@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ngọc Hà_shop</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./gird/GirdSystem/gird.css">
@@ -15,6 +14,7 @@
     <link rel="stylesheet" href="./toast/toast.css">
     <link rel="stylesheet" href="./admin/css/renderStaff.css">    
     <link rel="stylesheet" href="./css/login_register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="./font/themify-icons/themify-icons.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400, 500, 700display=swapsubset=vietnamese" rel="stylesheet">
@@ -30,7 +30,6 @@
         $param = "";
        
             require_once 'header.php';
-            var_dump($_SESSION['pass']);
         ?>
         
 
@@ -82,7 +81,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- phần nội dung -->
         <div class="app__container">

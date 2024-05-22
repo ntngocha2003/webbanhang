@@ -120,6 +120,9 @@
                                             <li class="list_contol-item">
                                                 <a class="list_contol-item--link" href="./homeAdmin.php">Hồ sơ cá nhân</a>
                                             </li>
+                                            <div class="list_acc-item">
+                                                <a class="list_contol-item--link" href="./renderStaff.php">Danh sách nhân viên</a>
+                                            </div>
                                             <li class="list_contol-item">
                                                 <a class="list_contol-item--link" href="./renderClient.php">Quản lý khách hàng</a>
                                             </li>
@@ -133,7 +136,9 @@
                                             <li class="list_contol-item">
                                                 <a class="list_contol-item--link" href="./homeAdmin.php">Hồ sơ cá nhân</a>
                                             </li>
-                                          
+                                            <div class="list_acc-item">
+                                                <a class="list_contol-item--link" href="./renderStaff.php">Danh sách nhân viên</a>
+                                            </div>
                                             <li class="list_contol-item">
                                                 <a class="list_contol-item--link" href="./renderCategory.php">Quản lý danh mục</a>
                                             </li>
@@ -152,6 +157,9 @@
                                             <li class="list_contol-item">
                                                 <a class="list_contol-item--link" href="./homeAdmin.php">Hồ sơ cá nhân</a>
                                             </li>
+                                            <div class="list_acc-item">
+                                                <a class="list_contol-item--link" href="./renderStaff.php">Danh sách nhân viên</a>
+                                            </div>
                                             <li class="list_contol-item">
                                                 <a class="list_contol-item--link" href="./renderOrderStaff.php">Danh sách đơn hàng</a>
                                             </li>

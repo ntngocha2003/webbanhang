@@ -149,6 +149,23 @@
                                                     </select>
                                             </div>
                                           </div>
+
+                                          <div class="form-group l-6 c-6 m-6 col">
+                                            <div class="group">
+                                            <?php
+                                                if(isset($_SESSION['nameAdmin'])){
+                                                    require_once 'connect.php';
+                                                    $row=$_SESSION['nameAdmin'];
+                                                    $render_sql= "SELECT account.* FROM `account`where ten_dn='$row'";
+                                                    $result=mysqli_query($conn,$render_sql);
+                                                    $r=mysqli_fetch_assoc($result);
+                                                }
+                                            ?>
+                                                <label class="control-label">Người thực hiện</label>
+                                                <input type="hidden" name="idNV" value="<?php echo $r['id']?>"/>
+                                                <p class="form-control" name="idNV"><?php echo $r['ten_dn']?></p>
+                                            </div>
+                                          </div>
                                           
                                     </div>
                                     <div class="block">

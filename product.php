@@ -143,7 +143,7 @@
 
                             </div>
 
-                            <div class="gird wide">
+                            <!-- <div class="gird wide">
                                 <div class="app_heading">
                                     <h2>Sản phẩm liên quan</h2>
                                 </div>
@@ -155,12 +155,22 @@
                                             <div class="row sm-gutter product-item">
                                                 <?php
                                                     $like=$product['ten_sp'];
-                                                    var_dump($like);
+                                                  
                                                     $id=$product['id'];
+
+                                                    $result2 = mysqli_query($conn, "SELECT product.*,category.ten_dm
+                                                    FROM `product`
+                                                    INNER JOIN category ON category.id = product.id_dm
+                                                    where ten_sp='$like'
+                                                    ");
+                                                    $row2 = mysqli_fetch_array($result2);
+                                                    var_dump($row2['ten_dm']);
+
                                                     $result1 = mysqli_query($conn, "SELECT product.*,category.ten_dm
                                                                 FROM `product`
                                                                 INNER JOIN category ON category.id = product.id_dm
-                                                                WHERE ten_sp like '%$like%' and product.id !='$id'");
+                                                                where ten_dm='".$row2['ten_dm']."'
+                                                                ");
                                                     
                                                     while ($row = mysqli_fetch_array($result1)) { 
                                                        
@@ -219,7 +229,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>  
                 </div>

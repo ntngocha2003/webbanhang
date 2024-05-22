@@ -118,7 +118,7 @@
                                                     <div class="ad-user">
                                                         <div>
                                                             <i class="ti-unlock"></i> 
-                                                            <a>Đổi mật khẩu</a>
+                                                            <a href="change-pass.php">Đổi mật khẩu</a>
                                                         </div>
                                                         
                                                     </div>

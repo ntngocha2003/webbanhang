@@ -77,26 +77,38 @@
 
                                         <div class="form-group l-6 c-6 m-6 col">
                                             <div class="group">
-                                                <label class="control-label">Chọn nhân viên giao</label>
-                                               
-                                                <select name="idNV"class="form-control" id="exampleSelect2" required>
-                                                    <option>--Chọn nhân viên--</option> 
-                                                    <?php
-                                                        
-                                                        require_once 'connect.php';
-                                                        $render_sql= "SELECT account.ten_dn,account.quen,staffs.* FROM `account` join `staffs` on account.id=staffs.id_acc where quen='Nhân viên giao hàng'";
-                                                        $result=mysqli_query($conn,$render_sql);
-                                                        $row= mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-                                                        var_dump($row['ten_dn']);
-                                                        foreach ($row as $r) {
-                                                            ?>
-                                                                <option value="<?php echo $r['id']?>"><?php echo $r['ten_dn']?></option> 
-                                                            <?php
-                                                        }
-                                                        
+                                                <?php
+                                                $render_sql= "SELECT * FROM `orders` 
+                                                where id='$id'";
+                                                $result=mysqli_query($conn,$render_sql);
+                                                $r=mysqli_fetch_assoc($result);
+                                                
+                                                if($r['tinh_trang']=='Đang chờ hàng')
+                                                {
                                                     ?>
-                                                </select>
+                                                        <label class="control-label">Chọn nhân viên giao</label>
+                                                        <select name="idNV"class="form-control" id="exampleSelect2" required>
+                                                            <option>--Chọn nhân viên--</option> 
+                                                            <?php
+                                                                
+                                                                require_once 'connect.php';
+                                                                $render_sql= "SELECT account.ten_dn,account.quen,staffs.* FROM `account` join `staffs` on account.id=staffs.id_acc where quen='Nhân viên giao hàng'";
+                                                                $result=mysqli_query($conn,$render_sql);
+                                                                $row= mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+                                                                foreach ($row as $r) {
+                                                                    ?>
+                                                                        <option value="<?php echo $r['id']?>"><?php echo $r['ten_dn']?></option> 
+                                                                    <?php
+                                                                }
+                                                                
+                                                            ?>
+                                                        </select>
+                                                   <?php
+                                                }
+
+                                                
+                                            ?>
                                             </div>
                                         </div>
                                         

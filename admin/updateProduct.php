@@ -5,12 +5,13 @@
     $giaGoc=$_POST['giaGoc'];
     $soLuong=$_POST['soLuong'];
     $danhMuc=$_POST['danhMuc'];
+    $idNV=$_POST['idNV'];
     $id=$_POST['sid'];
 
     
         require_once 'connect.php';
 
-        $updateSp="UPDATE `product` set ten_sp='$tenSP',mota='$moTa',sale='$sale',gia_goc='$giaGoc',
+        $updateSp="UPDATE `product` set id_staff='$idNV',ten_sp='$tenSP',mota='$moTa',sale='$sale',gia_goc='$giaGoc',
         so_luong='$soLuong',id_dm='$danhMuc'
          Where id='$id' ";
 

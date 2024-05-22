@@ -71,6 +71,48 @@
                                 <h2>Chi tiết đơn hàng</h2>
                             </div>
 
+                            <div class="" style="background-color: #fff;margin-top: 10px;padding: 14px 0 4px 6px;display: flex;">
+                            <?php
+                                if($sql_detail[0]['tinh_trang']=='Đang chờ hàng'){
+                                    ?>
+                                        <div class="status-bill">
+                                            <i class="fas fa-hourglass-start"></i>
+                                            <p class="status">Đang chờ lấy hàng</p>
+                                            
+                                        </div>
+                                    <?php
+                                }
+
+                                else if($sql_detail[0]['tinh_trang']=='Đang giao hàng'){
+                                    ?>
+                                        <div class="status-bill">
+                                            <i class="fas fa-caravan"></i>
+                                            <p class="status">Đang vận chuyển</p>
+                                        </div>
+                                    
+                                    <?php
+                                }
+                                else if($sql_detail[0]['tinh_trang']=='Đã giao hàng'){
+                                    ?>
+                                    <div class="status-bill"style="color:rgb(89, 162, 56);">
+                                        <i class="fas fa-caravan"></i>
+                                        <p class="status">Giao hàng thành công</p>
+                                    </div>
+                                
+                                <?php
+                                }
+                                else if($sql_detail[0]['tinh_trang']=='Đã hủy'){
+                                    ?>
+                                    <div class="status-bill"style="color:red">
+                                        <i class="fas fa-ban"></i>
+                                        <p class="status">Đã hủy</p>
+                                    </div>
+                                    
+                                    <?php
+                                }
+                                ?>
+                            </div>
+
                             <div class="row sm-gutter">
                                 
 
@@ -222,7 +264,7 @@
                                     <div class="btn-action--next" style="margin-left:20px">
 
                                         <a href="" class="btn-next">
-                                            <span>Theo dõi đơn hàng</span>
+                                            Theo dõi đơn hàng
                                         </a>
 
                                     </div>
